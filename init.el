@@ -7,7 +7,7 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 
-(set-fringe-mode 5)
+(set-fringe-mode 12)
 
 ;; no backup files
 
