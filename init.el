@@ -17,10 +17,6 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 
-;; escape
-
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 ;; packages
 
 (require 'package)
