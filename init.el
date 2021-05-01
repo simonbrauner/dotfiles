@@ -77,6 +77,10 @@
   :init (which-key-mode)
   :config (setq which-key-idle-delay 1))
 
+;; magit
+
+(use-package magit)
+
 ;; java mode for C#
 
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
