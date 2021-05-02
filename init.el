@@ -7,7 +7,7 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 
-(set-fringe-mode 12)
+(set-fringe-mode 5)
 
 ;; no backup files
 
@@ -75,7 +75,8 @@
 
 ;; magit
 
-(use-package magit)
+(use-package magit
+  :config (setq magit-section-visibility-indicator nil))
 
 ;; java mode for C#
 
