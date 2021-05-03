@@ -1,0 +1,132 @@
+* Basic configuration
+
+** Files location
+
+#+BEGIN_SRC emacs-lisp
+
+(setq make-backup-files nil)
+
+(setq custom-file "~/.emacs.d/custom.el")
+
+#+END_SRC
+
+** Preparing use-package
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			     ("org"   . "https://orgmode.org/elpa/")
+			     ("elpa"  . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+#+END_SRC
+
+* Face
+
+** General UI configuration
+
+#+BEGIN_SRC emacs-lisp
+
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
+
+(set-fringe-mode 5)
+
+#+END_SRC
+
+** Theme
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package dracula-theme)
+(load-theme 'dracula t)
+
+#+END_SRC
+
+** Font
+
+#+BEGIN_SRC emacs-lisp
+
+; sudo pacman -S ttf-fira-code
+(set-face-attribute 'default nil
+		        :font "Fira Code"
+			:height 115)
+
+#+END_SRC
+
+** Delimiters
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+#+END_SRC
+
+** Minibuffer
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package swiper)
+
+(use-package ivy
+  :bind (("C-s" . swiper)
+	     :map ivy-minibuffer-map
+	     ("TAB" . ivy-alt-done))
+  :config
+  (ivy-mode 1)
+  (setq ivy-on-del-error-function #'ignore))
+
+(use-package which-key
+  :init (which-key-mode)
+  :config (setq which-key-idle-delay 1))
+
+#+END_SRC
+
+* Major modes
+
+** Magit
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package magit
+  :config (setq magit-section-visibility-indicator nil))
+
+#+END_SRC
+
+** Org mode
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package org
+  :config
+  (setq org-src-preserve-indentation 1)
+  (setq org-startup-indented 1))
+
+#+END_SRC
+
+* Programming languages
+
+** C#
+
+#+BEGIN_SRC emacs-lisp
+
+(add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
+
+#+END_SRC
