@@ -78,6 +78,13 @@
 (use-package magit
   :config (setq magit-section-visibility-indicator nil))
 
+;; org mode
+
+(use-package org
+  :config
+  (setq org-src-preserve-indentation 1)
+  (setq org-startup-indented 1))
+
 ;; java mode for C#
 
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
