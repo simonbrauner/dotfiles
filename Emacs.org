@@ -2,23 +2,20 @@
 
 ** Files location
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (setq make-backup-files nil)
 
 (setq custom-file "~/.emacs.d/custom.el")
-
-#+END_SRC
+#+end_src
 
 ** Preparing use-package
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			     ("org"   . "https://orgmode.org/elpa/")
-			     ("elpa"  . "https://elpa.gnu.org/packages/")))
+                         ("org"   . "https://orgmode.org/elpa/")
+                         ("elpa"  . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 
@@ -30,15 +27,13 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-#+END_SRC
+#+end_src
 
 * Face
 
 ** General UI configuration
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)
@@ -47,48 +42,46 @@
 (menu-bar-mode -1)
 
 (set-fringe-mode 5)
-
-#+END_SRC
+#+end_src
 
 ** Theme
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (use-package dracula-theme)
 (load-theme 'dracula t)
-
-#+END_SRC
+#+end_src
 
 ** Font
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 ; sudo pacman -S ttf-fira-code
 (set-face-attribute 'default nil
-		        :font "Fira Code"
-			:height 115)
+                    :font "Fira Code"
+                    :height 115)
+#+end_src
 
-#+END_SRC
+** Indentation
+
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
 
 ** Delimiters
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-
-#+END_SRC
+#+end_src
 
 ** Minibuffer
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (use-package swiper)
 
 (use-package ivy
   :bind (("C-s" . swiper)
-	     :map ivy-minibuffer-map
-	     ("TAB" . ivy-alt-done))
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done))
   :config
   (ivy-mode 1)
   (setq ivy-on-del-error-function #'ignore))
@@ -96,37 +89,35 @@
 (use-package which-key
   :init (which-key-mode)
   :config (setq which-key-idle-delay 1))
-
-#+END_SRC
+#+end_src
 
 * Major modes
 
 ** Magit
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (use-package magit
   :config (setq magit-section-visibility-indicator nil))
-
-#+END_SRC
+#+end_src
 
 ** Org mode
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (use-package org
   :config
   (setq org-src-preserve-indentation 1)
-  (setq org-startup-indented 1))
+  (setq org-startup-indented 1)
+  (set-face-background 'org-block "#2e303c"))
 
-#+END_SRC
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+#+end_src
 
 * Programming languages
 
 ** C#
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
-
-#+END_SRC
+#+end_src
