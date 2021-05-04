@@ -1,9 +1,11 @@
-#+title "C-c C-v t"
+#+title: "C-c C-v t"
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/init.el
 
 * Basic configuration
 
 ** Files location
+
+Disabling backup files and setting location for the automatically generated custom file.
 
 #+begin_src emacs-lisp
 (setq make-backup-files nil)
@@ -11,7 +13,9 @@
 (setq custom-file "~/.emacs.d/custom.el")
 #+end_src
 
-** Preparing use-package
+** Package management
+
+Preparing [[https://github.com/jwiegley/use-package][use-package]] to download all the other packages.
 
 #+begin_src emacs-lisp
 (require 'package)
@@ -36,6 +40,8 @@
 
 ** General UI configuration
 
+Omitting the welcome page, disabling useless parts of UI and setting the distance between sides and text.
+
 #+begin_src emacs-lisp
 (setq inhibit-startup-message t)
 
@@ -49,6 +55,8 @@
 
 ** Theme
 
+[[https://draculatheme.com/emacs][Dracula]] theme.
+
 #+begin_src emacs-lisp
 (use-package dracula-theme)
 (load-theme 'dracula t)
@@ -56,8 +64,9 @@
 
 ** Font
 
+Setting [[https://github.com/tonsky/FiraCode][Fira Code]] (without ligatures) font with a proper size. Downloaded from =ttf-fira-code= Arch Linux package.
+
 #+begin_src emacs-lisp
-; sudo pacman -S ttf-fira-code
 (set-face-attribute 'default nil
                     :font "Fira Code"
                     :height 115)
@@ -65,11 +74,15 @@
 
 ** Indentation
 
+No tabs allowed!
+
 #+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+end_src
 
 ** Delimiters
+
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes.
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
@@ -77,6 +90,8 @@
 #+end_src
 
 ** Minibuffer
+
+Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]], minibuffer completion by [[https://github.com/abo-abo/swiper#ivy][ivy]] and getting keybinding advices from [[https://github.com/justbur/emacs-which-key][which-key]].
 
 #+begin_src emacs-lisp
 (use-package swiper)
@@ -98,12 +113,16 @@
 
 ** Magit
 
+Git client [[https://magit.vc/][magit]].
+
 #+begin_src emacs-lisp
 (use-package magit
   :config (setq magit-section-visibility-indicator nil))
 #+end_src
 
 ** Org mode
+
+Updating [[https://orgmode.org/][org mode]], setting the indentation, color and shortcuts for code blocks.
 
 #+begin_src emacs-lisp
 (use-package org
@@ -120,6 +139,8 @@
 * Programming languages
 
 ** C#
+
+Syntax highlighting for C# programming language.
 
 #+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
