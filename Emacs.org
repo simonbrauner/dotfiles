@@ -137,11 +137,3 @@ Updating [[https://orgmode.org/][org mode]], setting the indentation, color and 
 #+end_src
 
 * Programming languages
-
-** C#
-
-Syntax highlighting for C# programming language.
-
-#+begin_src emacs-lisp
-(add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
-#+end_src
