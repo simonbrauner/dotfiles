@@ -1,0 +1,33 @@
+#+title: Programs
+
+* Xmonad
+
+** Configuration
+
+Default terminal, super key as leader key and no red border.
+
+#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+import XMonad
+
+main = xmonad def
+    { terminal    = "kitty"
+    , modMask     = mod4Mask
+    , borderWidth = 0
+    }
+#+end_src
+
+** Recompiling after update
+
+Hook for pacman.
+
+#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook :mkdirp yes
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = xmonad
+
+[Action]
+Description = Recompiling xmonad...
+When = PostTransaction
+Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
+#+end_src
