@@ -122,7 +122,9 @@ Git client [[https://magit.vc/][magit]].
 
 ** Org mode
 
-Updating [[https://orgmode.org/][org mode]], setting the indentation, color and shortcuts for code blocks.
+*** Basics
+
+Updating [[https://orgmode.org/][org mode]], setting the indentation and color.
 
 #+begin_src emacs-lisp
 (use-package org
@@ -130,10 +132,19 @@ Updating [[https://orgmode.org/][org mode]], setting the indentation, color and 
   (setq org-src-preserve-indentation 1)
   (setq org-startup-indented 1)
   (set-face-background 'org-block "#2e303c"))
+#+end_src
 
-(require 'org-tempo)
+*** Org tempo
 
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+Shortcuts for code blocks.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (require 'org-tempo)
+
+  (add-to-list 'org-structure-template-alist '("co" . "src conf"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("hs" . "src haskell")))
 #+end_src
 
 * Programming languages
