@@ -137,3 +137,11 @@ Updating [[https://orgmode.org/][org mode]], setting the indentation, color and 
 #+end_src
 
 * Programming languages
+
+** Haskell
+
+[[https://github.com/haskell/haskell-mode][Haskell mode]].
+
+#+begin_src emacs-lisp
+(use-package haskell-mode)
+#+end_src
