@@ -39,3 +39,11 @@ Description = Recompiling xmonad...
 When = PostTransaction
 Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
 #+end_src
+
+* Kitty
+
+Default font size.
+
+#+begin_src conf :tangle ~/.config/kitty/kitty.conf :mkdirp yes
+font_size 20.0
+#+end_src
