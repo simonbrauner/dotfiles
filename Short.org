@@ -16,6 +16,14 @@ main = xmonad def
     }
 #+end_src
 
+** Executing with startx
+
+Starting the windows manager.
+
+#+begin_src shell :tangle ~/.xinitrc
+exec xmonad
+#+end_src
+
 ** Recompiling after update
 
 Hook for pacman.
