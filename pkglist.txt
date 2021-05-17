@@ -1,0 +1,9 @@
+emacs
+vim
+ghc
+xmonad
+kitty
+dmenu
+git
+ttf-fira-code
+firefox
