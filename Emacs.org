@@ -144,7 +144,8 @@ Shortcuts for code blocks.
 
   (add-to-list 'org-structure-template-alist '("co" . "src conf"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("hs" . "src haskell")))
+  (add-to-list 'org-structure-template-alist '("hs" . "src haskell"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell")))
 #+end_src
 
 * Programming languages
