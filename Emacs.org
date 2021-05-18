@@ -91,7 +91,7 @@ No tabs allowed!
 
 ** Minibuffer
 
-Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]], minibuffer completion by [[https://github.com/abo-abo/swiper#ivy][ivy]] and getting keybinding advices from [[https://github.com/justbur/emacs-which-key][which-key]].
+Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]], minibuffer completion by [[https://github.com/abo-abo/swiper#ivy][ivy]].
 
 #+begin_src emacs-lisp
 (use-package swiper)
@@ -103,7 +103,13 @@ Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]], minibuffer 
   :config
   (ivy-mode 1)
   (setq ivy-on-del-error-function #'ignore))
+#+end_src
 
+** Advice
+
+[[https://github.com/justbur/emacs-which-key][Which-key]] and [[https://github.com/Wilfred/helpful][helpful]] to seek wisdom.
+
+#+begin_src emacs-lisp
 (use-package which-key
   :init (which-key-mode)
   :config (setq which-key-idle-delay 1))
