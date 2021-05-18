@@ -91,18 +91,27 @@ No tabs allowed!
 
 ** Minibuffer
 
-Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]], minibuffer completion by [[https://github.com/abo-abo/swiper#ivy][ivy]].
+*** Searching
+
+Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]].
 
 #+begin_src emacs-lisp
-(use-package swiper)
+(use-package swiper
+  :bind (("C-s" . swiper)))
+#+end_src
 
-(use-package ivy
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done))
-  :config
-  (ivy-mode 1)
-  (setq ivy-on-del-error-function #'ignore))
+*** Completion
+
+Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github.com/oantolin/orderless][orderless]].
+
+#+begin_src emacs-lisp
+(use-package vertico
+  :init
+  (vertico-mode)
+  (savehist-mode))
+
+(use-package orderless
+  :custom (completion-styles '(orderless)))
 #+end_src
 
 ** Advice
