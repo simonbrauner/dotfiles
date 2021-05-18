@@ -112,6 +112,9 @@ Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github
 
 (use-package orderless
   :custom (completion-styles '(orderless)))
+
+(use-package marginalia
+  :init (marginalia-mode))
 #+end_src
 
 ** Advice
