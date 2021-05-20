@@ -110,7 +110,8 @@ Selecting with tab when only one option remains.
 (defun minibuffer-select-by-tab ()
   (interactive)
   (if (and (not (string= (substring (vertico--candidate) -1) "/"))
-           (= (length vertico--candidates) 1))
+           (and (car vertico--candidates)
+                (not (cdr vertico--candidates))))
       (vertico-exit)
     (vertico-insert)))
 #+end_src
