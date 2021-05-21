@@ -109,9 +109,10 @@ Selecting with tab when only one option remains.
 #+begin_src emacs-lisp
 (defun minibuffer-select-by-tab ()
   (interactive)
-  (if (and (not (string= (substring (vertico--candidate) -1) "/"))
-           (and (car vertico--candidates)
-                (not (cdr vertico--candidates))))
+  (if (or (and (not (string= (substring (vertico--candidate) -1) "/"))
+               (and (car vertico--candidates)
+                    (not (cdr vertico--candidates))))
+          (string= (thing-at-point 'sexp t) (vertico--candidate)))
       (vertico-exit)
     (vertico-insert)))
 #+end_src
