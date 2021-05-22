@@ -117,6 +117,18 @@ Selecting with tab when only one option remains.
     (vertico-insert)))
 #+end_src
 
+Going one level up by pressing backscape in minibuffer find file.
+
+#+begin_src emacs-lisp
+(defun minibuffer-kill-directory-name (arg)
+  (interactive "p")
+  (if minibuffer-completing-file-name
+      (if (string-match-p "/." (minibuffer-contents))
+          (zap-up-to-char (- arg) ?/)
+        (delete-minibuffer-contents))
+    (delete-backward-char arg)))
+#+end_src
+
 *** Packages
 
 Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github.com/oantolin/orderless][orderless]], additional info from [[https://github.com/minad/marginalia][marginalia]].
@@ -127,7 +139,8 @@ Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github
   (vertico-mode)
   (savehist-mode)
   :bind (:map minibuffer-local-map
-         ("<tab>" . minibuffer-select-by-tab)))
+         ("<tab>" . minibuffer-select-by-tab)
+         ("<DEL>" . minibuffer-kill-directory-name)))
 
 (use-package orderless
   :custom (completion-styles '(orderless)))
