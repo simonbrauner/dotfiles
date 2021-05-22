@@ -47,3 +47,22 @@ Default font size.
 #+begin_src conf :tangle ~/.config/kitty/kitty.conf :mkdirp yes
 font_size 20.0
 #+end_src
+
+* Git
+
+Global =git config=.
+
+#+begin_src conf :tangle ~/.gitconfig :mkdirp yes
+[user]
+name = Šimon Brauner
+email = simonbrauner@seznam.cz
+
+[credential]
+helper = store
+
+[core]
+editor = vim
+
+[alias]
+graph = log --all --oneline --graph
+#+end_src
