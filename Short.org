@@ -66,3 +66,15 @@ editor = vim
 [alias]
 graph = log --all --oneline --graph
 #+end_src
+
+* Bash
+
+** Profile
+
+[[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Autostart]] x at login.
+
+#+begin_src shell :tangle ~/.bash_profile :mkdirp yes
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    exec startx
+fi
+#+end_src
