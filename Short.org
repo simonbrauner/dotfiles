@@ -4,16 +4,34 @@
 
 ** Configuration
 
-Default terminal, super key as leader key and no red border.
+*** Imports
 
 #+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
 import XMonad
+#+end_src
 
-main = xmonad def
-    { terminal    = "kitty"
-    , modMask     = mod4Mask
-    , borderWidth = 0
-    }
+*** Basics
+
+Default terminal, super key as leader key and no red border.
+
+#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+myTerminal = "kitty"
+
+myBorderWidth = 0
+
+myModMask = mod4Mask
+#+end_src
+
+*** Main
+
+#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+main = xmonad defaults
+
+defaults = def
+  { terminal    = myTerminal
+  , borderWidth = myBorderWidth
+  , modMask     = myModMask
+  }
 #+end_src
 
 ** Executing with startx
