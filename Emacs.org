@@ -3,16 +3,6 @@
 
 * Basic configuration
 
-** Files location
-
-Disabling backup files and setting location for the automatically generated custom file.
-
-#+begin_src emacs-lisp
-(setq make-backup-files nil)
-
-(setq custom-file "~/.emacs.d/custom.el")
-#+end_src
-
 ** Package management
 
 Preparing [[https://github.com/jwiegley/use-package][use-package]] to download all the other packages.
@@ -34,6 +24,17 @@ Preparing [[https://github.com/jwiegley/use-package][use-package]] to download a
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+#+end_src
+
+** Files location
+
+Using [[https://github.com/emacscollective/no-littering][no-littering]] package to help keeping =~/.emacs.d/= clean.
+
+#+begin_src emacs-lisp
+(use-package no-littering
+  :custom
+  (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  (custom-file (no-littering-expand-etc-file-name "custom.el")))
 #+end_src
 
 * Face
