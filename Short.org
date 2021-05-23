@@ -8,18 +8,36 @@
 
 #+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
 import XMonad
+import XMonad.Actions.SpawnOn
 #+end_src
 
 *** Basics
 
-Default terminal, super key as leader key and no red border.
+Default programs, super key as leader key and no red border.
 
 #+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+myEditor   = "emacs"
+myBrowser  = "firefox"
 myTerminal = "kitty"
 
 myBorderWidth = 0
 
 myModMask = mod4Mask
+#+end_src
+
+*** Workspaces
+
+Nine workspaces, first three of them have applications on startup.
+
+#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+myWorkspaces = map show [1..9]
+
+myManageHook = manageSpawn <+> manageHook def
+
+myStartupHook = do
+  spawnOn "1" myEditor
+  spawnOn "2" myBrowser
+  spawnOn "3" myTerminal
 #+end_src
 
 *** Main
@@ -31,6 +49,9 @@ defaults = def
   { terminal    = myTerminal
   , borderWidth = myBorderWidth
   , modMask     = myModMask
+  , workspaces  = myWorkspaces
+  , manageHook  = myManageHook
+  , startupHook = myStartupHook
   }
 #+end_src
 

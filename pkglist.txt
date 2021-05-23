@@ -2,6 +2,7 @@ emacs
 vim
 ghc
 xmonad
+xmonad-contrib
 kitty
 dmenu
 git
