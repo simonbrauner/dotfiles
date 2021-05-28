@@ -13,20 +13,32 @@
 #+begin_src haskell
 import XMonad
 import XMonad.Actions.SpawnOn
+import XMonad.Layout.NoBorders
 #+end_src
 
 *** Basics
 
-Default programs, super key as leader key and no red border.
+Default programs, super key as leader key.
 
 #+begin_src haskell
 myEditor   = "emacs"
 myBrowser  = "firefox"
 myTerminal = "kitty"
 
-myBorderWidth = 0
-
 myModMask = mod4Mask
+#+end_src
+
+*** Layout
+
+Borders - colors, size, visible only with multiple windows. =Tall= layout.
+
+#+begin_src haskell
+myNormalBorderColor  = "#19194d"
+myFocusedBorderColor = "#0033cc"
+
+myBorderWidth = 3
+
+myLayoutHook = smartBorders $ Tall 1 (3/100) (1/2)
 #+end_src
 
 *** Workspaces
@@ -50,12 +62,15 @@ myStartupHook = do
 main = xmonad defaults
 
 defaults = def
-  { terminal    = myTerminal
-  , borderWidth = myBorderWidth
-  , modMask     = myModMask
-  , workspaces  = myWorkspaces
-  , manageHook  = myManageHook
-  , startupHook = myStartupHook
+  { terminal           = myTerminal
+  , modMask            = myModMask
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
+  , borderWidth        = myBorderWidth
+  , layoutHook         = myLayoutHook
+  , workspaces         = myWorkspaces
+  , manageHook         = myManageHook
+  , startupHook        = myStartupHook
   }
 #+end_src
 
