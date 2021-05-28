@@ -1,12 +1,16 @@
 #+title: Programs
+#+property: header-args :mkdirp yes
 
 * Xmonad
 
 ** Configuration
+:properties:
+:header-args+: :tangle ~/.xmonad/xmonad.hs
+:end:
 
 *** Imports
 
-#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+#+begin_src haskell
 import XMonad
 import XMonad.Actions.SpawnOn
 #+end_src
@@ -15,7 +19,7 @@ import XMonad.Actions.SpawnOn
 
 Default programs, super key as leader key and no red border.
 
-#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+#+begin_src haskell
 myEditor   = "emacs"
 myBrowser  = "firefox"
 myTerminal = "kitty"
@@ -29,7 +33,7 @@ myModMask = mod4Mask
 
 Nine workspaces, first three of them have applications on startup.
 
-#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+#+begin_src haskell
 myWorkspaces = map show [1..9]
 
 myManageHook = manageSpawn <+> manageHook def
@@ -42,7 +46,7 @@ myStartupHook = do
 
 *** Main
 
-#+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
+#+begin_src haskell
 main = xmonad defaults
 
 defaults = def
@@ -67,7 +71,7 @@ exec xmonad
 
 Hook for pacman.
 
-#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook :mkdirp yes
+#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook
 [Trigger]
 Operation = Upgrade
 Type = Package
@@ -83,7 +87,7 @@ Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
 
 Default font size.
 
-#+begin_src conf :tangle ~/.config/kitty/kitty.conf :mkdirp yes
+#+begin_src conf :tangle ~/.config/kitty/kitty.conf
 font_size 20.0
 #+end_src
 
@@ -91,7 +95,7 @@ font_size 20.0
 
 Global =git config=.
 
-#+begin_src conf :tangle ~/.gitconfig :mkdirp yes
+#+begin_src conf :tangle ~/.gitconfig
 [user]
 name = Šimon Brauner
 email = simonbrauner@seznam.cz
@@ -112,7 +116,7 @@ graph = log --all --oneline --graph
 
 [[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Autostart]] x at login.
 
-#+begin_src shell :tangle ~/.bash_profile :mkdirp yes
+#+begin_src shell :tangle ~/.bash_profile
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
     exec startx
 fi
