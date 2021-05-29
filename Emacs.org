@@ -109,11 +109,11 @@ No tabs allowed!
 
 ** Searching
 
-Searching with [[https://github.com/abo-abo/swiper#swiper][swiper]].
+Searching with [[https://github.com/minad/consult][consult]].
 
 #+begin_src emacs-lisp
-(use-package swiper
-  :bind (("C-s" . swiper)))
+(use-package consult
+  :bind (("C-s" . consult-line)))
 #+end_src
 
 ** Completion
