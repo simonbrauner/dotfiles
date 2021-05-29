@@ -92,11 +92,17 @@ No tabs allowed!
 
 ** Delimiters
 
-[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes.
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes with 3 levels and custom colors.
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :custom (rainbow-delimiters-max-face-count 3))
+
+(custom-set-faces
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "#ee9999"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "#99ee99"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "#9999ee")))))
 #+end_src
 
 * Minibuffer
