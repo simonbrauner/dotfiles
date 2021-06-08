@@ -133,15 +133,20 @@ Selecting with tab when only one option remains.
     (vertico-insert)))
 #+end_src
 
-Going one level up by pressing backscape in minibuffer find file.
+Going one directory up by pressing backscape in minibuffer find file. Jumps directly to =/= from =~/=.
 
 #+begin_src emacs-lisp
 (defun minibuffer-kill-directory-name (arg)
   (interactive "p")
   (if minibuffer-completing-file-name
-      (if (string-match-p "/." (minibuffer-contents))
-          (zap-up-to-char (- arg) ?/)
-        (delete-minibuffer-contents))
+      (unless (string= (minibuffer-contents) "/")
+        (if (string= (minibuffer-contents) "~/")
+            (progn
+              (delete-minibuffer-contents)
+              (self-insert-command 1 47))
+          (if (string= (substring (minibuffer-contents) -1) "/")
+              (zap-up-to-char (- arg) ?/)
+            (delete-backward-char arg))))
     (delete-backward-char arg)))
 #+end_src
 
