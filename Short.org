@@ -74,11 +74,24 @@ defaults = def
   }
 #+end_src
 
-** Executing with startx
+** Xorg
+:properties:
+:header-args+: :tangle ~/.xinitrc
+:end:
+
+*** Keyboard layout
+
+US layout, czech letters with =AltGr=.
+
+#+begin_src shell
+setxkbmap -layout cz -variant coder
+#+end_src
+
+*** Executing with startx
 
 Starting the windows manager.
 
-#+begin_src shell :tangle ~/.xinitrc
+#+begin_src shell
 exec xmonad
 #+end_src
 
