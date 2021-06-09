@@ -108,6 +108,26 @@ No tabs allowed!
  '(rainbow-delimiters-unmatched-face ((t (:foreground "#ffffff")))))
 #+end_src
 
+** Mode-line
+
+Custom mode-line.
+
+#+begin_src emacs-lisp
+(defface mode-line-not-saved
+  '((t :foreground "orange"
+       :weight bold))
+  "Face for tilde before file name.")
+
+(setq-default mode-line-format
+              '("%e "
+                (:eval (if (and (buffer-file-name)
+                                (buffer-modified-p))
+                           (propertize "~" 'face 'mode-line-not-saved)
+                         " "))
+                (:eval (propertize "%b" 'face 'bold))
+                "   %p L%l    %m"))
+#+end_src
+
 * Minibuffer
 
 ** Searching
