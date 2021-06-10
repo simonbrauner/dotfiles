@@ -7,9 +7,11 @@
 
 *** Straight
 
-[[https://github.com/raxod502/straight.el][Straight]] package manager.
+[[https://github.com/raxod502/straight.el][Straight]] package manager. Making =*straight-process*= invisible.
 
 #+begin_src emacs-lisp
+(setq straight-process-buffer " *straight-process*")
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
