@@ -113,7 +113,7 @@ No tabs allowed!
 Custom mode-line.
 
 #+begin_src emacs-lisp
-(defface mode-line-not-saved
+(defface sb/mode-line-not-saved
   '((t :foreground "orange"
        :weight bold))
   "Face for tilde before file name.")
@@ -122,7 +122,7 @@ Custom mode-line.
               '("%e "
                 (:eval (if (and (buffer-file-name)
                                 (buffer-modified-p))
-                           (propertize "~" 'face 'mode-line-not-saved)
+                           (propertize "~" 'face 'sb/mode-line-not-saved)
                          " "))
                 (:eval (propertize "%b" 'face 'bold))
                 "   %p L%l    %m"))
@@ -146,7 +146,7 @@ Searching with [[https://github.com/minad/consult][consult]].
 Selecting with tab when only one option remains.
 
 #+begin_src emacs-lisp
-(defun minibuffer-select-by-tab ()
+(defun sb/minibuffer-select-by-tab ()
   (interactive)
   (if (or (and (not (string= (substring (vertico--candidate) -1) "/"))
                (and (car vertico--candidates)
@@ -159,7 +159,7 @@ Selecting with tab when only one option remains.
 Going one directory up by pressing backscape in minibuffer find file. Jumps directly to =/= from =~/=.
 
 #+begin_src emacs-lisp
-(defun minibuffer-kill-directory-name (arg)
+(defun sb/minibuffer-kill-directory-name (arg)
   (interactive "p")
   (if minibuffer-completing-file-name
       (unless (string= (minibuffer-contents) "/")
@@ -191,8 +191,8 @@ Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github
   (vertico-mode)
   (savehist-mode)
   :bind (:map minibuffer-local-map
-         ("<tab>" . minibuffer-select-by-tab)
-         ("<DEL>" . minibuffer-kill-directory-name)))
+         ("<tab>" . sb/minibuffer-select-by-tab)
+         ("<DEL>" . sb/minibuffer-kill-directory-name)))
 
 (use-package orderless
   :custom (completion-styles '(orderless)))
