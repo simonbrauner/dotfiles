@@ -277,3 +277,14 @@ White text, slightly lighter background.
 #+begin_src emacs-lisp
 (use-package haskell-mode)
 #+end_src
+
+** Rust
+
+[[https://github.com/rust-lang/rust-mode][Rust mode]] for rust language, formating code, compiling.
+
+#+begin_src emacs-lisp
+(use-package rust-mode
+  :config (setq rust-format-on-save t)
+  :bind (("C-c b" . rust-compile)
+         ("C-c r" . rust-run)))
+#+end_src

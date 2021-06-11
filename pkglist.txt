@@ -8,3 +8,4 @@ dmenu
 git
 ttf-fira-code
 firefox
+rust
