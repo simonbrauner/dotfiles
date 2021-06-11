@@ -280,11 +280,27 @@ White text, slightly lighter background.
 
 ** Rust
 
+*** Interactive running
+
+Running interactively using comint-mode in compilation buffer.
+
+#+begin_src emacs-lisp
+(defun sb/rust-run-interactive ()
+  (interactive)
+  (rust-run)
+  (pop-to-buffer "*compilation*")
+  (end-of-buffer)
+  (comint-mode)
+  (setq buffer-read-only nil))
+#+end_src
+
+*** Package
+
 [[https://github.com/rust-lang/rust-mode][Rust mode]] for rust language, formating code, compiling.
 
 #+begin_src emacs-lisp
 (use-package rust-mode
   :config (setq rust-format-on-save t)
   :bind (("C-c b" . rust-compile)
-         ("C-c r" . rust-run)))
+         ("C-c r" . sb/rust-run-interactive)))
 #+end_src
