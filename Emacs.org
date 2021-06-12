@@ -294,6 +294,14 @@ Running interactively using comint-mode in compilation buffer.
   (setq buffer-read-only nil))
 #+end_src
 
+Back to normal compilation mode afterwards.
+
+#+begin_src emacs-lisp
+(add-hook 'compilation-finish-functions
+          (lambda (buffer desc)
+            (compilation-mode)))
+#+end_src
+
 *** Package
 
 [[https://github.com/rust-lang/rust-mode][Rust mode]] for rust language, formating code, compiling.
