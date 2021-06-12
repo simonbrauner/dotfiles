@@ -301,6 +301,7 @@ Running interactively using comint-mode in compilation buffer.
 #+begin_src emacs-lisp
 (use-package rust-mode
   :config (setq rust-format-on-save t)
-  :bind (("C-c b" . rust-compile)
+  :bind (:map rust-mode-map
+         ("C-c b" . rust-compile)
          ("C-c r" . sb/rust-run-interactive)))
 #+end_src
