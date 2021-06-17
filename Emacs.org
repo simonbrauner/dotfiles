@@ -302,22 +302,41 @@ Running interactively using comint-mode in compilation buffer.
   (setq buffer-read-only nil))
 #+end_src
 
-Back to normal compilation mode afterwards.
+*** After compilation
+
+Go back to compilation mode after executing program in comint-mode.
+Hide the compilation window when no errors/warnings found by checking.
 
 #+begin_src emacs-lisp
+(defun sb/after-compilation (buffer desc)
+  (with-current-buffer buffer
+    (if (eq major-mode 'comint-mode)
+        (compilation-mode)
+      (when
+          (and
+           (eq major-mode 'compilation-mode)
+           (string-match-p "finished" desc)
+           (not
+            (progn
+              (goto-char (point-min))
+              (search-forward "warning" nil t))))
+        (pop-to-buffer "*compilation*")
+        (quit-window)))))
+
 (add-hook 'compilation-finish-functions
-          (lambda (buffer desc)
-            (compilation-mode)))
+          'sb/after-compilation)
 #+end_src
 
 *** Package
 
-[[https://github.com/rust-lang/rust-mode][Rust mode]] for rust language, formating code, compiling.
+[[https://github.com/rust-lang/rust-mode][Rust mode]] for rust language.
 
 #+begin_src emacs-lisp
 (use-package rust-mode
-  :config (setq rust-format-on-save t)
+  :config
+  (setq rust-format-on-save t)
+  (setq rust-format-show-buffer nil)
   :bind (:map rust-mode-map
-         ("C-c b" . rust-compile)
+         ("C-c c" . rust-check)
          ("C-c r" . sb/rust-run-interactive)))
 #+end_src
