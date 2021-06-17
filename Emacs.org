@@ -134,11 +134,22 @@ Custom mode-line.
 
 ** Searching
 
-Searching with [[https://github.com/minad/consult][consult]].
+*** Line
+
+Searching in current file with [[https://github.com/minad/consult][consult]].
 
 #+begin_src emacs-lisp
 (use-package consult
   :bind (("C-s" . consult-line)))
+#+end_src
+
+*** Ripgrep
+
+Searching in multiple files with [[https://github.com/Wilfred/deadgrep][deadgrep]].
+
+#+begin_src emacs-lisp
+(use-package deadgrep
+  :bind (("M-s" . deadgrep)))
 #+end_src
 
 ** Completion

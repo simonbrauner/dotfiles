@@ -11,3 +11,4 @@ firefox
 rust
 cmake
 libvterm
+ripgrep
