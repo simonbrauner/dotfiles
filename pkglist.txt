@@ -9,3 +9,5 @@ git
 ttf-fira-code
 firefox
 rust
+cmake
+libvterm

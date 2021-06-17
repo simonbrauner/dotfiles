@@ -268,6 +268,14 @@ White text, slightly lighter background.
 (set-face-background 'org-block "#2e303c")
 #+end_src
 
+** Vterm
+
+Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]].
+
+#+begin_src emacs-lisp
+(use-package vterm)
+#+end_src
+
 * Programming languages
 
 ** Haskell
