@@ -1,0 +1,236 @@
+#+title: System configuration
+#+property: header-args :mkdirp yes
+#+property: header-args:text+ :tangle ./pkglist.txt
+#+property: header-args:haskell+ :tangle ~/.xmonad/xmonad.hs
+
+* Arch Linux
+
+** Pacman
+
+*** Hooks
+
+[[https://wiki.archlinux.org/title/Xmonad#Problems_with_finding_shared_libraries_after_update][Problems with finding shared libraries after update]].
+
+#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = xmonad
+
+[Action]
+Description = Recompiling xmonad...
+When = PostTransaction
+Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
+#+end_src
+
+*** Various packages
+
+Font, vim,...
+
+#+begin_src text
+ttf-fira-code
+vim
+#+end_src
+
+* Command-line tools
+
+** Bash
+
+*** Config
+
+[[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Autostart X at login]].
+
+#+begin_src shell :tangle ~/.bash_profile
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
+#+end_src
+
+** Git
+
+*** Config
+
+#+begin_src conf :tangle ~/.gitconfig
+[user]
+name = Šimon Brauner
+email = simonbrauner@seznam.cz
+
+[credential]
+helper = store
+
+[core]
+editor = vim
+
+[alias]
+graph = log --all --oneline --graph
+#+end_src
+
+*** Packages
+
+#+begin_src text
+git
+#+end_src
+
+** Ripgrep
+
+*** Packages
+
+#+begin_src text
+ripgrep
+#+end_src
+
+* Window manager
+
+** Xorg
+
+*** Config
+
+**** Executing with startx
+
+#+begin_src shell :tangle ~/.xinitrc
+exec xmonad
+#+end_src
+
+**** Keyboard layout
+
+#+begin_src shell :tangle ~/.xinitrc
+setxkbmap -layout cz -variant coder
+#+end_src
+
+** Xmonad
+
+*** Config
+
+**** Imports
+
+#+begin_src haskell
+import XMonad
+import XMonad.Actions.SpawnOn
+import XMonad.Layout.NoBorders
+#+end_src
+
+**** Basics
+
+Default programs, super key as leader key.
+
+#+begin_src haskell
+myEditor   = "emacs"
+myBrowser  = "firefox"
+myTerminal = "kitty"
+
+myModMask = mod4Mask
+#+end_src
+
+**** Layout
+
+Borders - colors, size, visible only with multiple windows. =Tall= layout.
+
+#+begin_src haskell
+myNormalBorderColor  = "#19194d"
+myFocusedBorderColor = "#0033cc"
+
+myBorderWidth = 3
+
+myLayoutHook = smartBorders $ Tall 1 (3/100) (1/2)
+#+end_src
+
+**** Workspaces
+
+Nine workspaces, first three of them have applications on startup.
+
+#+begin_src haskell
+myWorkspaces = map show [1..9]
+
+myManageHook = manageSpawn <+> manageHook def
+
+myStartupHook = do
+  spawnOn "1" myEditor
+  spawnOn "2" myBrowser
+  spawnOn "3" myTerminal
+#+end_src
+
+**** Main
+
+#+begin_src haskell
+main = xmonad defaults
+
+defaults = def
+  { terminal           = myTerminal
+  , modMask            = myModMask
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
+  , borderWidth        = myBorderWidth
+  , layoutHook         = myLayoutHook
+  , workspaces         = myWorkspaces
+  , manageHook         = myManageHook
+  , startupHook        = myStartupHook
+  }
+#+end_src
+
+*** Packages
+
+#+begin_src text
+xmonad
+xmonad-contrib
+#+end_src
+
+** Dmenu
+
+*** Packages
+
+#+begin_src text
+dmenu
+#+end_src
+
+* Programming languages
+
+** Haskell
+
+*** Packages
+
+#+begin_src text
+ghc
+#+end_src
+
+** Rust
+
+*** Packages
+
+#+begin_src text
+rust
+#+end_src
+
+* Other programs
+
+** Emacs
+
+*** Packages
+
+#+begin_src text
+emacs
+cmake
+libtool
+libvterm
+#+end_src
+
+** Firefox
+
+*** Packages
+
+#+begin_src text
+firefox
+#+end_src
+
+** Kitty
+
+*** Config
+
+#+begin_src conf :tangle ~/.config/kitty/kitty.conf
+font_size 20.0
+#+end_src
+
+*** Packages
+
+#+begin_src text
+kitty
+#+end_src
