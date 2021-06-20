@@ -267,7 +267,10 @@ Shortcuts for code block languages.
   (add-to-list 'org-structure-template-alist '("co" . "src conf"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("hs" . "src haskell"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell")))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("tx" . "src text")))
 #+end_src
 
 **** Colors
@@ -284,7 +287,8 @@ White text, slightly lighter background.
 Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]].
 
 #+begin_src emacs-lisp
-(use-package vterm)
+(use-package vterm
+  :bind ("C-$" . vterm-other-window))
 #+end_src
 
 * Programming languages
