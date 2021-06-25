@@ -85,16 +85,16 @@ ripgrep
 
 *** Config
 
-**** Executing with startx
-
-#+begin_src shell :tangle ~/.xinitrc
-exec xmonad
-#+end_src
-
 **** Keyboard layout
 
 #+begin_src shell :tangle ~/.xinitrc
 setxkbmap -layout cz -variant coder
+#+end_src
+
+**** Executing with startx
+
+#+begin_src shell :tangle ~/.xinitrc
+exec xmonad
 #+end_src
 
 ** Xmonad
