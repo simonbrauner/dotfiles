@@ -32,6 +32,14 @@ ttf-fira-code
 vim
 #+end_src
 
+** Alsamixer
+
+*** Packages
+
+#+begin_src text
+alsa-utils
+#+end_src
+
 * Command-line tools
 
 ** Bash
