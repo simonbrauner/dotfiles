@@ -230,6 +230,31 @@ Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github
          ("C-h C-h" . helpful-at-point)))
 #+end_src
 
+* Tools
+
+** Snippets
+
+Template system [[https://github.com/joaotavora/yasnippet][YASnippet]] with [[https://github.com/AndreaCrotti/yasnippet-snippets][snippet collection]].
+
+#+begin_src emacs-lisp
+(use-package yasnippet)
+(use-package yasnippet-snippets)
+
+(yas-global-mode 1)
+(add-hook 'yas-minor-mode-hook
+          (lambda ()
+            (yas-activate-extra-mode 'fundamental-mode)))
+#+end_src
+
+** Expand-region
+
+Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]].
+
+#+begin_src emacs-lisp
+(use-package expand-region
+  :bind ("C-r" . er/expand-region))
+#+end_src
+
 * Major modes
 
 ** Magit
@@ -289,20 +314,6 @@ Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]].
 #+begin_src emacs-lisp
 (use-package vterm
   :bind ("C-$" . vterm-other-window))
-#+end_src
-
-** Snippets
-
-Template system [[https://github.com/joaotavora/yasnippet][YASnippet]] with [[https://github.com/AndreaCrotti/yasnippet-snippets][snippet collection]].
-
-#+begin_src emacs-lisp
-(use-package yasnippet)
-(use-package yasnippet-snippets)
-
-(yas-global-mode 1)
-(add-hook 'yas-minor-mode-hook
-          (lambda ()
-            (yas-activate-extra-mode 'fundamental-mode)))
 #+end_src
 
 * Programming languages
