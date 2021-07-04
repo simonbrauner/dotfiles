@@ -200,14 +200,6 @@ dmenu
 ghc
 #+end_src
 
-** Rust
-
-*** Packages
-
-#+begin_src text
-rust
-#+end_src
-
 * Other programs
 
 ** Emacs

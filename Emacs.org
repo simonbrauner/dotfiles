@@ -292,8 +292,6 @@ Shortcuts for code block languages.
   (add-to-list 'org-structure-template-alist '("co" . "src conf"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("hs" . "src haskell"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("tx" . "src text")))
 #+end_src
@@ -324,59 +322,4 @@ Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]].
 
 #+begin_src emacs-lisp
 (use-package haskell-mode)
-#+end_src
-
-** Rust
-
-*** Interactive running
-
-Running interactively using comint-mode in compilation buffer.
-
-#+begin_src emacs-lisp
-(defun sb/rust-run-interactive ()
-  (interactive)
-  (rust-run)
-  (pop-to-buffer "*compilation*")
-  (end-of-buffer)
-  (comint-mode)
-  (setq buffer-read-only nil))
-#+end_src
-
-*** After compilation
-
-Go back to compilation mode after executing program in comint-mode.
-Hide the compilation window when no errors/warnings found by checking.
-
-#+begin_src emacs-lisp
-(defun sb/after-compilation (buffer desc)
-  (with-current-buffer buffer
-    (if (eq major-mode 'comint-mode)
-        (compilation-mode)
-      (when
-          (and
-           (eq major-mode 'compilation-mode)
-           (string-match-p "finished" desc)
-           (not
-            (progn
-              (goto-char (point-min))
-              (search-forward "warning" nil t))))
-        (pop-to-buffer "*compilation*")
-        (quit-window)))))
-
-(add-hook 'compilation-finish-functions
-          'sb/after-compilation)
-#+end_src
-
-*** Package
-
-[[https://github.com/rust-lang/rust-mode][Rust mode]] for rust language.
-
-#+begin_src emacs-lisp
-(use-package rust-mode
-  :config
-  (setq rust-format-on-save t)
-  (setq rust-format-show-buffer nil)
-  :bind (:map rust-mode-map
-         ("C-c c" . rust-check)
-         ("C-c r" . sb/rust-run-interactive)))
 #+end_src
