@@ -50,6 +50,26 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
 
 * Editing text
 
+** Arrow keys
+
+Disabled. Keys needed in alsamixer should work.
+
+#+begin_src emacs-lisp
+(global-unset-key (kbd "<up>"))
+(global-unset-key (kbd "<down>"))
+(global-unset-key (kbd "<left>"))
+(global-unset-key (kbd "<right>"))
+#+end_src
+
+** Mouse
+
+Disabled by [[https://github.com/purcell/disable-mouse][disable-mouse]] package. Links in org mode should work.
+
+#+begin_src emacs-lisp
+(use-package disable-mouse
+  :config (global-disable-mouse-mode))
+#+end_src
+
 ** Expand-region
 
 Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]].
