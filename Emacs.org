@@ -48,6 +48,26 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
   (custom-file (no-littering-expand-etc-file-name "custom.el")))
 #+end_src
 
+* Editing text
+
+** Expand-region
+
+Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]].
+
+#+begin_src emacs-lisp
+(use-package expand-region
+  :bind ("C-r" . er/expand-region)
+  :config (setq expand-region-fast-keys-enabled nil))
+#+end_src
+
+** Delete-selection-mode
+
+Marked text is replaced by typing.
+
+#+begin_src emacs-lisp
+(delete-selection-mode 1)
+#+end_src
+
 * Face
 
 ** General UI configuration
@@ -244,15 +264,6 @@ Template system [[https://github.com/joaotavora/yasnippet][YASnippet]] with [[ht
 (add-hook 'yas-minor-mode-hook
           (lambda ()
             (yas-activate-extra-mode 'fundamental-mode)))
-#+end_src
-
-** Expand-region
-
-Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]].
-
-#+begin_src emacs-lisp
-(use-package expand-region
-  :bind ("C-r" . er/expand-region))
 #+end_src
 
 * Major modes
