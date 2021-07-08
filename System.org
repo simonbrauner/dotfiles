@@ -192,6 +192,14 @@ dmenu
 
 * Programming languages
 
+** Common lisp
+
+*** Packages
+
+#+begin_src text
+sbcl
+#+end_src
+
 ** Haskell
 
 *** Packages

@@ -347,6 +347,13 @@ Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]].
 
 * Programming languages
 
+** Common lisp
+
+#+begin_src emacs-lisp
+(use-package slime
+  :config (setq inferior-lisp-program "sbcl"))
+#+end_src
+
 ** Haskell
 
 [[https://github.com/haskell/haskell-mode][Haskell mode]].
