@@ -286,6 +286,14 @@ Template system [[https://github.com/joaotavora/yasnippet][YASnippet]] with [[ht
             (yas-activate-extra-mode 'fundamental-mode)))
 #+end_src
 
+** Keyboard macros
+
+Loading the file with saved keyboard macros.
+
+#+begin_src emacs-lisp
+(load-file (concat user-emacs-directory "macros.el"))
+#+end_src
+
 * Major modes
 
 ** Magit
