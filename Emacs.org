@@ -3,41 +3,6 @@
 
 Personal GNU Emacs configuration!
 
-* Global keybindings
-
-|-----+------------------------+---------------------|
-| Key | Control                | Meta                |
-|-----+------------------------+---------------------|
-| Q   |                        |                     |
-| W   | kill-region            | kill-ring-save      |
-| E   | move-end-of-line       |                     |
-| R   | [[Expand-region][er/expand-region]]       |                     |
-| T   | transpose-chars        | transpose-words     |
-| Y   | yank                   | yank-pop            |
-| U   |                        | upcase-word         |
-| I   |                        |                     |
-| O   | open-line              |                     |
-| P   | previous-line          |                     |
-|-----+------------------------+---------------------|
-| A   | move-beginning-of-line |                     |
-| S   | isearch-forward        |                     |
-| D   | delete-char            |                     |
-| F   | forward-char           | forward-word        |
-| G   | keyboard-quit          |                     |
-| H   | C-h                    |                     |
-| J   |                        |                     |
-| K   | kill-line              |                     |
-| L   | recenter-top-bottom    | downcase-word       |
-|-----+------------------------+---------------------|
-| Z   |                        |                     |
-| X   | C-x                    | M-x                 |
-| C   | C-c                    | capitalize-word     |
-| V   | scroll-up-command      | scroll-down-command |
-| B   | backward-char          | backward-word       |
-| N   | next-line              |                     |
-| M   | newline                |                     |
-|-----+------------------------+---------------------|
-
 * Essentials
 
 The most general and basic part of the configuration that either prepares background for the other pieces, or simply has no better place to be.
@@ -87,12 +52,81 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
   (custom-file (no-littering-expand-etc-file-name "custom.el")))
 #+end_src
 
-* Expand-region
+* Editing text
 
-Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]].
+Customizing the customizable editor.
+
+** Movement
+
+|---------------------+---------|
+| Name                | Binding |
+|---------------------+---------|
+| scroll-up-command   | C-v     |
+| scroll-down-command | M-v     |
+| recenter-top-bottom | C-l     |
+| forward-char        | C-f     |
+| backward-char       | C-b     |
+| forward-word        | M-f     |
+| backward-word       | M-b     |
+| avy-goto-char       | C-j     |
+|---------------------+---------|
+
+*** Avy
+
+Jumping to characters with [[https://github.com/abo-abo/avy][avy]].
+
+#+begin_src emacs-lisp
+(use-package avy
+  :bind* ("C-j" . avy-goto-char))
+#+end_src
+
+** Lines
+
+|------------------------+---------|
+| Name                   | Binding |
+|------------------------+---------|
+| move-beginning-of-line | C-a     |
+| move-end-of-line       | C-e     |
+| next-line              | C-n     |
+| previous-line          | C-p     |
+| open-line              | C-o     |
+| newline                | C-m     |
+| kill-line              | C-k     |
+|------------------------+---------|
+
+** Mark
+
+|------------------+---------|
+| Name             | Binding |
+|------------------+---------|
+| set-mark-command | C-SPC   |
+| kill-region      | C-w     |
+| kill-ring-save   | M-w     |
+| yank             | C-y     |
+| yank-pop         | M-y     |
+| expand-region    | C-r     |
+|------------------+---------|
+
+*** Expand-region
+
+Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]]. Marked text is replaced by typing.
 
 #+begin_src emacs-lisp
 (use-package expand-region
   :bind ("C-r" . er/expand-region)
   :config (setq expand-region-fast-keys-enabled nil))
+
+(delete-selection-mode 1)
 #+end_src
+
+** Swapping
+
+|-----------------+---------|
+| Name            | Binding |
+|-----------------+---------|
+| transpose-chars | C-t     |
+| transpose-words | M-t     |
+| downcase-word   | M-l     |
+| upcase-word     | M-u     |
+| capitalize-word | M-c     |
+|-----------------+---------|
