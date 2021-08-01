@@ -1,9 +1,15 @@
 #+title: "C-c C-v t"
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/init.el
 
-* Basic configuration
+Personal GNU Emacs configuration!
+
+* Essentials
+
+The most general and basic part of the configuration that either prepares background for the other pieces, or simply has no better place to be.
 
 ** Package management
+
+Downloading, configuring and using packages.
 
 *** Straight
 
@@ -24,8 +30,6 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
-(setq package-enable-at-startup nil)
 #+end_src
 
 *** Use-package
@@ -37,7 +41,7 @@ Integration with [[https://github.com/jwiegley/use-package][use-package]].
 (setq straight-use-package-by-default t)
 #+end_src
 
-** Files location
+** No-littering
 
 Using [[https://github.com/emacscollective/no-littering][no-littering]] package to help keeping =~/.emacs.d/= clean.
 
@@ -46,311 +50,4 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
   :custom
   (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
   (custom-file (no-littering-expand-etc-file-name "custom.el")))
-#+end_src
-
-* Editing text
-
-** Arrow keys
-
-Disabled. Keys needed in alsamixer should work.
-
-#+begin_src emacs-lisp
-(global-unset-key (kbd "<up>"))
-(global-unset-key (kbd "<down>"))
-(global-unset-key (kbd "<left>"))
-(global-unset-key (kbd "<right>"))
-#+end_src
-
-** Mouse
-
-Disabled by [[https://github.com/purcell/disable-mouse][disable-mouse]] package. Links in org mode should work.
-
-#+begin_src emacs-lisp
-(use-package disable-mouse
-  :config (global-disable-mouse-mode))
-#+end_src
-
-** Expand-region
-
-Expanding region using [[https://github.com/magnars/expand-region.el][expand-region]].
-
-#+begin_src emacs-lisp
-(use-package expand-region
-  :bind ("C-r" . er/expand-region)
-  :config (setq expand-region-fast-keys-enabled nil))
-#+end_src
-
-** Delete-selection-mode
-
-Marked text is replaced by typing.
-
-#+begin_src emacs-lisp
-(delete-selection-mode 1)
-#+end_src
-
-* Face
-
-** General UI configuration
-
-Omitting the welcome page, disabling useless parts of UI and setting the distance between sides and text.
-
-#+begin_src emacs-lisp
-(setq inhibit-startup-message t)
-
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(menu-bar-mode -1)
-
-(set-fringe-mode 5)
-#+end_src
-
-** Theme
-
-[[https://draculatheme.com/emacs][Dracula]] theme.
-
-#+begin_src emacs-lisp
-(use-package dracula-theme)
-(load-theme 'dracula t)
-#+end_src
-
-** Font
-
-Setting [[https://github.com/tonsky/FiraCode][Fira Code]] (without ligatures) font with a proper size. Downloaded from =ttf-fira-code= Arch Linux package.
-
-#+begin_src emacs-lisp
-(set-face-attribute 'default nil
-                    :font "Fira Code"
-                    :height 115)
-#+end_src
-
-** Indentation
-
-No tabs allowed!
-
-#+begin_src emacs-lisp
-(setq-default indent-tabs-mode nil)
-#+end_src
-
-** Delimiters
-
-[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes with 3 levels and custom colors. White indicates errors.
-
-#+begin_src emacs-lisp
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
-  :custom (rainbow-delimiters-max-face-count 3))
-
-(custom-set-faces
- '(rainbow-delimiters-depth-1-face ((t (:foreground "#ee9999"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "#99ee99"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "#9999ee"))))
-
- '(rainbow-delimiters-mismatched-face ((t (:foreground "#ffffff"))))
- '(rainbow-delimiters-unmatched-face ((t (:foreground "#ffffff")))))
-#+end_src
-
-** Mode-line
-
-Custom mode-line.
-
-#+begin_src emacs-lisp
-(defface sb/mode-line-not-saved
-  '((t :foreground "orange"
-       :weight bold))
-  "Face for tilde before file name.")
-
-(setq-default mode-line-format
-              '("%e "
-                (:eval (if (and (buffer-file-name)
-                                (buffer-modified-p))
-                           (propertize "~" 'face 'sb/mode-line-not-saved)
-                         " "))
-                (:eval (propertize "%b" 'face 'bold))
-                "   %p L%l    %m"))
-#+end_src
-
-* Minibuffer
-
-** Searching
-
-*** Line
-
-Searching in current file with [[https://github.com/minad/consult][consult]].
-
-#+begin_src emacs-lisp
-(use-package consult
-  :bind (("C-s" . consult-line)))
-#+end_src
-
-*** Ripgrep
-
-Searching in multiple files with [[https://github.com/Wilfred/deadgrep][deadgrep]].
-
-#+begin_src emacs-lisp
-(use-package deadgrep
-  :bind (("M-s" . deadgrep)))
-#+end_src
-
-** Completion
-
-*** Functions
-
-Selecting with tab when only one option remains.
-
-#+begin_src emacs-lisp
-(defun sb/minibuffer-select-by-tab ()
-  (interactive)
-  (if (or (and (not (string= (substring (vertico--candidate) -1) "/"))
-               (and (car vertico--candidates)
-                    (not (cdr vertico--candidates))))
-          (string= (thing-at-point 'sexp t) (vertico--candidate)))
-      (vertico-exit)
-    (vertico-insert)))
-#+end_src
-
-Going one directory up by pressing backscape in minibuffer find file. Jumps directly to =/= from =~/=.
-
-#+begin_src emacs-lisp
-(defun sb/minibuffer-kill-directory-name (arg)
-  (interactive "p")
-  (if minibuffer-completing-file-name
-      (unless (string= (minibuffer-contents) "/")
-        (if (string= (minibuffer-contents) "~/")
-            (progn
-              (delete-minibuffer-contents)
-              (self-insert-command 1 47))
-          (if (string= (substring (minibuffer-contents) -1) "/")
-              (zap-up-to-char (- arg) ?/)
-            (delete-backward-char arg))))
-    (delete-backward-char arg)))
-#+end_src
-
-No kill-ring insertion in minibuffer.
-
-#+begin_src emacs-lisp
-(add-hook 'minibuffer-setup-hook
-          (lambda ()
-            (make-local-variable 'kill-ring)))
-#+end_src
-
-*** Packages
-
-Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github.com/oantolin/orderless][orderless]], additional info from [[https://github.com/minad/marginalia][marginalia]].
-
-#+begin_src emacs-lisp
-(use-package vertico
-  :init
-  (vertico-mode)
-  (savehist-mode)
-  :bind (:map minibuffer-local-map
-         ("<tab>" . sb/minibuffer-select-by-tab)
-         ("<DEL>" . sb/minibuffer-kill-directory-name)))
-
-(use-package orderless
-  :custom (completion-styles '(orderless)))
-
-(use-package marginalia
-  :init (marginalia-mode))
-#+end_src
-
-** Advice
-
-[[https://github.com/justbur/emacs-which-key][Which-key]] and [[https://github.com/Wilfred/helpful][helpful]] to seek wisdom.
-
-#+begin_src emacs-lisp
-(use-package which-key
-  :init (which-key-mode)
-  :config (setq which-key-idle-delay 1))
-
-(use-package helpful
-  :bind (("C-h f"   . helpful-callable)
-         ("C-h k"   . helpful-key)
-         ("C-h v"   . helpful-variable)
-         ("C-h C-h" . helpful-at-point)))
-#+end_src
-
-* Tools
-
-** Snippets
-
-Template system [[https://github.com/joaotavora/yasnippet][YASnippet]] with [[https://github.com/AndreaCrotti/yasnippet-snippets][snippet collection]].
-
-#+begin_src emacs-lisp
-(use-package yasnippet)
-(use-package yasnippet-snippets)
-
-(yas-global-mode 1)
-(add-hook 'yas-minor-mode-hook
-          (lambda ()
-            (yas-activate-extra-mode 'fundamental-mode)))
-#+end_src
-
-* Major modes
-
-** Magit
-
-Git client [[https://magit.vc/][magit]].
-
-#+begin_src emacs-lisp
-(use-package magit
-  :config (setq magit-section-visibility-indicator nil))
-#+end_src
-
-** Org mode
-
-*** Basics
-
-[[https://orgmode.org/][Org mode]], automatically indented.
-
-#+begin_src emacs-lisp
-(use-package org
-  :config
-  (setq org-startup-indented 1)
-  (setq org-src-preserve-indentation 1))
-#+end_src
-
-*** Code blocks
-
-**** Org tempo
-
-Shortcuts for code block languages.
-
-#+begin_src emacs-lisp
-(with-eval-after-load 'org
-  (require 'org-tempo)
-
-  (add-to-list 'org-structure-template-alist '("co" . "src conf"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("hs" . "src haskell"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("tx" . "src text")))
-#+end_src
-
-**** Colors
-
-White text, slightly lighter background.
-
-#+begin_src emacs-lisp
-(set-face-foreground 'org-block "#ffffff")
-(set-face-background 'org-block "#2e303c")
-#+end_src
-
-** Vterm
-
-Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]].
-
-#+begin_src emacs-lisp
-(use-package vterm
-  :bind ("C-$" . vterm-other-window))
-#+end_src
-
-* Programming languages
-
-** Haskell
-
-[[https://github.com/haskell/haskell-mode][Haskell mode]].
-
-#+begin_src emacs-lisp
-(use-package haskell-mode)
 #+end_src
