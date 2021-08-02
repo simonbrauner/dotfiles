@@ -93,6 +93,7 @@ Customizing the customizable editor.
 | forward-word        | M-f     |
 | backward-word       | M-b     |
 | avy-goto-char       | C-j     |
+| consult-line        | C-s     |
 |---------------------+---------|
 
 *** Avy
@@ -102,6 +103,15 @@ Jumping to characters with [[https://github.com/abo-abo/avy][avy]].
 #+begin_src emacs-lisp
 (use-package avy
   :bind* ("C-j" . avy-goto-char))
+#+end_src
+
+*** Consult-line
+
+Searching in current file with [[https://github.com/minad/consult][consult]].
+
+#+begin_src emacs-lisp
+(use-package consult
+  :bind (("C-s" . consult-line)))
 #+end_src
 
 ** Lines
@@ -118,7 +128,7 @@ Jumping to characters with [[https://github.com/abo-abo/avy][avy]].
 | kill-line              | C-k     |
 |------------------------+---------|
 
-** Mark
+** Region
 
 |------------------+---------|
 | Name             | Binding |
@@ -141,6 +151,20 @@ Expanding region using [[https://github.com/magnars/expand-region.el][expand-reg
   :config
   (setq expand-region-fast-keys-enabled nil)
   (delete-selection-mode 1))
+#+end_src
+
+*** Multiple-cursors
+
+Having [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]] in emacs. Enter key works as expected.
+
+#+begin_src emacs-lisp
+(use-package multiple-cursors
+  :bind (("C-<" . mc/mark-all-like-this)
+         ("C->" . mc/mark-next-like-this)))
+
+(add-hook 'multiple-cursors-mode-hook
+          (lambda ()
+            (unbind-key "<return>" mc/keymap)))
 #+end_src
 
 ** Swapping
