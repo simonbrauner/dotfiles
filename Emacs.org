@@ -47,9 +47,17 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
 
 #+begin_src emacs-lisp
 (use-package no-littering
-  :custom
-  (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-  (custom-file (no-littering-expand-etc-file-name "custom.el")))
+  :config
+  (setq auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
+#+end_src
+
+** Indentation
+
+Tabs disabled globally.
+
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
 #+end_src
 
 * Editing text
@@ -114,9 +122,9 @@ Expanding region using [[https://github.com/magnars/expand-region.el][expand-reg
 #+begin_src emacs-lisp
 (use-package expand-region
   :bind ("C-r" . er/expand-region)
-  :config (setq expand-region-fast-keys-enabled nil))
-
-(delete-selection-mode 1)
+  :config
+  (setq expand-region-fast-keys-enabled nil)
+  (delete-selection-mode 1))
 #+end_src
 
 ** Swapping
@@ -130,3 +138,77 @@ Expanding region using [[https://github.com/magnars/expand-region.el][expand-reg
 | upcase-word     | M-u     |
 | capitalize-word | M-c     |
 |-----------------+---------|
+
+* Face
+
+** General UI configuration
+
+Omitting the welcome page, disabling mouse related parts of UI and setting the distance between sides and text.
+
+#+begin_src emacs-lisp
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
+
+(set-fringe-mode 5)
+#+end_src
+
+** Theme
+
+[[https://draculatheme.com/emacs][Dracula]] theme.
+
+#+begin_src emacs-lisp
+(use-package dracula-theme
+  :config (load-theme 'dracula t))
+#+end_src
+
+** Font
+
+Setting [[https://github.com/tonsky/FiraCode][Fira Code]] (without ligatures) font with a proper size.
+
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil
+                    :font "Fira Code"
+                    :height 115)
+#+end_src
+
+** Mode-line
+
+Custom mode-line.
+
+#+begin_src emacs-lisp
+(defface sb/mode-line-not-saved
+  '((t :foreground "orange"
+       :weight bold))
+  "Face for tilde before file name.")
+
+(setq-default mode-line-format
+              '("%e "
+                (:eval (if (and (buffer-file-name)
+                                (buffer-modified-p))
+                           (propertize "~" 'face 'sb/mode-line-not-saved)
+                         " "))
+                (:eval (propertize "%b" 'face 'bold))
+                "   %p L%l    %m"))
+#+end_src
+
+** Delimiters
+
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes with 3 levels and custom colors. White indicates errors.
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config (setq rainbow-delimiters-max-face-count 3))
+
+(custom-set-faces
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "#ee9999"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "#99ee99"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "#9999ee"))))
+
+ '(rainbow-delimiters-mismatched-face ((t (:foreground "#ffffff"))))
+ '(rainbow-delimiters-unmatched-face ((t (:foreground "#ffffff")))))
+#+end_src
