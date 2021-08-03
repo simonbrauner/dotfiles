@@ -120,6 +120,7 @@ Searching in current file with [[https://github.com/minad/consult][consult]].
 | Name                   | Binding |
 |------------------------+---------|
 | move-beginning-of-line | C-a     |
+| back-to-indentation    | M-m     |
 | move-end-of-line       | C-e     |
 | next-line              | C-n     |
 | previous-line          | C-p     |
@@ -130,16 +131,18 @@ Searching in current file with [[https://github.com/minad/consult][consult]].
 
 ** Region
 
-|------------------+---------|
-| Name             | Binding |
-|------------------+---------|
-| set-mark-command | C-SPC   |
-| kill-region      | C-w     |
-| kill-ring-save   | M-w     |
-| yank             | C-y     |
-| yank-pop         | M-y     |
-| expand-region    | C-r     |
-|------------------+---------|
+|------------------------+---------|
+| Name                   | Binding |
+|------------------------+---------|
+| set-mark-command       | C-SPC   |
+| kill-region            | C-w     |
+| kill-ring-save         | M-w     |
+| yank                   | C-y     |
+| yank-pop               | M-y     |
+| expand-region          | C-r     |
+| mc/mark-all-like-this  | C-<     |
+| mc/mark-next-like-this | C->     |
+|------------------------+---------|
 
 *** Expand-region
 
@@ -326,11 +329,31 @@ Git client [[https://github.com/magit/magit][Magit]].
 
 Org mode.
 
+*** Indentation
+
+Automatically indented and with visual lines.
+
 #+begin_src emacs-lisp
-(use-package org
-  :config
-  (setq org-startup-indented 1)
-  (setq org-src-preserve-indentation 1))
+(setq org-startup-indented 1)
+(setq org-src-preserve-indentation 1)
+
+(add-hook 'org-mode-hook
+          'visual-line-mode)
+#+end_src
+
+*** Org tempo
+
+Shortcuts for code block languages.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  (dolist (language '(("co" . "src conf")
+                      ("el" . "src emacs-lisp")
+                      ("hs" . "src haskell")
+                      ("sh" . "src shell")
+                      ("tx" . "src text")))
+    (add-to-list 'org-structure-template-alist language)))
 #+end_src
 
 ** Vterm
