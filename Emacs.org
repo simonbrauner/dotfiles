@@ -76,6 +76,14 @@ Tabs disabled globally.
          ("C-h C-h" . helpful-at-point)))
 #+end_src
 
+** Save-place-mode
+
+Saving the cursor position in file associated buffers.
+
+#+begin_src emacs-lisp
+(save-place-mode 1)
+#+end_src
+
 * Editing text
 
 Customizing the customizable editor.
@@ -238,6 +246,15 @@ Custom mode-line.
                          " "))
                 (:eval (propertize "%b" 'face 'bold))
                 "   %p L%l    %m"))
+#+end_src
+
+*** Uniquify
+
+Shows directories before file names in mode-line in case of multiple buffers with identical file names.
+
+#+begin_src emacs-lisp
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 #+end_src
 
 ** Minibuffer
