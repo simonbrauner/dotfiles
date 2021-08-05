@@ -286,23 +286,48 @@ Completion by [[https://github.com/minad/vertico][vertico]] and [[https://github
 
 ** Delimiters
 
-[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes with 3 levels and custom colors. White indicates errors.
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes.
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
   :config (setq rainbow-delimiters-max-face-count 3))
+#+end_src
 
+** Modified faces
+
+When the defaults weren't too appealing...
+
+*** Weight
+
+Making more faces =semi-bold=.
+
+#+begin_src emacs-lisp
+(dolist (face '(bold
+                font-lock-keyword-face
+                font-lock-variable-name-face
+                font-lock-function-name-face
+                font-lock-type-face))
+  (set-face-attribute face nil :weight 'semi-bold))
+#+end_src
+
+*** Rainbow delimiters colors
+
+Three levels and custom colors. White indicates errors.
+
+#+begin_src emacs-lisp
 (custom-set-faces
  '(rainbow-delimiters-depth-1-face ((t (:foreground "#ee9999"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "#99ee99"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "#9999ee"))))
 
- '(rainbow-delimiters-mismatched-face ((t (:foreground "#ffffff"))))
- '(rainbow-delimiters-unmatched-face ((t (:foreground "#ffffff")))))
+ '(rainbow-delimiters-mismatched-face ((t (:foreground "#ffffff"
+                                           :weight bold))))
+ '(rainbow-delimiters-unmatched-face ((t (:foreground "#ffffff"
+                                          :weight bold)))))
 #+end_src
 
-** Org mode code blocks
+*** Org mode code blocks
 
 White text, slightly lighter background.
 
