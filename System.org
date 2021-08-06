@@ -7,22 +7,6 @@
 
 ** Pacman
 
-*** Hooks
-
-[[https://wiki.archlinux.org/title/Xmonad#Problems_with_finding_shared_libraries_after_update][Problems with finding shared libraries after update]].
-
-#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook
-[Trigger]
-Operation = Upgrade
-Type = Package
-Target = xmonad
-
-[Action]
-Description = Recompiling xmonad...
-When = PostTransaction
-Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
-#+end_src
-
 *** Various packages
 
 Font, vim,...
@@ -81,7 +65,7 @@ Xorg and Xmonad.
 
 ** Xorg
 
-Prepared by [[https://wiki.archlinux.org/title/Archinstall][archinstall]].
+X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]]. Prepared by [[https://wiki.archlinux.org/title/Archinstall][archinstall]].
 
 *** Display server
 
@@ -111,9 +95,9 @@ exec xmonad
 
 ** Xmonad
 
-*** Config
+A tiling window manager [[https://wiki.archlinux.org/title/xmonad][xmonad]].
 
-**** Imports
+*** Imports
 
 #+begin_src haskell
 import XMonad
@@ -121,7 +105,7 @@ import XMonad.Actions.SpawnOn
 import XMonad.Layout.NoBorders
 #+end_src
 
-**** Basics
+*** Basics
 
 Default programs, super key as leader key.
 
@@ -133,7 +117,20 @@ myTerminal = "kitty"
 myModMask = mod4Mask
 #+end_src
 
-**** Layout
+*** Key bindings
+
+|----------------------------+------------|
+| Action                     | Binding    |
+|----------------------------+------------|
+| select workspace 1         | s-1        |
+| next window                | s-tab      |
+| select window as main      | s-return   |
+| move window to workspace 2 | S-s-2      |
+| open terminal              | S-s-return |
+| close window               | S-s-c      |
+|----------------------------+------------|
+
+*** Layout
 
 Borders - colors, size, visible only with multiple windows. =Tall= layout.
 
@@ -146,7 +143,7 @@ myBorderWidth = 3
 myLayoutHook = smartBorders $ Tall 1 (3/100) (1/2)
 #+end_src
 
-**** Workspaces
+*** Workspaces
 
 Nine workspaces, first three of them have applications on startup.
 
@@ -161,7 +158,7 @@ myStartupHook = do
   spawnOn "3" myTerminal
 #+end_src
 
-**** Main
+*** Main
 
 #+begin_src haskell
 main = xmonad defaults
@@ -179,6 +176,22 @@ defaults = def
   }
 #+end_src
 
+*** Pacman hook
+
+Recompiling xmonad [[https://wiki.archlinux.org/title/Xmonad#Problems_with_finding_shared_libraries_after_update][after update]].
+
+#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = xmonad
+
+[Action]
+Description = Recompiling xmonad...
+When = PostTransaction
+Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
+#+end_src
+
 *** Packages
 
 #+begin_src text
@@ -187,6 +200,8 @@ xmonad-contrib
 #+end_src
 
 ** Dmenu
+
+[[https://wiki.archlinux.org/title/dmenu][Dynamic menu]]. Used to open programs. Bound to =s-p=.
 
 *** Packages
 
