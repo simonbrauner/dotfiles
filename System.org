@@ -209,19 +209,11 @@ xmonad-contrib
 dmenu
 #+end_src
 
-* Programming languages
-
-** Haskell
-
-*** Packages
-
-#+begin_src text
-ghc
-#+end_src
-
-* Other programs
+* GUI programs
 
 ** Emacs
+
+The extensible, customizable, self-documenting, real-time display editor. Configured in it's own file, Vterm package has three [[https://github.com/akermu/emacs-libvterm#requirements][dependencies]].
 
 *** Packages
 
@@ -234,6 +226,8 @@ libvterm
 
 ** Firefox
 
+A web browser.
+
 *** Packages
 
 #+begin_src text
@@ -242,7 +236,7 @@ firefox
 
 ** Kitty
 
-*** Config
+Terminal emulator [[https://github.com/kovidgoyal/kitty][Kitty]], setting the font size.
 
 #+begin_src conf :tangle ~/.config/kitty/kitty.conf
 font_size 20.0
@@ -255,6 +249,8 @@ kitty
 #+end_src
 
 ** Feh
+
+A light-weight, configurable and versatile image viewer - [[https://github.com/derf/feh][Feh]].
 
 *** Packages
 
