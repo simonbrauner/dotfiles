@@ -3,60 +3,36 @@
 #+property: header-args:text+ :tangle ./pkglist.txt
 #+property: header-args:haskell+ :tangle ~/.xmonad/xmonad.hs
 
-* Arch Linux
-
-** Pacman
-
-*** Various packages
-
-Font, vim,...
-
-#+begin_src text
-ttf-fira-code
-vim
-#+end_src
-
-** Alsamixer
-
-*** Packages
-
-#+begin_src text
-alsa-utils
-#+end_src
+Configuration of the Arch Linux GNU/Linux distribution.
 
 * Command-line tools
 
+Used in terminal emulators.
+
 ** Git
 
-*** Config
+Acquired manualy after system installation.
 
 #+begin_src conf :tangle ~/.gitconfig
 [user]
 name = Šimon Brauner
 email = simonbrauner@seznam.cz
 
-[credential]
-helper = store
-
 [core]
-editor = vim
+editor = emacs
 
 [alias]
 graph = log --all --oneline --graph
 #+end_src
 
-*** Packages
+** ALSA utilities
+
+[[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_utilities][Sound settings]] with =alsamixer= command.
+
+*** Package
 
 #+begin_src text
-git
-#+end_src
-
-** Ripgrep
-
-*** Packages
-
-#+begin_src text
-ripgrep
+alsa-utils
 #+end_src
 
 * Window management
@@ -203,7 +179,7 @@ xmonad-contrib
 
 [[https://wiki.archlinux.org/title/dmenu][Dynamic menu]]. Used to open programs. Bound to =s-p=.
 
-*** Packages
+*** Package
 
 #+begin_src text
 dmenu
@@ -211,24 +187,29 @@ dmenu
 
 * GUI programs
 
+Displayed by the X Window System.
+
 ** Emacs
 
-The extensible, customizable, self-documenting, real-time display editor. Configured in it's own file, Vterm package has three [[https://github.com/akermu/emacs-libvterm#requirements][dependencies]].
+The extensible, customizable, self-documenting, real-time display editor. Configured in it's own file.
 
 *** Packages
+
+Including vterm dependencies and a font.
 
 #+begin_src text
 emacs
 cmake
 libtool
 libvterm
+ttf-fira-code
 #+end_src
 
 ** Firefox
 
 A web browser.
 
-*** Packages
+*** Package
 
 #+begin_src text
 firefox
@@ -242,7 +223,7 @@ Terminal emulator [[https://github.com/kovidgoyal/kitty][Kitty]], setting the fo
 font_size 20.0
 #+end_src
 
-*** Packages
+*** Package
 
 #+begin_src text
 kitty
@@ -252,7 +233,7 @@ kitty
 
 A light-weight, configurable and versatile image viewer - [[https://github.com/derf/feh][Feh]].
 
-*** Packages
+*** Package
 
 #+begin_src text
 feh
