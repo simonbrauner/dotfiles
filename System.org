@@ -9,6 +9,20 @@ Configuration of the Arch Linux GNU/Linux distribution.
 
 Used in terminal emulators.
 
+** Systemd
+
+Included in Arch Linux.
+
+*** Power management
+
+[[https://wiki.archlinux.org/title/Systemd#Power_management][Commands]].
+
+#+begin_src shell
+systemctl reboot
+systemctl suspend
+systemctl poweroff
+#+end_src
+
 ** Git
 
 Acquired manualy after system installation.
@@ -23,6 +37,24 @@ editor = emacs
 
 [alias]
 graph = log --all --oneline --graph
+#+end_src
+
+** OpenSSH
+
+Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][SSH]].
+
+*** Key
+
+[[https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent][New key]].
+
+#+begin_src shell
+ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
+#+end_src
+
+*** Package
+
+#+begin_src text
+openssh
 #+end_src
 
 ** ALSA utilities
