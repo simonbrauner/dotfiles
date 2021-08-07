@@ -1,9 +1,20 @@
-#+title: System configuration
+#+title: System.org
 #+property: header-args :mkdirp yes
 #+property: header-args:text+ :tangle ./pkglist.txt
 #+property: header-args:haskell+ :tangle ~/.xmonad/xmonad.hs
 
-Configuration of the Arch Linux GNU/Linux distribution.
+Configuration and also a bit of documentation for Arch Linux and the applications that run on it.
+
+* Installation notes
+
+The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall][archinstall]]. That suits me because I hardly need anything else than the defaults.
+
+|------------------------+---------------|
+| bootloader             | systemd-boot  |
+| pre-programmed-profile | xorg          |
+| additional packages    | git emacs     |
+| timezone               | Europe/Prague |
+|------------------------+---------------|
 
 * Command-line tools
 
@@ -11,7 +22,7 @@ Used in terminal emulators.
 
 ** Systemd
 
-Included in Arch Linux.
+A [[https://wiki.archlinux.org/title/Systemd][suite]] of basic building blocks for a Linux system.
 
 *** Power management
 
@@ -25,7 +36,7 @@ systemctl poweroff
 
 ** Git
 
-Acquired manualy after system installation.
+Version control system [[https://wiki.archlinux.org/title/git][Git]]. Used mostly by the magit package in Emacs.
 
 #+begin_src conf :tangle ~/.gitconfig
 [user]
@@ -73,7 +84,7 @@ Xorg and Xmonad.
 
 ** Xorg
 
-X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]]. Prepared by [[https://wiki.archlinux.org/title/Archinstall][archinstall]].
+X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]].
 
 *** Display server
 
@@ -223,14 +234,13 @@ Displayed by the X Window System.
 
 ** Emacs
 
-The extensible, customizable, self-documenting, real-time display editor. Configured in it's own file.
+The extensible, customizable, self-documenting, real-time display editor. Configured in its own file.
 
 *** Packages
 
-Including vterm dependencies and a font.
+Vterm dependencies and Fira Code font.
 
 #+begin_src text
-emacs
 cmake
 libtool
 libvterm

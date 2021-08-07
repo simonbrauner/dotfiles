@@ -356,7 +356,7 @@ White text, slightly lighter background.
 
 * Major modes
 
-The packages with their own buffers.
+The big packages unassociated with a single programming language.
 
 ** Magit
 
