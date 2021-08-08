@@ -10,6 +10,8 @@ Configuration and also a bit of documentation for Arch Linux and the application
 The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall][archinstall]]. That suits me because I hardly need anything else than the defaults.
 
 |------------------------+---------------|
+| Question               | Answer        |
+|------------------------+---------------|
 | bootloader             | systemd-boot  |
 | pre-programmed-profile | xorg          |
 | additional packages    | git emacs     |
@@ -32,6 +34,28 @@ A [[https://wiki.archlinux.org/title/Systemd][suite]] of basic building blocks f
 systemctl reboot
 systemctl suspend
 systemctl poweroff
+#+end_src
+
+** Pacman
+
+The [[https://wiki.archlinux.org/title/pacman][package manager]] in Arch Linux.
+
+*** Basic commands
+
+Installing package, removing package with dependencies and full system upgrade respectively.
+
+#+begin_src shell
+pacman -S vim
+pacman -Rs vim
+pacman -Syu
+#+end_src
+
+*** Packages from a file
+
+Getting the packages [[https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Install_packages_from_a_list][from]] tangled file =pkglist.txt= ready.
+
+#+begin_src shell
+pacman -S --needed - < dotfiles/pkglist.txt
 #+end_src
 
 ** Git
