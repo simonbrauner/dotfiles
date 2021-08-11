@@ -406,3 +406,25 @@ Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]].
 (use-package vterm
   :bind ("C-$" . vterm-other-window))
 #+end_src
+
+* Programming languages
+
+** Haskell
+
+The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
+
+#+begin_src emacs-lisp
+(use-package haskell-mode)
+#+end_src
+
+** Python
+
+Python-mode - the one already included in emacs.
+
+*** Indentation
+
+Do not guess anything, Python should be indented with 4 spaces.
+
+#+begin_src emacs-lisp
+(setq python-indent-guess-indent-offset nil)
+#+end_src

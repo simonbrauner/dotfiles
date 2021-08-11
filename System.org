@@ -304,3 +304,25 @@ A light-weight, configurable and versatile image viewer - [[https://github.com/d
 #+begin_src text
 feh
 #+end_src
+
+* Programming languages
+
+** Haskell
+
+[[https://wiki.archlinux.org/title/haskell#Installation][Glasgow Haskell Compiler]].
+
+*** Package
+
+#+begin_src text
+ghc
+#+end_src
+
+** Python
+
+[[https://github.com/python/cpython][CPython]].
+
+*** Package
+
+#+begin_src text
+python
+#+end_src
