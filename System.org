@@ -74,6 +74,16 @@ editor = emacs
 graph = log --all --oneline --graph
 #+end_src
 
+** Man
+
+Arch Linux [[https://wiki.archlinux.org/title/man_page][manual pages]].
+
+*** Package
+
+#+begin_src text
+man-db
+#+end_src
+
 ** OpenSSH
 
 Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][SSH]].
@@ -100,6 +110,26 @@ openssh
 
 #+begin_src text
 alsa-utils
+#+end_src
+
+** Htop
+
+Managing processes using [[https://github.com/htop-dev/htop][htop]].
+
+*** Package
+
+#+begin_src text
+htop
+#+end_src
+
+** Ncdu
+
+Analyzing disk usage with [[https://dev.yorhel.nl/ncdu][ncdu]].
+
+*** Package
+
+#+begin_src text
+ncdu
 #+end_src
 
 * Window management
