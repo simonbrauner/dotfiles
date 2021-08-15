@@ -428,3 +428,46 @@ Do not guess anything, Python should be indented with 4 spaces.
 #+begin_src emacs-lisp
 (setq python-indent-guess-indent-offset nil)
 #+end_src
+
+* Snippets
+
+** YASnippet
+
+The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
+
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :config
+  (setq yas-indent-line 'fixed)
+  (yas-global-mode 1))
+#+end_src
+
+** Org Mode
+
+*** New snippet
+
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/org-mode/newsnippet :mkdirp yes
+# -*- mode: snippet -*-
+# name: newsnippet
+# key: n
+# --
+`"#+begin_src"` snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/${1:mode}/${2:name} :mkdirp yes
+# -*- mode: snippet -*-
+`"#"` name: $2
+`"#"` key: ${3:key}
+# --
+$0
+`"#+end_src"`
+#+end_src
+
+** Python mode
+
+*** Print
+
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/python-mode/print :mkdirp yes
+# -*- mode: snippet -*-
+# name: print
+# key: p
+# --
+print("well done!")
+#+end_src
