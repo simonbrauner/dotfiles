@@ -1,4 +1,5 @@
 #+title: "C-c C-v t"
+#+property: header-args :mkdirp yes
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/init.el
 
 Personal GNU Emacs configuration!
@@ -446,15 +447,23 @@ The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
 
 *** New snippet
 
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/org-mode/newsnippet :mkdirp yes
+#+begin_src emacs-lisp
+(defun sb/yas-snippet-dir-with-tilde ()
+  "Generalize the snippet directory path by ~."
+  (replace-regexp-in-string ".*/.emacs.d"
+                            "~/.emacs.d"
+                            (car yas-snippet-dirs)))
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/org-mode/newsnippet
 # -*- mode: snippet -*-
 # name: newsnippet
 # key: n
 # --
-`"#+begin_src"` snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/${1:mode}/${2:name} :mkdirp yes
+`"#+begin_src snippet :tangle"` `(sb/yas-snippet-dir-with-tilde)`${1:mode}/$2
 # -*- mode: snippet -*-
-`"#"` name: $2
-`"#"` key: ${3:key}
+# name: ${2:name}
+# key: ${3:key}
 # --
 $0
 `"#+end_src"`
@@ -464,7 +473,7 @@ $0
 
 *** Print
 
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/python-mode/print :mkdirp yes
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/python-mode/print
 # -*- mode: snippet -*-
 # name: print
 # key: p
