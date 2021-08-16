@@ -91,6 +91,8 @@ Customizing the customizable editor.
 
 ** Movement
 
+The basic commands to move in buffers.
+
 |---------------------+---------|
 | Name                | Binding |
 |---------------------+---------|
@@ -125,6 +127,8 @@ Searching in current file with [[https://github.com/minad/consult][consult]].
 
 ** Lines
 
+Line-oriented functions.
+
 |------------------------+---------|
 | Name                   | Binding |
 |------------------------+---------|
@@ -139,6 +143,8 @@ Searching in current file with [[https://github.com/minad/consult][consult]].
 |------------------------+---------|
 
 ** Region
+
+Setting the mark and selecting text.
 
 |------------------------+---------|
 | Name                   | Binding |
@@ -180,6 +186,8 @@ Having [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]] in e
 #+end_src
 
 ** Swapping
+
+Changing the order or capitalization.
 
 |-----------------+---------|
 | Name            | Binding |
@@ -264,6 +272,7 @@ Going one directory up by pressing backscape in minibuffer find file. Jumps dire
 
 #+begin_src emacs-lisp
 (defun sb/minibuffer-kill-directory-name (arg)
+  "One directory up in find file minibuffer."
   (interactive "p")
   (if minibuffer-completing-file-name
       (unless (string= (minibuffer-contents) "/")
@@ -384,21 +393,6 @@ Automatically indented and with visual lines.
           'visual-line-mode)
 #+end_src
 
-*** Org tempo
-
-Shortcuts for code block languages.
-
-#+begin_src emacs-lisp
-(with-eval-after-load 'org
-  (require 'org-tempo)
-  (dolist (language '(("co" . "src conf")
-                      ("el" . "src emacs-lisp")
-                      ("hs" . "src haskell")
-                      ("sh" . "src shell")
-                      ("tx" . "src text")))
-    (add-to-list 'org-structure-template-alist language)))
-#+end_src
-
 ** Vterm
 
 Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]].
@@ -432,9 +426,11 @@ Do not guess anything, Python should be indented with 4 spaces.
 
 * Snippets
 
+A collection of snippets, separated by major modes.
+
 ** YASnippet
 
-The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
+No snippets yet, just using the [[https://github.com/joaotavora/yasnippet][package]].
 
 #+begin_src emacs-lisp
 (use-package yasnippet
@@ -444,6 +440,23 @@ The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
 #+end_src
 
 ** Org Mode
+
+Source blocks for programming languages by =org-tempo=, only one =yasnippet= for creating new snippets in this org file.
+
+*** Org tempo
+
+Shortcuts for code block languages.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  (dolist (language '(("co" . "src conf")
+                      ("el" . "src emacs-lisp")
+                      ("hs" . "src haskell")
+                      ("sh" . "src shell")
+                      ("tx" . "src text")))
+    (add-to-list 'org-structure-template-alist language)))
+#+end_src
 
 *** New snippet
 
@@ -479,7 +492,7 @@ $0
 
 ** Python mode
 
-*** Print
+One snippet to test how it works.
 
 #+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/python-mode/print
 # -*- mode: snippet -*-

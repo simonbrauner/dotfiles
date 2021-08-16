@@ -1,7 +1,7 @@
 #+title: System.org
 #+property: header-args :mkdirp yes
-#+property: header-args:text+ :tangle ./pkglist.txt
-#+property: header-args:haskell+ :tangle ~/.xmonad/xmonad.hs
+#+property: header-args:text :tangle ./pkglist.txt
+#+property: header-args:haskell :tangle ~/.xmonad/xmonad.hs
 
 Configuration and also a bit of documentation for Arch Linux and the applications that run on it.
 
@@ -336,6 +336,8 @@ feh
 #+end_src
 
 * Programming languages
+
+Compilers, interpreters,...
 
 ** Haskell
 
