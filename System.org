@@ -106,6 +106,23 @@ openssh
 
 [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_utilities][Sound settings]] with =alsamixer= command.
 
+*** Sound card
+
+Setting the [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card][default]] sound card.
+
+#+begin_src conf :tangle /sudo::/etc/asound.conf
+defaults.pcm.card 1
+defaults.ctl.card 1
+#+end_src
+
+*** PC speaker
+
+Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_speaker#Globally][beep noises]].
+
+#+begin_src conf :tangle /sudo::/etc/modprobe.d/nobeep.conf
+blacklist pcspkr
+#+end_src
+
 *** Package
 
 #+begin_src text
@@ -164,6 +181,20 @@ Running xmonad with [[https://wiki.archlinux.org/title/xmonad#Starting][xinit]].
 
 #+begin_src shell :tangle ~/.xinitrc
 exec xmonad
+#+end_src
+
+*** Touchpad
+
+Tapping the [[https://wiki.archlinux.org/title/Touchpad_Synaptics#Configuration][touchpad]] works as a mouse click, right button in the right top corner.
+
+#+begin_src conf :tangle /sudo::/etc/X11/xorg.conf.d/70-synaptics.conf
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "synaptics"
+    MatchIsTouchpad "on"
+        Option "TapButton1" "1"
+        Option "RTCornerButton" "3"
+EndSection
 #+end_src
 
 ** Xmonad
