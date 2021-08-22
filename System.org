@@ -129,6 +129,16 @@ blacklist pcspkr
 alsa-utils
 #+end_src
 
+** Backlight
+
+Changing the [[https://wiki.archlinux.org/title/backlight#Backlight_utilities][screen brightness]] with =brightnessctl=.
+
+*** Package
+
+#+begin_src text
+brightnessctl
+#+end_src
+
 ** Htop
 
 Managing processes using [[https://github.com/htop-dev/htop][htop]].
@@ -237,7 +247,8 @@ myModMask = mod4Mask
 
 #+begin_src haskell
 myKeys =
-  [ ("<XF86MonBrightnessDown>", spawn "pwd > ~/b")
+  [ ("<XF86MonBrightnessDown>", spawn "brightnessctl s 20%-")
+  , ("<XF86MonBrightnessUp>",   spawn "brightnessctl s 20%+")
   ]
 #+end_src
 
