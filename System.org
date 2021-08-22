@@ -36,6 +36,15 @@ systemctl suspend
 systemctl poweroff
 #+end_src
 
+*** Time
+
+Synchronizing the system clock with =systemd-timesyncd= service.
+
+#+begin_src shell
+sudo systemctl enable systemd-timesyncd --now
+timedatectl set-ntp t
+#+end_src
+
 ** Pacman
 
 The [[https://wiki.archlinux.org/title/pacman][package manager]] in Arch Linux.
