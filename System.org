@@ -38,7 +38,7 @@ systemctl poweroff
 
 *** Time
 
-Synchronizing the system clock with =systemd-timesyncd= service.
+Synchronizing the system clock with [[https://wiki.archlinux.org/title/Systemd-timesyncd][systemd-timesyncd]] service.
 
 #+begin_src shell
 sudo systemctl enable systemd-timesyncd --now
@@ -111,9 +111,9 @@ ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
 openssh
 #+end_src
 
-** ALSA utilities
+** Sound
 
-[[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_utilities][Sound settings]] with =alsamixer= command.
+Using [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture][ALSA utilities]] to manage sound.
 
 *** Sound card
 
@@ -256,7 +256,10 @@ myModMask = mod4Mask
 
 #+begin_src haskell
 myKeys =
-  [ ("<XF86MonBrightnessDown>", spawn "brightnessctl s 20%-")
+  [ ("<XF86AudioMute>",         spawn "amixer set Master toggle")
+  , ("<XF86AudioLowerVolume>",  spawn "amixer set Master 5%-")
+  , ("<XF86AudioRaiseVolume>",  spawn "amixer set Master 5%+")
+  , ("<XF86MonBrightnessDown>", spawn "brightnessctl s 20%-")
   , ("<XF86MonBrightnessUp>",   spawn "brightnessctl s 20%+")
   ]
 #+end_src
