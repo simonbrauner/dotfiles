@@ -168,6 +168,45 @@ Analyzing disk usage with [[https://dev.yorhel.nl/ncdu][ncdu]].
 ncdu
 #+end_src
 
+** Neofetch
+
+System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]].
+
+#+begin_src conf :tangle ~/.config/neofetch/config.conf
+print_info() {
+    info title
+    info underline
+
+    info "OS" distro
+    info "Host" model
+    info "Kernel" kernel
+    info "Uptime" uptime
+    info "Packages" packages
+    info "Disk" disk
+    info "Shell" shell
+    info "Resolution" resolution
+    info "DE" de
+    info "WM" wm
+    info "Terminal" term
+    info "Terminal Font" term_font
+    info "CPU" cpu
+    info "GPU" gpu
+    info "GPU Driver" gpu_driver
+    info "Memory" memory
+
+    info cols
+}
+
+uptime_shorthand="off"
+speed_shorthand="on"
+#+end_src
+
+*** Package
+
+#+begin_src text
+neofetch
+#+end_src
+
 * Window management
 
 Xorg and Xmonad.
@@ -243,6 +282,8 @@ myModMask = mod4Mask
 
 *** Key bindings
 
+The basic default keybindings.
+
 |----------------------------+------------|
 | Action                     | Binding    |
 |----------------------------+------------|
@@ -253,6 +294,8 @@ myModMask = mod4Mask
 | open terminal              | S-s-return |
 | close window               | S-s-c      |
 |----------------------------+------------|
+
+And some additional self-explanatory laptop-specific ones.
 
 #+begin_src haskell
 myKeys =

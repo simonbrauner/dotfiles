@@ -395,11 +395,14 @@ Automatically indented and with visual lines.
 
 ** Vterm
 
-Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]].
+Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]]. Opening on startup, launching =neofetch=.
 
 #+begin_src emacs-lisp
 (use-package vterm
-  :bind ("C-$" . vterm-other-window))
+  :init (vterm-other-window)
+  :config
+  (vterm-send-string "clear && neofetch")
+  (vterm-send-return))
 #+end_src
 
 * Programming languages
