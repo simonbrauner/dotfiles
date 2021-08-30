@@ -113,16 +113,7 @@ openssh
 
 ** Sound
 
-Using [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture][ALSA utilities]] to manage sound.
-
-*** Sound card
-
-Setting the [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card][default]] sound card.
-
-#+begin_src conf :tangle /sudo::/etc/asound.conf
-defaults.pcm.card 1
-defaults.ctl.card 1
-#+end_src
+Using [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture][ALSA utilities]] and [[https://wiki.archlinux.org/title/PulseAudio][PulseAudio]] to manage sound.
 
 *** PC speaker
 
@@ -132,10 +123,12 @@ Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_
 blacklist pcspkr
 #+end_src
 
-*** Package
+*** Packages
 
 #+begin_src text
 alsa-utils
+pulseaudio
+pulseaudio-alsa
 #+end_src
 
 ** Backlight
