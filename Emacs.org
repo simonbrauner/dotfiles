@@ -253,8 +253,11 @@ Custom mode-line.
                                 (buffer-modified-p))
                            (propertize "~" 'face 'sb/mode-line-not-saved)
                          " "))
+                (:eval (unless (buffer-file-name)
+                         "  "))
                 (:eval (propertize "%b" 'face 'bold))
-                "   %p L%l    %m"))
+                (:eval (when (buffer-file-name)
+                         "   %p L%l    %m"))))
 #+end_src
 
 *** Uniquify
