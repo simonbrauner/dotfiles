@@ -265,6 +265,7 @@ import XMonad
 import XMonad.Util.EZConfig
 import XMonad.Actions.SpawnOn
 import XMonad.Layout.NoBorders
+import XMonad.Hooks.DynamicLog
 #+end_src
 
 *** Basics
@@ -338,7 +339,7 @@ myStartupHook = do
 *** Main
 
 #+begin_src haskell
-main = xmonad defaults
+main = xmonad =<< xmobar defaults
 
 defaults = def
   { terminal           = myTerminal
@@ -374,6 +375,39 @@ Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
 #+begin_src text
 xmonad
 xmonad-contrib
+#+end_src
+
+** Xmobar
+
+A simple [[https://wiki.archlinux.org/title/Xmobar][status bar]]. Refresh rate in =seconds/10=.
+
+#+begin_src haskell :tangle ~/.xmobarrc
+Config
+  { font        = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
+  , bgColor     = "black"
+  , fgColor     = "white"
+  , position    = Top
+  , border      = BottomB
+  , borderColor = "#373844"
+
+  , template = "  %battery% }{ %date%  "
+  , commands =
+    [ Run Battery [ "--template" , "Battery: <left>%"
+                  , "--Low"      , "10"
+                  , "--High"     , "80"
+                  , "--low"      , "red"
+                  , "--normal"   , "orange"
+                  , "--high"     , "green"
+                  ] 50
+    , Run Date    "%a %d.%m.%Y %R" "date" 10
+    ]
+}
+#+end_src
+
+*** Package
+
+#+begin_src text
+xmobar
 #+end_src
 
 ** Dmenu
