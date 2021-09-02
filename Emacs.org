@@ -85,6 +85,27 @@ Saving the cursor position in file associated buffers.
 (save-place-mode 1)
 #+end_src
 
+** Magit
+
+Git client [[https://github.com/magit/magit][Magit]].
+
+#+begin_src emacs-lisp
+(use-package magit
+  :config (setq magit-section-visibility-indicator nil))
+#+end_src
+
+** Vterm
+
+Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]]. Opening on startup, launching =neofetch=.
+
+#+begin_src emacs-lisp
+(use-package vterm
+  :init (vterm-other-window)
+  :config
+  (vterm-send-string "clear && neofetch")
+  (vterm-send-return))
+#+end_src
+
 * Editing text
 
 Customizing the customizable editor.
@@ -367,24 +388,59 @@ White text, slightly lighter background.
   (set-face-background 'org-block "#2e303c"))
 #+end_src
 
-* Major modes
+* Org mode
 
-The big packages unassociated with a single programming language.
+The [[https://orgmode.org/][mode to organize everything]].
 
-** Magit
+** Markup
 
-Git client [[https://github.com/magit/magit][Magit]].
+Structuring and highlighting text.
+
+|----------------------+-------------------|
+| Construct            | Notation          |
+|----------------------+-------------------|
+| big heading          | one asterisk      |
+| small heading        | two asterisks     |
+| even smaller heading | three asterisks   |
+| *bold*               | asterisks around  |
+| =verbatim=           | equal sign around |
+| +crossed+            | plus sign around  |
+|----------------------+-------------------|
+
+Show the hidden part of document when attempted to modify it.
 
 #+begin_src emacs-lisp
-(use-package magit
-  :config (setq magit-section-visibility-indicator nil))
+(setq org-catch-invisible-edits t)
 #+end_src
 
-** Org mode
+Showing and hiding with =TAB= and =S-TAB=.
 
-Org mode.
+** Links
 
-*** Indentation
+Inserting links after setting the region.
+
+|---------------+-----------------------------------------|
+| Link          | Action                                  |
+|---------------+-----------------------------------------|
+| web page link | C-c C-l =url=                           |
+| file link     | in file =org-store-link= in org C-c C-l |
+| open link     | C-c C-o or mouse click                  |
+|---------------+-----------------------------------------|
+
+** Task management
+
+TODO cycle with =C-c C-t=, org agenda bound to =M-a=.
+
+*** Agenda
+
+Files and keybindings for the [[https://orgmode.org/manual/Agenda-Views.html#Agenda-Views][agenda]].
+
+#+begin_src emacs-lisp
+(bind-key* "M-a" 'org-agenda)
+(setq org-agenda-files '("~/OrgFiles/MUNI.org"))
+#+end_src
+
+** Indentation
 
 Automatically indented and with visual lines.
 
@@ -394,18 +450,6 @@ Automatically indented and with visual lines.
 
 (add-hook 'org-mode-hook
           'visual-line-mode)
-#+end_src
-
-** Vterm
-
-Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]]. Opening on startup, launching =neofetch=.
-
-#+begin_src emacs-lisp
-(use-package vterm
-  :init (vterm-other-window)
-  :config
-  (vterm-send-string "clear && neofetch")
-  (vterm-send-return))
 #+end_src
 
 * Programming languages
