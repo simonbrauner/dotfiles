@@ -390,16 +390,31 @@ Config
   , border      = BottomB
   , borderColor = "#373844"
 
-  , template = "  %battery% }{ %date%  "
+  , template = "  %battery%  |  %multicpu%  |  %memory%}{%date%  "
   , commands =
-    [ Run Battery [ "--template" , "Battery: <left>%"
-                  , "--Low"      , "10"
-                  , "--High"     , "80"
-                  , "--low"      , "red"
-                  , "--normal"   , "orange"
-                  , "--high"     , "green"
-                  ] 50
-    , Run Date    "%a %d.%m.%Y %R" "date" 10
+    [ Run Battery  [ "-t" , "Battery: <left>%"
+                   , "-L" , "20"
+                   , "-H" , "60"
+                   , "-l" , "red"
+                   , "-n" , "orange"
+                   , "-h" , "green"
+                   ] 50
+    , Run MultiCpu [ "-t" , "Cpu: <total>%"
+                   , "-L" , "10"
+                   , "-H" , "50"
+                   , "-l" , "green"
+                   , "-n" , "orange"
+                   , "-h" , "red"
+                   ] 20
+    , Run Memory   [ "-t" , "Memory: <usedratio>%"
+                   , "-L" , "20"
+                   , "-H" , "40"
+                   , "-l" , "green"
+                   , "-n" , "orange"
+                   , "-h" , "red"
+                   ] 20
+
+    , Run Date "%a %d.%m.%Y %R" "date" 10
     ]
 }
 #+end_src
