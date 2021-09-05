@@ -143,6 +143,14 @@ Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_
 blacklist pcspkr
 #+end_src
 
+*** Stop error message
+
+Avoiding [[https://forums.lenovo.com/t5/Other-Linux-Discussions/AMD-T14-kernel-error-about-acp-pdm-mach/m-p/5066593?page=1#5339535][this]] message shown at the login screen by adding the [[https://wiki.archlinux.org/title/kernel_parameters#systemd-boot][kernel parameter]]. Not tangled because tramp finds it difficult.
+
+#+begin_src conf
+snd_rn_pci_acp3x.dmic_acpi_check=0
+#+end_src
+
 *** Packages
 
 #+begin_src text
