@@ -183,35 +183,56 @@ ncdu
 
 ** Neofetch
 
-System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]].
+System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]]. Configured to show constant info only. =Memory= and =Disk= hardcoded to avoid irrelevant ratios. =Terminal= is the only dynamic part - it shows the tty number.
 
 #+begin_src conf :tangle ~/.config/neofetch/config.conf
 print_info() {
-    info title
+    info model
     info underline
-
-    info "OS" distro
-    info "Host" model
-    info "Kernel" kernel
-    info "Uptime" uptime
-    info "Packages" packages
-    info "Disk" disk
-    info "Shell" shell
-    info "Resolution" resolution
-    info "DE" de
-    info "WM" wm
-    info "Terminal" term
-    info "Terminal Font" term_font
     info "CPU" cpu
     info "GPU" gpu
-    info "GPU Driver" gpu_driver
+    info "Resolution" resolution
     info "Memory" memory
+    info "Disk" disk
 
+    prin
+    prin
+    info distro
+    info underline
+    info "Shell" shell
+    info "GPU Driver" gpu_driver
+    info "WM" wm
+    info "Terminal" term
+
+    prin
     info cols
 }
 
-uptime_shorthand="off"
+get_memory() {
+    memory="7295MiB"
+}
+
+get_disk() {
+    disk="234G"
+}
+
+get_term() {
+    term="\l"
+}
+
 speed_shorthand="on"
+disk_subtitle="none"
+shell_version="off"
+#+end_src
+
+*** Before login
+
+Showing neofetch at the bash login screen by saving the output into =/etc/issue= file.
+
+#+begin_src shell
+neofetch > neofetch_before_login
+sudo cp neofetch_before_login /etc/issue
+rm neofetch_before_login
 #+end_src
 
 *** Package
