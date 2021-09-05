@@ -191,7 +191,11 @@ ncdu
 
 ** Neofetch
 
-System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]]. Configured to show constant info only. =Memory= and =Disk= hardcoded to avoid irrelevant ratios. =Terminal= is the only dynamic part - it shows the tty number.
+System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]].
+
+*** Before login
+
+Configured to show constant info only. =Memory= and =Disk= hardcoded to avoid irrelevant ratios. =Terminal= is the only dynamic part - it shows the tty number.
 
 #+begin_src conf :tangle ~/.config/neofetch/config.conf
 print_info() {
@@ -207,13 +211,11 @@ print_info() {
     prin
     info distro
     info underline
+    info "Kernel" kernel
     info "Shell" shell
     info "GPU Driver" gpu_driver
     info "WM" wm
     info "Terminal" term
-
-    prin
-    info cols
 }
 
 get_memory() {
@@ -230,18 +232,38 @@ get_term() {
 
 speed_shorthand="on"
 disk_subtitle="none"
-shell_version="off"
 #+end_src
 
-*** Before login
+*** Issue file
 
 Showing neofetch at the bash login screen by saving the output into =/etc/issue= file.
 
 #+begin_src shell
-neofetch > neofetch_before_login
-sudo cp neofetch_before_login /etc/issue
-rm neofetch_before_login
+neofetch > /etc/issue
 #+end_src
+
+*** Pacman hook
+
+Redrawing neofetch login screen after kernel/bash update so that the displayed version numbers are accurate.
+
+#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/neofetch.hook
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = linux
+
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = bash
+
+[Action]
+Description = Redrawing neofetch...
+When = PostTransaction
+Exec = /usr/bin/sh -c '/usr/bin/neofetch --config /home/sb/.config/neofetch/config.conf > /etc/issue'
+#+end_src
+
+Exec = /usr/bin/sudo -u sb '/usr/bin/sh -c "/usr/bin/neofetch > /etc/issue"'
 
 *** Package
 
