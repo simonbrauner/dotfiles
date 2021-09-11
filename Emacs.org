@@ -467,7 +467,15 @@ Files and keybindings for the [[https://orgmode.org/manual/Agenda-Views.html#Age
 
 #+begin_src emacs-lisp
 (bind-key* "M-a" 'org-agenda)
-(setq org-agenda-files '("~/OrgFiles/MUNI.org"))
+(setq org-agenda-files '("~/muni/Tasks.org"))
+#+end_src
+
+*** Calendar
+
+Week begins on Monday.
+
+#+begin_src emacs-lisp
+(setq calendar-week-start-day 1)
 #+end_src
 
 ** Indentation
