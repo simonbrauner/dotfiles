@@ -102,23 +102,36 @@ Trying out eshell instead of [[https://github.com/akermu/emacs-libvterm][Vterm]]
 
 Customizing the customizable editor.
 
+** Free keys
+
+The keys that are by default globally bound to commands not used by me.
+
+*** Control
+
+=q=, =i=, =o=.
+
+*** Meta
+
+=q=, =e=, =i=, =o=, =p=, =s=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
+
 ** Movement
 
 The basic commands to move in buffers.
 
-|---------------------+---------|
-| Name                | Binding |
-|---------------------+---------|
-| scroll-up-command   | C-v     |
-| scroll-down-command | M-v     |
-| recenter-top-bottom | C-l     |
-| forward-char        | C-f     |
-| backward-char       | C-b     |
-| forward-word        | M-f     |
-| backward-word       | M-b     |
-| avy-goto-char       | C-j     |
-| consult-line        | C-s     |
-|---------------------+---------|
+|--------------------------------+---------|
+| Name                           | Binding |
+|--------------------------------+---------|
+| scroll-up-command              | C-v     |
+| scroll-down-command            | M-v     |
+| recenter-top-bottom            | C-l     |
+| move-to-window-line-top-bottom | M-r     |
+| forward-char                   | C-f     |
+| backward-char                  | C-b     |
+| forward-word                   | M-f     |
+| backward-word                  | M-b     |
+| avy-goto-char                  | C-j     |
+| consult-line                   | C-s     |
+|--------------------------------+---------|
 
 *** Avy
 
@@ -152,8 +165,19 @@ Line-oriented functions.
 | previous-line          | C-p     |
 | open-line              | C-o     |
 | newline                | C-m     |
+| delete-char            | C-d     |
 | kill-line              | C-k     |
+| delete-backward-char   | DEL     |
+| delete-indentation     | C-DEL   |
 |------------------------+---------|
+
+*** Deleting indentation
+
+Moving to previous line with =C-backspace=.
+
+#+begin_src emacs-lisp
+(bind-key* "<C-backspace>" 'delete-indentation)
+#+end_src
 
 ** Region
 
@@ -211,6 +235,20 @@ Changing the order or capitalization.
 | upcase-word     | M-u     |
 | capitalize-word | M-c     |
 |-----------------+---------|
+
+** Others
+
+|--------------------------+---------|
+| Name                     | Binding |
+|--------------------------+---------|
+| keyboard-quit            | C-g     |
+| universal-argument       | C-u     |
+| suspend-frame            | C-z     |
+| execute-extended-command | M-x     |
+| help prefix              | C-h     |
+| general prefix           | C-x     |
+| mode specific prefix     | C-c     |
+|--------------------------+---------|
 
 * Face
 
