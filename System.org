@@ -533,14 +533,11 @@ Displayed by the X Window System.
 
 The extensible, customizable, self-documenting, real-time display editor. Configured in its own file.
 
-*** Packages
+*** Package
 
-Vterm dependencies and Fira Code font.
+Fira Code font.
 
 #+begin_src text
-cmake
-libtool
-libvterm
 ttf-fira-code
 #+end_src
 

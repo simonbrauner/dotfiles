@@ -94,17 +94,9 @@ Git client [[https://github.com/magit/magit][Magit]].
   :config (setq magit-section-visibility-indicator nil))
 #+end_src
 
-** Vterm
+** Eshell
 
-Terminal emulator [[https://github.com/akermu/emacs-libvterm][Vterm]]. Opening on startup, launching =neofetch=.
-
-#+begin_src emacs-lisp
-(use-package vterm
-  :init (vterm-other-window)
-  :config
-  (vterm-send-string "clear && neofetch")
-  (vterm-send-return))
-#+end_src
+Trying out eshell instead of [[https://github.com/akermu/emacs-libvterm][Vterm]]. It is included in emacs, so no =use-package= necessary.
 
 * Editing text
 
