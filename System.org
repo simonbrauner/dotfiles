@@ -111,6 +111,26 @@ ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
 openssh
 #+end_src
 
+** BlueZ
+
+[[https://wiki.archlinux.org/title/bluetooth][Bluetooth]] implementation. Connects automatically to bluetooth headphones.
+
+*** Autostart
+
+Auto power-on [[https://wiki.archlinux.org/title/bluetooth#Auto_power-on_after_boot][after boot]].
+
+#+begin_src conf :tangle /sudo::/etc/bluetooth/main.conf
+[Policy]
+AutoEnable=true
+#+end_src
+
+*** Packages
+
+#+begin_src text
+bluez
+bluez-utils
+#+end_src
+
 ** Touchpad
 
 Tapping the [[https://wiki.archlinux.org/title/Touchpad_Synaptics#Configuration][touchpad]] works as a mouse click, right button in the right top corner.
@@ -157,6 +177,7 @@ snd_rn_pci_acp3x.dmic_acpi_check=0
 alsa-utils
 pulseaudio
 pulseaudio-alsa
+pulseaudio-bluetooth
 #+end_src
 
 ** Backlight
@@ -446,13 +467,13 @@ Config
   , borderColor = "#373844"
 
   , template = "  %battery%  |  %multicpu%  |  %memory%}{\
-               \%alsa:default:Master%  |  %alsa:default:Capture%  |  %bright%  |  %date%  "
+               \%default:Master%  |  %default:Capture%  |  %bright%  |  %date%  "
   , commands =
 #+end_src
 
 *** Plugins
 
-Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][there]]. Refresh rate in =seconds/10=.
+Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][there]]. Refresh rate in =seconds/10=. =Volume= instead of =Alsa= to be able to see volume of bluetooth device.
 
 #+begin_src haskell :tangle ~/.xmobarrc
 [ Run Battery    [ "-t" , "Battery: <left>%"
@@ -476,10 +497,10 @@ Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][ther
                  , "-n" , "orange"
                  , "-h" , "red"
                  ] 20
-, Run Alsa       "default" "Master"
-                 [ "-t" , "Volume: <volume>% <status>"]
-, Run Alsa       "default" "Capture"
-                 [ "-t" , "Microphone: <volume>% <status>"]
+, Run Volume     "default" "Master"
+                 [ "-t" , "Volume: <volume>% <status>"] 10
+, Run Volume     "default" "Capture"
+                 [ "-t" , "Microphone: <volume>% <status>"] 10
 , Run Brightness [ "-t" , "Brightness: <percent>%"
                  , "--"
                  , "-D" , "/sys/class/backlight/amdgpu_bl0"
