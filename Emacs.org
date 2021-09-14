@@ -497,7 +497,14 @@ Automatically indented and with visual lines.
 The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
 
 #+begin_src emacs-lisp
-(use-package haskell-mode)
+(use-package haskell-mode
+  :config
+  (setq haskell-indentation-starter-offset 4)
+  (setq haskell-indentation-left-offset 4)
+  (setq haskell-indentation-layout-offset 4)
+  (setq haskell-indentation-where-pre-offset 4)
+  (setq haskell-indentation-where-post-offset 4))
+;(haskell-indent-mode)
 #+end_src
 
 ** Python
