@@ -498,13 +498,15 @@ The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
 
 #+begin_src emacs-lisp
 (use-package haskell-mode
+  :bind (:map haskell-mode-map
+         ("C-c C-c" . haskell-process-load-file))
   :config
   (setq haskell-indentation-starter-offset 4)
   (setq haskell-indentation-left-offset 4)
   (setq haskell-indentation-layout-offset 4)
   (setq haskell-indentation-where-pre-offset 4)
-  (setq haskell-indentation-where-post-offset 4))
-;(haskell-indent-mode)
+  (setq haskell-indentation-where-post-offset 4)
+  (setq haskell-interactive-popup-errors nil))
 #+end_src
 
 ** Python
@@ -595,4 +597,35 @@ One snippet to test how it works.
 # key: p
 # --
 print("well done!")
+#+end_src
+
+** Haskell mode
+
+*** Functions
+
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/haskell-mode/function2
+# -*- mode: snippet -*-
+# name: function2
+# key: f2
+# --
+${1:function} :: ${2:type} -> ${3:type}
+$1 ${4:argument} = $0
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/haskell-mode/function3
+# -*- mode: snippet -*-
+# name: function3
+# key: f3
+# --
+${1:function} :: ${2:type} -> ${3:type} -> ${4:type}
+$1 ${5:argument} ${6:argument} = $0
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/haskell-mode/function4
+# -*- mode: snippet -*-
+# name: function4
+# key: f4
+# --
+${1:function} :: ${2:type} -> ${3:type} -> ${4:type} -> ${5:type}
+$1 ${6:argument} ${7:argument} ${8:argument} = $0
 #+end_src
