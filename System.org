@@ -343,6 +343,7 @@ The basic default keybindings.
 | move window to workspace 2 | S-s-2      |
 | open terminal              | S-s-return |
 | close window               | S-s-c      |
+| toggle xmobar              | s-b        |
 |----------------------------+------------|
 
 And some additional self-explanatory laptop-specific ones.
@@ -437,7 +438,7 @@ Border color designed to match emacs' screen separator. Special signs: =%%= for 
 
 #+begin_src haskell :tangle ~/.xmobarrc
 Config
-  { font        = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
+  { font        = "xft:Bitstream Vera Sans Mono:size=8:bold:antialias=true"
   , bgColor     = "black"
   , fgColor     = "white"
   , position    = Top
@@ -534,7 +535,7 @@ firefox
 Terminal emulator [[https://github.com/kovidgoyal/kitty][Kitty]], setting the font size.
 
 #+begin_src conf :tangle ~/.config/kitty/kitty.conf
-font_size 20.0
+font_size 13.0
 #+end_src
 
 *** Package
