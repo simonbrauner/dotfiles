@@ -283,9 +283,10 @@ Omitting the welcome page, disabling mouse related parts of UI and setting the d
 Setting [[https://github.com/tonsky/FiraCode][Fira Code]] (without ligatures) font with a proper size.
 
 #+begin_src emacs-lisp
-(set-face-attribute 'default nil
-                    :font "Fira Code"
-                    :height 115)
+(when (x-list-fonts "Fira Code")
+  (set-face-attribute 'default nil
+                      :font "Fira Code"
+                      :height 115))
 #+end_src
 
 ** Mode-line
