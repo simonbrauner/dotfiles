@@ -304,6 +304,14 @@ Running xmonad with [[https://wiki.archlinux.org/title/xmonad#Starting][xinit]].
 exec xmonad
 #+end_src
 
+*** Package
+
+Fira Code font.
+
+#+begin_src text
+ttf-fira-code
+#+end_src
+
 ** Xmonad
 
 A tiling window manager [[https://wiki.archlinux.org/title/xmonad][xmonad]].
@@ -438,7 +446,7 @@ Border color designed to match emacs' screen separator. Special signs: =%%= for 
 
 #+begin_src haskell :tangle ~/.xmobarrc
 Config
-  { font        = "xft:Bitstream Vera Sans Mono:size=8:bold:antialias=true"
+  { font        = "xft:Fira Code:size=8"
   , bgColor     = "black"
   , fgColor     = "white"
   , position    = Top
@@ -512,14 +520,6 @@ Displayed by the X Window System.
 
 The extensible, customizable, self-documenting, real-time display editor. Configured in its own file.
 
-*** Package
-
-Fira Code font.
-
-#+begin_src text
-ttf-fira-code
-#+end_src
-
 ** Firefox
 
 A web browser.
@@ -535,7 +535,8 @@ firefox
 Terminal emulator [[https://github.com/kovidgoyal/kitty][Kitty]], setting the font size.
 
 #+begin_src conf :tangle ~/.config/kitty/kitty.conf
-font_size 13.0
+font_family Fira Code
+font_size 14.0
 #+end_src
 
 *** Package
