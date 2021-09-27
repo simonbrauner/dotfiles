@@ -491,7 +491,29 @@ Automatically indented and with visual lines.
           'visual-line-mode)
 #+end_src
 
+** Org tempo
+
+Shortcuts for code block languages.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  (dolist (language '(("co" . "src conf")
+                      ("el" . "src emacs-lisp")
+                      ("hs" . "src haskell")
+                      ("sh" . "src shell")
+                      ("tx" . "src text")))
+    (add-to-list 'org-structure-template-alist language)))
+#+end_src
+
 * Programming languages
+
+|--------------------------+---------|
+| Name                     | Binding |
+|--------------------------+---------|
+| launch REPL process      | C-c C-p |
+| current buffer into REPL | C-c C-c |
+|--------------------------+---------|
 
 ** Haskell
 
@@ -500,6 +522,7 @@ The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
 #+begin_src emacs-lisp
 (use-package haskell-mode
   :bind (:map haskell-mode-map
+         ("C-c C-p" . haskell-process-reload)
          ("C-c C-c" . haskell-process-load-file))
   :config
   (setq haskell-indentation-starter-offset 4)
@@ -520,113 +543,4 @@ Do not guess anything, Python should be indented with 4 spaces.
 
 #+begin_src emacs-lisp
 (setq python-indent-guess-indent-offset nil)
-#+end_src
-
-* Snippets
-
-A collection of snippets, separated by major modes.
-
-** YASnippet
-
-No snippets yet, just using the [[https://github.com/joaotavora/yasnippet][package]].
-
-#+begin_src emacs-lisp
-(use-package yasnippet
-  :config
-  (setq yas-indent-line 'fixed)
-  (yas-global-mode 1))
-#+end_src
-
-** Org Mode
-
-Source blocks for programming languages by =org-tempo=, only one =yasnippet= for creating new snippets in this org file.
-
-*** Org tempo
-
-Shortcuts for code block languages.
-
-#+begin_src emacs-lisp
-(with-eval-after-load 'org
-  (require 'org-tempo)
-  (dolist (language '(("co" . "src conf")
-                      ("el" . "src emacs-lisp")
-                      ("hs" . "src haskell")
-                      ("sh" . "src shell")
-                      ("tx" . "src text")))
-    (add-to-list 'org-structure-template-alist language)))
-#+end_src
-
-*** New snippet
-
-Using tilde in directory path, reading mode from level 2 org heading.
-
-#+begin_src emacs-lisp
-(defun sb/write-snippet-path ()
-  "Write path to tangle the new snippet."
-  (concat (replace-regexp-in-string ".*/.emacs.d" "~/.emacs.d"
-                                    (car yas-snippet-dirs))
-          (save-excursion
-            (let ((begin (+ 3 (re-search-backward "^\*\\{2\\} ")))
-                  (end (progn (end-of-line) (point))))
-              (replace-regexp-in-string " " "-"
-                                        (downcase (buffer-substring-no-properties begin end)))))))
-#+end_src
-
-The snippet for a new snippet.
-
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/org-mode/newsnippet
-# -*- mode: snippet -*-
-# name: newsnippet
-# key: n
-# --
-`"#+begin_src snippet :tangle"` `(sb/write-snippet-path)`/$1
-# -*- mode: snippet -*-
-# name: ${1:name}
-# key: ${2:key}
-# --
-$0
-`"#+end_src"`
-#+end_src
-
-** Python mode
-
-One snippet to test how it works.
-
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/python-mode/print
-# -*- mode: snippet -*-
-# name: print
-# key: p
-# --
-print("well done!")
-#+end_src
-
-** Haskell mode
-
-*** Functions
-
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/haskell-mode/function2
-# -*- mode: snippet -*-
-# name: function2
-# key: f2
-# --
-${1:function} :: ${2:type} -> ${3:type}
-$1 ${4:argument} = $0
-#+end_src
-
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/haskell-mode/function3
-# -*- mode: snippet -*-
-# name: function3
-# key: f3
-# --
-${1:function} :: ${2:type} -> ${3:type} -> ${4:type}
-$1 ${5:argument} ${6:argument} = $0
-#+end_src
-
-#+begin_src snippet :tangle ~/.emacs.d/etc/yasnippet/snippets/haskell-mode/function4
-# -*- mode: snippet -*-
-# name: function4
-# key: f4
-# --
-${1:function} :: ${2:type} -> ${3:type} -> ${4:type} -> ${5:type}
-$1 ${6:argument} ${7:argument} ${8:argument} = $0
 #+end_src
