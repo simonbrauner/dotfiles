@@ -446,16 +446,17 @@ Border color designed to match emacs' screen separator. Special signs: =%%= for 
 
 #+begin_src haskell :tangle ~/.xmobarrc
 Config
-  { font        = "xft:Fira Code:size=8"
-  , bgColor     = "black"
-  , fgColor     = "white"
-  , position    = Top
-  , border      = BottomB
-  , borderColor = "#373844"
+    { font        = "xft:Fira Code:size=8"
+    , additionalFonts = [ "xft:Fira Code:size=8:bold" ]
+    , bgColor     = "black"
+    , fgColor     = "white"
+    , position    = Top
+    , border      = BottomB
+    , borderColor = "#373844"
 
-  , template = "  %battery%  |  %multicpu%  |  %memory%}{\
-               \%default:Master%  |  %default:Capture%  |  %bright%  |  %date%  "
-  , commands =
+    , template = "  %battery%  |  %multicpu%  |  %memory%}{\
+                 \%default:Master%  |  %default:Capture%  |  %bright%  |  %date%  "
+    , commands =
 #+end_src
 
 *** Plugins
@@ -463,21 +464,21 @@ Config
 Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][there]]. Refresh rate in =seconds/10=. =Volume= instead of =Alsa= to be able to see volume of bluetooth device.
 
 #+begin_src haskell :tangle ~/.xmobarrc
-[ Run Battery    [ "-t" , "Battery: <left>%"
+[ Run Battery    [ "-t" , "Battery: <fn=1><left>%</fn>"
                  , "-L" , "20"
                  , "-H" , "60"
                  , "-l" , "red"
                  , "-n" , "orange"
                  , "-h" , "green"
                  ] 50
-, Run MultiCpu   [ "-t" , "Cpu: <total>%"
+, Run MultiCpu   [ "-t" , "Cpu: <fn=1><total>%</fn>"
                  , "-L" , "10"
                  , "-H" , "50"
                  , "-l" , "green"
                  , "-n" , "orange"
                  , "-h" , "red"
                  ] 20
-, Run Memory     [ "-t" , "Memory: <usedratio>%"
+, Run Memory     [ "-t" , "Memory: <fn=1><usedratio>%</fn>"
                  , "-L" , "20"
                  , "-H" , "40"
                  , "-l" , "green"
@@ -485,14 +486,14 @@ Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][ther
                  , "-h" , "red"
                  ] 20
 , Run Volume     "default" "Master"
-                 [ "-t" , "Volume: <volume>% <status>"] 10
+                 [ "-t" , "Volume: <fn=1><volume>% <status></fn>"] 10
 , Run Volume     "default" "Capture"
-                 [ "-t" , "Microphone: <volume>% <status>"] 10
-, Run Brightness [ "-t" , "Brightness: <percent>%"
+                 [ "-t" , "Microphone: <fn=1><volume>% <status></fn>"] 10
+, Run Brightness [ "-t" , "Brightness: <fn=1><percent>%</fn>"
                  , "--"
                  , "-D" , "/sys/class/backlight/amdgpu_bl0"
                  ] 10
-, Run Date       "%a %d.%m.%Y %R" "date" 10
+, Run Date       "<fn=1>%a %d.%m.%Y %R</fn>" "date" 10
 ]}
 #+end_src
 
