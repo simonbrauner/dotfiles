@@ -556,6 +556,16 @@ A light-weight, configurable and versatile image viewer - [[https://github.com/d
 feh
 #+end_src
 
+** VLC
+
+Video player [[https://wiki.archlinux.org/title/VLC_media_player][VLC]].
+
+*** Package
+
+#+begin_src text
+vlc
+#+end_src
+
 * Programming languages
 
 Compilers, interpreters,...
