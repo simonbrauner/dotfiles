@@ -582,10 +582,12 @@ ghc
 
 ** Python
 
-[[https://github.com/python/cpython][CPython]].
+[[https://github.com/python/cpython][CPython]] with pip and tk.
 
-*** Package
+*** Packages
 
 #+begin_src text
 python
+python-pip
+tk
 #+end_src
