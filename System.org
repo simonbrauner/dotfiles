@@ -9,14 +9,15 @@ Configuration and also a bit of documentation for Arch Linux and the application
 
 The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall][archinstall]]. That suits me because I hardly need anything else than the defaults.
 
-|------------------------+---------------|
-| Question               | Answer        |
-|------------------------+---------------|
-| bootloader             | systemd-boot  |
-| pre-programmed-profile | xorg          |
-| additional packages    | git emacs     |
-| timezone               | Europe/Prague |
-|------------------------+---------------|
+|------------------------+----------------|
+| Question               | Answer         |
+|------------------------+----------------|
+| bootloader             | systemd-boot   |
+| pre-programmed-profile | xorg           |
+| additional packages    | git emacs      |
+| timezone               | Europe/Prague  |
+| network                | NetworkManager |
+|------------------------+----------------|
 
 * Bash
 
@@ -592,6 +593,24 @@ Video player [[https://wiki.archlinux.org/title/VLC_media_player][VLC]].
 
 #+begin_src text
 vlc
+#+end_src
+
+** NM-applet
+
+NetworkManager [[https://wiki.archlinux.org/title/NetworkManager#nm-applet][front-end]] to connect to [[https://it.muni.cz/sluzby/wifi/navody/desktopove-operacni-systemy/eduroam-na-linux-ubuntu][eduroam]].
+
+#+begin_src shell
+#!/bin/sh
+nm-applet    2>&1 > /dev/null &
+stalonetray  2>&1 > /dev/null
+killall nm-applet
+#+end_src
+
+*** Packages
+
+#+begin_src text
+network-manager-applet
+stalonetray
 #+end_src
 
 * Programming languages
