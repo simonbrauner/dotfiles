@@ -519,14 +519,8 @@ Shortcuts for code block languages.
 |--------------------------+---------|
 | launch REPL process      | C-c C-p |
 | current buffer into REPL | C-c C-c |
-| move to previous line    | C-i     |
+| move to previous line    | M-^     |
 |--------------------------+---------|
-
-Global keybindings.
-
-#+begin_src emacs-lisp
-(bind-key "C-i" 'delete-indentation)
-#+end_src
 
 ** Haskell
 
@@ -536,8 +530,7 @@ The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
 (use-package haskell-mode
   :bind (:map haskell-mode-map
          ("C-c C-p" . haskell-process-reload)
-         ("C-c C-c" . haskell-process-load-file)
-         ("C-i"     . haskell-delete-indentation))
+         ("C-c C-c" . haskell-process-load-file))
   :config
   (setq haskell-indentation-starter-offset 4)
   (setq haskell-indentation-left-offset 4)
