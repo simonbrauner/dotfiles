@@ -512,13 +512,14 @@ Shortcuts for code block languages.
       (add-to-list 'org-structure-template-alist language))))
 #+end_src
 
-* Programming languages
+* Programming modes
 
 |--------------------------+---------|
 | Name                     | Binding |
 |--------------------------+---------|
 | launch REPL process      | C-c C-p |
 | current buffer into REPL | C-c C-c |
+| clear REPL               | C-l     |
 | move to previous line    | M-^     |
 |--------------------------+---------|
 
@@ -530,7 +531,8 @@ The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
 (use-package haskell-mode
   :bind (:map haskell-mode-map
          ("C-c C-p" . haskell-process-reload)
-         ("C-c C-c" . haskell-process-load-file))
+         ("C-c C-c" . haskell-process-load-file)
+         ("C-l"     . haskell-interactive-mode-clear))
   :config
   (setq haskell-indentation-starter-offset 4)
   (setq haskell-indentation-left-offset 4)
@@ -550,4 +552,12 @@ Do not guess anything, Python should be indented with 4 spaces.
 
 #+begin_src emacs-lisp
 (setq python-indent-guess-indent-offset nil)
+#+end_src
+
+*** Interactive process
+
+Clear the REPL buffer by =C-l=.
+
+#+begin_src emacs-lisp
+(bind-key "C-l" 'comint-clear-buffer 'comint-mode-map)
 #+end_src
