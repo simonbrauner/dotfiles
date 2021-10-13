@@ -569,3 +569,30 @@ Clear the REPL buffer by =C-l=.
 #+begin_src emacs-lisp
 (bind-key "C-l" 'comint-clear-buffer 'comint-mode-map)
 #+end_src
+
+*** Modules
+
+Flake8 and mypy.
+
+#+begin_src emacs-lisp
+(defun sb/python-execute-flake8 ()
+  (interactive)
+  (python-shell-send-string (concat
+                             "subprocess.run(["
+                             "\"flake8\", "
+                             "\"" buffer-file-name "\"])")))
+
+(defun sb/python-execute-mypy ()
+  (interactive)
+  (python-shell-send-string (concat "subprocess.run(["
+                                    "\"mypy\", "
+                                    "\"--strict\", "
+                                    "\"" buffer-file-name "\"])")))
+
+(with-eval-after-load 'python
+  (add-hook 'inferior-python-mode-hook
+            (lambda ()
+              (python-shell-send-string "import subprocess")))
+  (bind-key "C-c f" 'sb/python-execute-flake8 'python-mode-map)
+  (bind-key "C-c m" 'sb/python-execute-mypy 'python-mode-map))
+#+end_src
