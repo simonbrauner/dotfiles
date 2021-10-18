@@ -596,3 +596,31 @@ Flake8 and mypy.
   (bind-key "C-c f" 'sb/python-execute-flake8 'python-mode-map)
   (bind-key "C-c m" 'sb/python-execute-mypy 'python-mode-map))
 #+end_src
+
+*** Typing
+
+Add typing imports automatically.
+
+#+begin_src emacs-lisp
+(defun sb/python-update-typing-imports ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (when (re-search-forward "^from typing" nil t)
+      (move-beginning-of-line 1)
+      (kill-line)
+      (kill-line))
+    (goto-char (point-min))
+    (let ((types ""))
+      (dolist (type '("List" "Optional" "Tuple"))
+        (when (save-excursion
+                (search-forward type nil t))
+          (setf types (concat types type ", "))))
+      (when (not (string= types ""))
+        (insert (concat "from typing import "
+                        (substring types 0 -2)))
+        (newline)))))
+
+(with-eval-after-load 'python
+  (bind-key "C-c i" 'sb/python-update-typing-imports 'python-mode-map))
+#+end_src
