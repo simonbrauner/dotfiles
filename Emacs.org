@@ -612,7 +612,7 @@ Add typing imports automatically.
       (kill-line))
     (goto-char (point-min))
     (let ((types ""))
-      (dolist (type '("List" "Optional" "Tuple"))
+      (dolist (type '("Dict" "List" "Optional" "Tuple"))
         (when (save-excursion
                 (search-forward type nil t))
           (setf types (concat types type ", "))))
