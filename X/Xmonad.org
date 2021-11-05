@@ -131,7 +131,7 @@ xmonad-contrib
 
 Status bar called [[https://wiki.archlinux.org/title/Xmobar][xmobar]].
 
-*** Main
+** Main
 
 Border color designed to match emacs' screen separator. Special signs: =%%= for plugins, =}{= to separate left and right sides.
 
@@ -150,7 +150,7 @@ Config
     , commands =
 #+end_src
 
-*** Plugins
+** Plugins
 
 Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][there]]. Refresh rate in =seconds/10=. =Volume= instead of =Alsa= to be able to see volume of bluetooth device.
 
@@ -186,4 +186,10 @@ Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][ther
                  ] 10
 , Run Date       "<fn=1>%a %d.%m.%Y %R</fn>" "date" 10
 ]}
+#+end_src
+
+** Packages
+
+#+begin_src text
+xmobar
 #+end_src
