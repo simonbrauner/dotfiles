@@ -21,10 +21,10 @@ start_window_manager() {
 if [ -z "${DISPLAY}" ]; then
     case "${XDG_VTNR}" in
         1)
-            start_window_manager dotfiles/X/.exwm_xinitrc
+            start_window_manager ~/dotfiles/X/.exwm_xinitrc
             ;;
         3)
-            start_window_manager dotfiles/X/.xmonad_xinitrc
+            start_window_manager ~/dotfiles/X/.xmonad_xinitrc
             ;;
     esac
 fi
@@ -47,7 +47,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 xsetroot -cursor_name left_ptr
 
-xset r rate 200 100
+xset r rate 200 50
 
 exec emacs
 #+end_src

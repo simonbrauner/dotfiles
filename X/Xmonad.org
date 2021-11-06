@@ -1,7 +1,7 @@
 #+title: Xmonad.org
 #+property: header-args :mkdirp yes
 
-Xmonad and Xmobar.
+Xmonad, xmobar, kitty and dmenu.
 
 * Xmonad
 
@@ -192,4 +192,29 @@ Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][ther
 
 #+begin_src text
 xmobar
+#+end_src
+
+* Kitty
+
+Terminal emulator [[https://github.com/kovidgoyal/kitty][Kitty]], setting the font size.
+
+#+begin_src conf :tangle ~/.config/kitty/kitty.conf
+font_family Fira Code
+font_size 14.0
+#+end_src
+
+** Package
+
+#+begin_src text
+kitty
+#+end_src
+
+* Dmenu
+
+[[https://wiki.archlinux.org/title/dmenu][Dynamic menu]]. Used to open programs. Bound to =s-p=.
+
+** Package
+
+#+begin_src text
+dmenu
 #+end_src
