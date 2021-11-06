@@ -30,6 +30,14 @@ if [ -z "${DISPLAY}" ]; then
 fi
 #+end_src
 
+|-----+--------|
+| tty | wm     |
+|-----+--------|
+|   1 | EXWM   |
+|   2 | bash   |
+|   3 | xmonad |
+|-----+--------|
+
 ** Executing window manager
 
 Running xmonad...
@@ -53,6 +61,65 @@ exec emacs
 #+end_src
 
 ...with [[https://wiki.archlinux.org/title/Xinit][xinit]].
+
+** Login screen
+
+A penguin in =/etc/issue= made by [[https://github.com/dylanaraps/neofetch][neofetch]].
+
+*** Configuration
+
+Just the image.
+
+#+begin_src shell :tangle ~/.config/neofetch/config.conf
+print_info() {
+    prin
+}
+
+ascii_distro="g"
+#+end_src
+
+Root command
+
+#+begin_src shell
+neofetch --config /home/sb/.config/neofetch/config.conf > /etc/issue
+#+end_src
+
+And the result (after manually inserting tty number):
+
+#+begin_src text :tangle /sudo::/etc/issue
+[?25l[?7l[38;5;8m[1m        #####
+[38;5;8m[1m       #######
+[38;5;8m[1m       ##[37m[0m[1mO[38;5;8m[1m#[37m[0m[1mO[38;5;8m[1m##
+[38;5;8m[1m       #[0m[33m[1m#####[38;5;8m[1m#
+[38;5;8m[1m     ##[37m[0m[1m##[0m[33m[1m###[37m[0m[1m##[38;5;8m[1m##
+[38;5;8m[1m    #[37m[0m[1m##########[38;5;8m[1m##
+[38;5;8m[1m   #[37m[0m[1m############[38;5;8m[1m##
+[38;5;8m[1m   #[37m[0m[1m############[38;5;8m[1m###
+[0m[33m[1m  ##[38;5;8m[1m#[37m[0m[1m###########[38;5;8m[1m##[0m[33m[1m#
+[0m[33m[1m######[38;5;8m[1m#[37m[0m[1m#######[38;5;8m[1m#[0m[33m[1m######
+[0m[33m[1m#######[38;5;8m[1m#[37m[0m[1m#####[38;5;8m[1m#[0m[33m[1m#######
+[0m[33m[1m  #####[38;5;8m[1m##\l#[0m[33m[1m#####[0m
+[12A[9999999D[24C[0m[1m[0m
+
+
+
+
+
+
+
+
+
+
+
+
+[?25h[?7h
+#+end_src
+
+*** Package
+
+#+begin_src text
+neofetch
+#+end_src
 
 ** Keyboard layout
 
