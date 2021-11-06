@@ -624,3 +624,13 @@ Add typing imports automatically.
 (with-eval-after-load 'python
   (bind-key "C-c i" 'sb/python-update-typing-imports 'python-mode-map))
 #+end_src
+
+* Window manager
+
+[[https://github.com/ch11ng/exwm][Emacs X Window Manager]].
+
+#+begin_src emacs-lisp
+(when (> emacs-major-version 26)
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (require 'window-manager))
+#+end_src

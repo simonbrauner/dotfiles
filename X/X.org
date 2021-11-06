@@ -1,31 +1,46 @@
 #+title: X.org
 #+property: header-args :mkdirp yes
 
-** Xorg
+Not wayland.
+
+* X11
 
 X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]].
 
-*** Display server
+** Display server
 
 [[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Starting X]] after logging in to bash.
 
 #+begin_src shell :tangle ~/.bash_profile
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
+start_window_manager() {
+    rm ~/.xinitrc
+    ln -s $1 ~/.xinitrc
+    exec startx
+}
+
+if [ -z "${DISPLAY}" ]; then
+    case "${XDG_VTNR}" in
+        1)
+            start_window_manager dotfiles/X/.exwm_xinitrc
+            ;;
+        3)
+            start_window_manager dotfiles/X/.xmonad_xinitrc
+            ;;
+    esac
 fi
 #+end_src
 
 ** Executing window manager
 
-Running Xmonad...
+Running xmonad...
 
-#+begin_src shell
+#+begin_src shell :tangle .xmonad_xinitrc
 exec xmonad
 #+end_src
 
 or [[https://github.com/ch11ng/exwm/blob/master/xinitrc][EXWM]]...
 
-#+begin_src shell :tangle ~/.xinitrc
+#+begin_src shell :tangle .exwm_xinitrc
 xhost +SI:localuser:$USER
 
 export _JAVA_AWT_WM_NONREPARENTING=1

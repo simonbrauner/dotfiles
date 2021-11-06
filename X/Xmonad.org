@@ -188,7 +188,7 @@ Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][ther
 ]}
 #+end_src
 
-** Packages
+** Package
 
 #+begin_src text
 xmobar
