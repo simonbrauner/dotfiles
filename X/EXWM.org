@@ -3,75 +3,87 @@
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/lisp/window-manager.el
 #+property: header-args:conf :tangle ~/.config/polybar/config
 
-
 EXWM and polybar.
 
 * EXWM
 
-A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for Emacs.
+A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for Emacs. Example configuration [[https://github.com/ch11ng/exwm/wiki/Configuration-Example][here]].
 
 #+begin_src emacs-lisp
-(use-package exwm)
+(use-package exwm
+  :config (exwm-enable))
+#+end_src
 
-;; All buffers created in EXWM mode are named "*EXWM*". You may want to
-;; change it in `exwm-update-class-hook' and `exwm-update-title-hook', which
-;; are run when a new X window class name or title is available.  Here's
-;; some advice on this topic:
-;; + Always use `exwm-workspace-rename-buffer` to avoid naming conflict.
-;; + For applications with multiple windows (e.g. GIMP), the class names of
-;    all windows are probably the same.  Using window titles for them makes
-;;   more sense.
-;; In the following example, we use class names for all windows except for
-;; Java applications and GIMP.
-(add-hook 'exwm-update-class-hook
-          (lambda ()
-            (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                        (string= "gimp" exwm-instance-name))
-              (exwm-workspace-rename-buffer exwm-class-name))))
-(add-hook 'exwm-update-title-hook
-          (lambda ()
-            (when (or (not exwm-instance-name)
-                      (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                      (string= "gimp" exwm-instance-name))
-              (exwm-workspace-rename-buffer exwm-title))))
+** Keys
 
-;; Global keybindings can be defined with `exwm-input-global-keys'.
-;; Here are a few examples:
+Executing programs.
+
+#+begin_src emacs-lisp
+(defun sb/start-process (command)
+  (start-process-shell-command command nil command))
+
+(defun sb/execute-application (command)
+  (interactive (list (read-shell-command "$ ")))
+  (sb/start-process command))
+
+(defun sb/open-browser ()
+  (interactive)
+  (sb/start-process "firefox"))
+
+(defun sb/toggle-volume ()
+  (interactive)
+  (sb/start-process "amixer set Master toggle"))
+
+(defun sb/lower-volume ()
+  (interactive)
+  (sb/start-process "amixer set Master 5%-"))
+
+(defun sb/raise-volume ()
+  (interactive)
+  (sb/start-process "amixer set Master 5%+"))
+
+(defun sb/mic-mute ()
+  (interactive)
+  (sb/start-process "amixer set Capture nocap"))
+
+(defun sb/brightness-down ()
+  (interactive)
+  (sb/start-process "brightnessctl --min-value=10 s 15%-"))
+
+(defun sb/brightness-up ()
+  (interactive)
+  (sb/start-process "brightnessctl --min-value=10 s 15%+"))
+#+end_src
+
+Global keybindings.
+
+#+begin_src emacs-lisp
 (setq exwm-input-global-keys
-      `(
-        ;; Bind "s-r" to exit char-mode and fullscreen mode.
-        ([?\s-r] . exwm-reset)
-        ;; Bind "s-w" to switch workspace interactively.
-        ([?\s-w] . exwm-workspace-switch)
-        ;; Bind "s-0" to "s-9" to switch to a workspace by its index.
-        ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,i))))
-                  (number-sequence 0 9))
-        ;; Bind "s-&" to launch applications ('M-&' also works if the output
-        ;; buffer does not bother you).
-        ([?\s-&] . (lambda (command)
-		     (interactive (list (read-shell-command "$ ")))
-		     (start-process-shell-command command nil command)))
-        ;; Bind "s-<f2>" to "slock", a simple X display locker.
-        ([s-f2] . (lambda ()
-		    (interactive)
-		    (start-process "" nil "/usr/bin/slock")))))
+      `(;; super prefix
+        (,(kbd "s-r") . exwm-reset)
+        (,(kbd "s-p") . sb/execute-application)
+        (,(kbd "s-w") . sb/open-browser)
+        (,(kbd "s-t") . multi-vterm)
+        ;; leptop keys
+        (,(kbd "<XF86AudioMute>") . sb/toggle-volume)
+        (,(kbd "<XF86AudioLowerVolume>") . sb/lower-volume)
+        (,(kbd "<XF86AudioRaiseVolume>") . sb/raise-volume)
+        (,(kbd "<XF86AudioMicMute>") . sb/mic-mute)
+        (,(kbd "<XF86MonBrightnessDown>") . sb/brightness-down)
+        (,(kbd "<XF86MonBrightnessUp>") . sb/brightness-up)))
+#+end_src
 
-;; To add a key binding only available in line-mode, simply define it in
-;; `exwm-mode-map'.  The following example shortens 'C-c q' to 'C-q'.
+=C-q= to send raw key to the application.
+
+#+begin_src emacs-lisp
 (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
+#+end_src
 
-;; The following example demonstrates how to use simulation keys to mimic
-;; the behavior of Emacs.  The value of `exwm-input-simulation-keys` is a
-;; list of cons cells (SRC . DEST), where SRC is the key sequence you press
-;; and DEST is what EXWM actually sends to application.  Note that both SRC
-;; and DEST should be key sequences (vector or string).
+Simulation keys to mimic Emacs's behavior.
+
+#+begin_src emacs-lisp
 (setq exwm-input-simulation-keys
-      '(
-        ;; movement
+      '(;; movement
         ([?\C-b] . [left])
         ([?\M-b] . [C-left])
         ([?\C-f] . [right])
@@ -80,8 +92,8 @@ A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for 
         ([?\C-n] . [down])
         ([?\C-a] . [home])
         ([?\C-e] . [end])
-        ([?\M-v] . [prior])
-        ([?\C-v] . [next])
+        ([?\M-v] . [prior down])
+        ([?\C-v] . [next up])
         ([?\C-d] . [delete])
         ([?\C-k] . [S-end delete])
         ;; cut/paste.
@@ -89,21 +101,62 @@ A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for 
         ([?\M-w] . [?\C-c])
         ([?\C-y] . [?\C-v])
         ;; search
-        ([?\C-s] . [?\C-f])))
+        ([?\C-s] . [?\C-f])
+        ;; keyboard quit
+        ([?\C-g]  . [])))
+#+end_src
 
-;; You can hide the minibuffer and echo area when they're not used, by
-;; uncommenting the following line.
-;(setq exwm-workspace-minibuffer-position 'bottom)
+** Hooks
 
-;; Do not forget to enable EXWM. It will start by itself when things are
-;; ready.  You can put it _anywhere_ in your configuration.
+Naming buffers reasonably.
 
+#+begin_src emacs-lisp
+(add-hook 'exwm-update-class-hook
+          (lambda ()
+            (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+                        (string= "gimp" exwm-instance-name))
+              (exwm-workspace-rename-buffer exwm-class-name))))
+
+(add-hook 'exwm-update-title-hook
+          (lambda ()
+            (when (or (not exwm-instance-name)
+                      (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+                      (string= "gimp" exwm-instance-name))
+              (exwm-workspace-rename-buffer exwm-title))))
+#+end_src
+
+[[https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Desktop-05.org#starting-polybar-from-emacs][Starting polybar]] from Emacs.
+
+
+#+begin_src emacs-lisp
 (add-hook 'exwm-init-hook
           (lambda ()
-            (start-process-shell-command "polybar" nil "polybar poly")))
+            (sb/start-process "polybar poly")))
+#+end_src
 
-(exwm-enable)
+** Vterm
 
+Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]] multiplied by [[https://github.com/suonlight/multi-vterm][multi-vterm]].
+
+#+begin_src emacs-lisp
+(use-package vterm)
+(use-package multi-vterm)
+#+end_src
+
+*** Packages
+
+#+begin_src text
+emacs
+cmake
+libtool
+libvterm
+#+end_src
+
+** Providing
+
+End of =window-manager.el=.
+
+#+begin_src emacs-lisp
 (provide 'window-manager)
 #+end_src
 
@@ -121,8 +174,8 @@ override-redirect = true
 bottom = true
 fixed-center = false
 
-width = 40%
-offset-x = 60%
+width = 20%
+offset-x = 80%
 height = 15
 
 foreground = #ffffff
@@ -143,7 +196,7 @@ Volume and bluetooth.
 [module/pulseaudio]
 type = internal/pulseaudio
 
-label-volume = %percentage%%
+label-volume = "%percentage%%  "
 label-muted = %percentage%% m
 
 interval = 5

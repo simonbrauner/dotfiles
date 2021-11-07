@@ -94,10 +94,6 @@ Git client [[https://github.com/magit/magit][Magit]].
   :config (setq magit-section-visibility-indicator nil))
 #+end_src
 
-** Eshell
-
-Trying out eshell instead of [[https://github.com/akermu/emacs-libvterm][Vterm]]. It is included in emacs, so no =use-package= necessary.
-
 * Editing text
 
 Customizing the customizable editor.
@@ -612,7 +608,7 @@ Add typing imports automatically.
       (kill-line))
     (goto-char (point-min))
     (let ((types ""))
-      (dolist (type '("Dict" "List" "Optional" "Tuple"))
+      (dolist (type '("Dict" "List" "Optional" "Set" "Tuple"))
         (when (save-excursion
                 (search-forward type nil t))
           (setf types (concat types type ", "))))
