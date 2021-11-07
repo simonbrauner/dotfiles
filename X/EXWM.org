@@ -97,6 +97,11 @@ A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for 
 
 ;; Do not forget to enable EXWM. It will start by itself when things are
 ;; ready.  You can put it _anywhere_ in your configuration.
+
+(add-hook 'exwm-init-hook
+          (lambda ()
+            (start-process-shell-command "polybar" nil "polybar poly")))
+
 (exwm-enable)
 
 (provide 'window-manager)
@@ -106,19 +111,9 @@ A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for 
 
 A fast and easy-to-use [[https://github.com/polybar/polybar][tool for creating status bars]].
 
-** Colors
+** Face
 
-Like in Emacs.
-
-#+begin_src conf
-[colors]
-foreground = #ffffff
-background = #282a36
-#+end_src
-
-** Bar
-
-sjdfhskjh
+Designed to fit in the right part of Emacs' echo area.
 
 #+begin_src conf
 [bar/poly]
@@ -130,17 +125,19 @@ width = 40%
 offset-x = 60%
 height = 15
 
-foreground = ${colors.foreground}
-background = ${colors.background}
+foreground = #ffffff
+background = #282a36
 
 font-0 = Fira Code:pixelsize=11:semibold;1
 
 padding = 1
-module-margin = 3
-modules-right = date
+module-margin = 2
+modules-right = battery date
 #+end_src
 
 ** Modules
+
+Time, date and battery.
 
 #+begin_src conf
 [module/date]
@@ -148,14 +145,20 @@ type = internal/date
 interval = 5
 
 date = %d.%m.%Y
-
 time = %H:%M
 
 label = %date% %time%
+
+[module/battery]
+type = internal/battery
+
+battery = BAT1
+adapter = ACAD
 #+end_src
 
 ** AUR
 
 #+begin_src text
 polybar
+grabc
 #+end_src
