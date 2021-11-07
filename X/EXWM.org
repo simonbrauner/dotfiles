@@ -132,10 +132,39 @@ font-0 = Fira Code:pixelsize=11:semibold;1
 
 padding = 1
 module-margin = 2
-modules-right = battery date
+modules-right = pulseaudio bluetooth battery date
 #+end_src
 
 ** Modules
+
+Volume and bluetooth.
+
+#+begin_src conf
+[module/pulseaudio]
+type = internal/pulseaudio
+
+label-volume = %percentage%%
+label-muted = %percentage%% m
+
+interval = 5
+
+[module/bluetooth]
+type = custom/script
+
+exec = sh ~/.config/polybar/bluetooth
+
+interval = 5
+#+end_src
+
+Print =b= if bluetooth headphones are connected.
+
+#+begin_src shell :tangle ~/.config/polybar/bluetooth
+if [ $(bluetoothctl info | wc -l) -ne 1 ]; then
+    echo "b"
+else
+    echo " "
+fi
+#+end_src
 
 Time, date and battery.
 
