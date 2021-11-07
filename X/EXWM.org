@@ -1,6 +1,14 @@
-#+title: "EXWM.org"
+#+title: EXWM.org
 #+property: header-args :mkdirp yes
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/lisp/window-manager.el
+#+property: header-args:conf :tangle ~/.config/polybar/config
+
+
+EXWM and polybar.
+
+* EXWM
+
+A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for Emacs.
 
 #+begin_src emacs-lisp
 (use-package exwm)
@@ -92,4 +100,62 @@
 (exwm-enable)
 
 (provide 'window-manager)
+#+end_src
+
+* Polybar
+
+A fast and easy-to-use [[https://github.com/polybar/polybar][tool for creating status bars]].
+
+** Colors
+
+Like in Emacs.
+
+#+begin_src conf
+[colors]
+foreground = #ffffff
+background = #282a36
+#+end_src
+
+** Bar
+
+sjdfhskjh
+
+#+begin_src conf
+[bar/poly]
+override-redirect = true
+bottom = true
+fixed-center = false
+
+width = 40%
+offset-x = 60%
+height = 15
+
+foreground = ${colors.foreground}
+background = ${colors.background}
+
+font-0 = Fira Code:pixelsize=11:semibold;1
+
+padding = 1
+module-margin = 3
+modules-right = date
+#+end_src
+
+** Modules
+
+#+begin_src conf
+[module/date]
+type = internal/date
+interval = 5
+
+date = %d.%m.%Y
+
+time = %H:%M
+
+label = %date% %time%
+#+end_src
+
+** AUR
+
+#+begin_src text
+polybar
 #+end_src
