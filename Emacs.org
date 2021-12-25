@@ -623,10 +623,11 @@ Add typing imports automatically.
 
 * Window manager
 
-[[https://github.com/ch11ng/exwm][Emacs X Window Manager]].
+[[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its configuration file exists.
 
 #+begin_src emacs-lisp
-(when (> emacs-major-version 26)
+(when (file-exists-p (concat user-emacs-directory
+                             "lisp/window-manager.el"))
   (add-to-list 'load-path "~/.emacs.d/lisp/")
   (require 'window-manager))
 #+end_src
