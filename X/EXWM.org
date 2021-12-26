@@ -54,13 +54,17 @@ Executing programs.
                            ("<XF86MonBrightnessUp>" . "brightnessctl --min-value=10 s 15%+")))
 #+end_src
 
+** Local keys
+
 =C-q= to send raw key to the application.
 
 #+begin_src emacs-lisp
 (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
 #+end_src
 
-Simulation keys to mimic Emacs's behavior.
+** Simulation keys
+
+Mimicking Emacs's behavior.
 
 #+begin_src emacs-lisp
 (setq exwm-input-simulation-keys
@@ -77,7 +81,7 @@ Simulation keys to mimic Emacs's behavior.
         ([?\C-v] . [next up])
         ([?\C-d] . [delete])
         ([?\C-k] . [S-end delete])
-        ;; cut/paste.
+        ;; cut/paste
         ([?\C-w] . [?\C-x])
         ([?\M-w] . [?\C-c])
         ([?\C-y] . [?\C-v])
@@ -94,20 +98,10 @@ Naming buffers reasonably.
 #+begin_src emacs-lisp
 (add-hook 'exwm-update-class-hook
           (lambda ()
-            (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                        (string= "gimp" exwm-instance-name))
-              (exwm-workspace-rename-buffer exwm-class-name))))
-
-(add-hook 'exwm-update-title-hook
-          (lambda ()
-            (when (or (not exwm-instance-name)
-                      (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                      (string= "gimp" exwm-instance-name))
-              (exwm-workspace-rename-buffer exwm-title))))
+            (exwm-workspace-rename-buffer exwm-class-name)))
 #+end_src
 
 [[https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Desktop-05.org#starting-polybar-from-emacs][Starting polybar]] from Emacs.
-
 
 #+begin_src emacs-lisp
 (add-hook 'exwm-init-hook
