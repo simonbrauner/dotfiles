@@ -21,9 +21,15 @@ start_window_manager() {
 if [ -z "${DISPLAY}" ]; then
     case "${XDG_VTNR}" in
         1)
+            if [ ! -f ~/.emacs.d/lisp/window-manager.el ]; then
+                emacs --batch -l org ~/dotfiles/X/EXWM.org -f org-babel-tangle
+            fi
             start_window_manager ~/dotfiles/X/.exwm_xinitrc
             ;;
         3)
+            if [ -f ~/.emacs.d/lisp/window-manager.el ]; then
+                rm ~/.emacs.d/lisp/window-manager.el
+            fi
             start_window_manager ~/dotfiles/X/.xmonad_xinitrc
             ;;
     esac
