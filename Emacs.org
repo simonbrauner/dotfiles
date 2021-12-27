@@ -94,6 +94,16 @@ Git client [[https://github.com/magit/magit][Magit]].
   :config (setq magit-section-visibility-indicator nil))
 #+end_src
 
+** Ansi-term
+
+A terminal emulator.
+
+#+begin_src emacs-lisp
+(defun sb/ansi-term-bash ()
+  (interactive)
+  (ansi-term "/bin/bash"))
+#+end_src
+
 * Editing text
 
 Customizing the customizable editor.

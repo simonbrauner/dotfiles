@@ -44,7 +44,7 @@ Executing programs.
                            ("s-r" . exwm-reset)
                            ("s-p" . sb/execute-application)
                            ("s-w" . "firefox")
-                           ("s-t" . multi-vterm)
+                           ("s-t" . sb/ansi-term-bash)
                            ;; laptop keys
                            ("<XF86AudioMute>" . "amixer set Master toggle")
                            ("<XF86AudioLowerVolume>" . "amixer set Master 5%-")
@@ -88,7 +88,7 @@ Mimicking Emacs's behavior.
         ;; search
         ([?\C-s] . [?\C-f])
         ;; keyboard quit
-        ([?\C-g]  . [])))
+        ([?\C-g] . [])))
 #+end_src
 
 ** Hooks
@@ -107,24 +107,6 @@ Naming buffers reasonably.
 (add-hook 'exwm-init-hook
           (lambda ()
             (sb/start-process "polybar poly")))
-#+end_src
-
-** Vterm
-
-Terminal emulator [[https://github.com/akermu/emacs-libvterm][vterm]] multiplied by [[https://github.com/suonlight/multi-vterm][multi-vterm]].
-
-#+begin_src emacs-lisp
-(use-package vterm)
-(use-package multi-vterm)
-#+end_src
-
-*** Packages
-
-#+begin_src text
-emacs
-cmake
-libtool
-libvterm
 #+end_src
 
 ** Providing
@@ -174,14 +156,10 @@ type = internal/pulseaudio
 label-volume = "%percentage%%  "
 label-muted = %percentage%% m
 
-interval = 5
-
 [module/bluetooth]
 type = custom/script
 
 exec = sh ~/.config/polybar/bluetooth
-
-interval = 5
 #+end_src
 
 Print =b= if bluetooth headphones are connected.
@@ -199,7 +177,6 @@ Time, date and battery.
 #+begin_src conf
 [module/date]
 type = internal/date
-interval = 5
 
 date = %d.%m.%Y
 time = %H:%M
