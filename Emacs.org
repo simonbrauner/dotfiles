@@ -96,12 +96,16 @@ Git client [[https://github.com/magit/magit][Magit]].
 
 ** Ansi-term
 
-A terminal emulator.
+A terminal emulator. =C-c C-j= switches to =line sub-mode= in which it's possible to use common editing commands. =C-c C-k= to get back.
 
 #+begin_src emacs-lisp
 (defun sb/ansi-term-bash ()
   (interactive)
   (ansi-term "/bin/bash"))
+
+(define-advice term-handle-exit
+    (:after (process-name msg))
+  (kill-buffer (current-buffer)))
 #+end_src
 
 * Editing text
