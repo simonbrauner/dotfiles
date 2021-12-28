@@ -103,6 +103,8 @@ A terminal emulator. =C-c C-j= switches to =line sub-mode= in which it's possibl
   (interactive)
   (ansi-term "/bin/bash"))
 
+(bind-key "C-x x t" 'sb/ansi-term-bash)
+
 (define-advice term-handle-exit
     (:after (process-name msg))
   (kill-buffer (current-buffer)))

@@ -42,9 +42,9 @@ Executing programs.
 
 (sb/exwm-add-global-keys '(;; super prefix
                            ("s-r" . exwm-reset)
-                           ("s-p" . sb/execute-application)
-                           ("s-w" . "firefox")
-                           ("s-t" . sb/ansi-term-bash)
+                           ("C-x x p" . sb/execute-application)
+                           ("C-x x w" . "firefox")
+                           ("C-x x v" . "vlc")
                            ;; laptop keys
                            ("<XF86AudioMute>" . "amixer set Master toggle")
                            ("<XF86AudioLowerVolume>" . "amixer set Master 5%-")
