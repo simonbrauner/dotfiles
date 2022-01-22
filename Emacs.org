@@ -283,7 +283,7 @@ Omitting the welcome page, disabling mouse related parts of UI and setting the d
 
 ** Theme
 
-[[https://github.com/dracula/emacs][Dracula]] theme.
+[[https://github.com/dracula/emacs][Dracula]] theme. Slightly modifified.
 
 #+begin_src emacs-lisp
 (use-package dracula-theme
@@ -393,9 +393,18 @@ Completion by [[https://github.com/minad/vertico][vertico]], additional info fro
   :config (setq rainbow-delimiters-max-face-count 3))
 #+end_src
 
+** Highlight numbers
+
+Making numbers yellow.
+
+#+begin_src emacs-lisp
+(use-package highlight-numbers
+  :hook (prog-mode . highlight-numbers-mode))
+#+end_src
+
 ** Modified faces
 
-When the defaults weren't too appealing...
+A low budget version of creating my own theme.
 
 *** Weight
 
@@ -410,30 +419,58 @@ Making more faces =semi-bold=.
   (set-face-attribute face nil :weight 'semi-bold))
 #+end_src
 
-*** Rainbow delimiters colors
+*** Font lock
+
+=Yellow= and =blue= will join the default =pink= for syntax highlighting.
+
+#+begin_src emacs-lisp
+(dolist (face '(font-lock-builtin-face
+                font-lock-constant-face
+                font-lock-string-face))
+  (set-face-foreground face "#f5dd0a"))
+
+(dolist (face '(font-lock-function-name-face
+                font-lock-type-face))
+  (set-face-foreground face "#0adef5"))
+#+end_src
+
+*** Rainbow delimiters
 
 Three levels and custom colors. White indicates errors.
 
 #+begin_src emacs-lisp
-(custom-set-faces
- '(rainbow-delimiters-depth-1-face ((t (:foreground "#ee9999"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "#99ee99"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "#9999ee"))))
+(with-eval-after-load 'rainbow-delimiters
+  (set-face-foreground 'rainbow-delimiters-depth-1-face "#e69191")
+  (set-face-foreground 'rainbow-delimiters-depth-2-face "#91e6a3")
+  (set-face-foreground 'rainbow-delimiters-depth-3-face "#b691e6")
 
- '(rainbow-delimiters-mismatched-face ((t (:foreground "#ffffff"
-                                           :weight bold))))
- '(rainbow-delimiters-unmatched-face ((t (:foreground "#ffffff"
-                                          :weight bold)))))
+  (dolist (face '(rainbow-delimiters-mismatched-face
+                  rainbow-delimiters-unmatched-face))
+    (set-face-foreground face "ffffff")
+    (set-face-attribute face nil :weight 'semi-bold)))
 #+end_src
 
-*** Org mode code blocks
+*** Marginalia
 
-White text, slightly lighter background.
+File privilege colors. Orange and green respectively.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'marginalia
+  (set-face-foreground 'marginalia-file-priv-write "#ffb86c")
+  (set-face-attribute 'marginalia-file-priv-write nil :weight 'semi-bold)
+  (set-face-foreground 'marginalia-file-priv-exec "#50fa7b"))
+#+end_src
+
+*** Org code blocks
+
+White text, slightly lighter background. Orange heading level 1 and grey =this=.
 
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
   (set-face-foreground 'org-block "#ffffff")
-  (set-face-background 'org-block "#2e303c"))
+  (set-face-background 'org-block "#2e303c")
+  (set-face-foreground 'org-level-1 "#ffb86c")
+  (set-face-foreground 'org-verbatim "#6272a4"))
 #+end_src
 
 * Org mode
