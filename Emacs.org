@@ -380,7 +380,7 @@ Completion by [[https://github.com/minad/vertico][vertico]], additional info fro
 
 #+begin_src emacs-lisp
 (use-package orderless
-    :config (setq completion-styles '(orderless)))
+  :config (setq completion-styles '(orderless)))
 #+end_src
 
 ** Delimiters
