@@ -4,10 +4,42 @@
 
 Personal GNU Emacs configuration!
 
-* Contents
-:PROPERTIES:
-:TOC:      :include all :depth 3 :force (depth) :ignore (this) :local (depth)
-:END:
+* Contents                                                              :TOC:
+- [[#essentials][Essentials]]
+  - [[#package-management][Package management]]
+  - [[#no-littering][No-littering]]
+  - [[#indentation][Indentation]]
+  - [[#advice][Advice]]
+  - [[#save-place-mode][Save-place-mode]]
+  - [[#magit][Magit]]
+  - [[#ansi-term][Ansi-term]]
+- [[#editing-text][Editing text]]
+  - [[#free-keys][Free keys]]
+  - [[#movement][Movement]]
+  - [[#lines][Lines]]
+  - [[#region][Region]]
+  - [[#swapping][Swapping]]
+  - [[#others][Others]]
+- [[#face][Face]]
+  - [[#general-ui-configuration][General UI configuration]]
+  - [[#theme][Theme]]
+  - [[#font][Font]]
+  - [[#mode-line][Mode-line]]
+  - [[#minibuffer][Minibuffer]]
+  - [[#delimiters][Delimiters]]
+  - [[#highlight-numbers][Highlight numbers]]
+  - [[#modified-faces][Modified faces]]
+- [[#org-mode][Org mode]]
+  - [[#markup][Markup]]
+  - [[#links][Links]]
+  - [[#task-management][Task management]]
+  - [[#indentation-1][Indentation]]
+  - [[#org-tempo][Org tempo]]
+  - [[#table-of-contents][Table of contents]]
+- [[#programming-modes][Programming modes]]
+  - [[#haskell][Haskell]]
+  - [[#python][Python]]
+- [[#window-manager][Window manager]]
 
 * Essentials
 
@@ -546,6 +578,15 @@ Shortcuts for code block languages.
                         ("sh" . "src shell")
                         ("tx" . "src text")))
       (add-to-list 'org-structure-template-alist language))))
+#+end_src
+
+** Table of contents
+
+Automatic table of contents [[https://github.com/snosov1/toc-org][generator]]. =TOC= attribute should be on heading.
+
+#+begin_src emacs-lisp
+(use-package toc-org
+  :hook (org-mode . toc-org-mode))
 #+end_src
 
 * Programming modes
