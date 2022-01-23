@@ -4,6 +4,11 @@
 
 Personal GNU Emacs configuration!
 
+* Contents
+:PROPERTIES:
+:TOC:      :include all :depth 3 :force (depth) :ignore (this) :local (depth)
+:END:
+
 * Essentials
 
 The most general and basic part of the configuration that either prepares background for the other pieces, or simply has no better place to be.
@@ -120,11 +125,11 @@ The keys that are by default globally bound to commands not used by me.
 
 *** Control
 
-=q=, =i=, =o=.
+=i=, =o=, =j=.
 
 *** Meta
 
-=q=, =e=, =i=, =o=, =p=, =s=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
+=e=, =i=, =o=, =p=, =s=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
 
 ** Movement
 
@@ -141,27 +146,8 @@ The basic commands to move in buffers.
 | backward-char                  | C-b     |
 | forward-word                   | M-f     |
 | backward-word                  | M-b     |
-| avy-goto-char                  | C-j     |
-| consult-line                   | C-s     |
+| isearch-forward                | C-s     |
 |--------------------------------+---------|
-
-*** Avy
-
-Jumping to characters with [[https://github.com/abo-abo/avy][avy]].
-
-#+begin_src emacs-lisp
-(use-package avy
-  :bind* ("C-j" . avy-goto-char))
-#+end_src
-
-*** Consult-line
-
-Searching in current file with [[https://github.com/minad/consult][consult]].
-
-#+begin_src emacs-lisp
-(use-package consult
-  :bind (("C-s" . consult-line)))
-#+end_src
 
 ** Lines
 
@@ -175,10 +161,10 @@ Line-oriented functions.
 | move-end-of-line       | C-e     |
 | next-line              | C-n     |
 | previous-line          | C-p     |
-| open-line              | C-o     |
 | newline                | C-m     |
 | delete-char            | C-d     |
 | kill-line              | C-k     |
+| fill-paragraph         | M-q     |
 | delete-backward-char   | DEL     |
 | delete-indentation     | C-DEL   |
 |------------------------+---------|
@@ -255,6 +241,7 @@ Changing the order or capitalization.
 |--------------------------+---------|
 | keyboard-quit            | C-g     |
 | universal-argument       | C-u     |
+| fill-paragraph           | C-q     |
 | suspend-frame            | C-z     |
 | execute-extended-command | M-x     |
 | help prefix              | C-h     |
@@ -446,7 +433,7 @@ Three levels and custom colors. White indicates errors.
 
   (dolist (face '(rainbow-delimiters-mismatched-face
                   rainbow-delimiters-unmatched-face))
-    (set-face-foreground face "ffffff")
+    (set-face-foreground face "#ffffff")
     (set-face-attribute face nil :weight 'semi-bold)))
 #+end_src
 
