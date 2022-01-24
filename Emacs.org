@@ -162,7 +162,7 @@ The keys that are by default globally bound to commands not used by me.
 
 *** Meta
 
-=e=, =i=, =o=, =p=, =s=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
+=e=, =i=, =o=, =p=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
 
 ** Movement
 
@@ -492,13 +492,14 @@ File privilege colors. Orange and green respectively.
 
 *** Org code blocks
 
-White text, slightly lighter background. Orange heading level 1 and grey =this=.
+White text, slightly lighter background. Orange heading level 1, purple links and grey =this=.
 
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
   (set-face-foreground 'org-block "#ffffff")
   (set-face-background 'org-block "#2e303c")
   (set-face-foreground 'org-level-1 "#ffb86c")
+  (set-face-foreground 'org-link "bd93f9")
   (set-face-foreground 'org-verbatim "#6272a4"))
 #+end_src
 
