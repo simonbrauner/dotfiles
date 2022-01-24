@@ -18,7 +18,6 @@ Personal GNU Emacs configuration!
   - [[#movement][Movement]]
   - [[#lines][Lines]]
   - [[#region][Region]]
-  - [[#searching][Searching]]
   - [[#swapping][Swapping]]
   - [[#others][Others]]
 - [[#face][Face]]
@@ -162,7 +161,7 @@ The keys that are by default globally bound to commands not used by me.
 
 *** Meta
 
-=e=, =i=, =o=, =p=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
+=e=, =i=, =o=, =p=, =s=, =d=, =g=, =h=, =j=, =k=, =z=, =n=.
 
 ** Movement
 
@@ -179,8 +178,15 @@ The basic commands to move in buffers.
 | backward-char                  | C-b     |
 | forward-word                   | M-f     |
 | backward-word                  | M-b     |
-| isearch-forward                | C-s     |
+| consult-line                   | C-s     |
 |--------------------------------+---------|
+
+Searching in current file with [[https://github.com/minad/consult][consult]].
+
+#+begin_src emacs-lisp
+(use-package consult
+  :bind (("C-s" . consult-line)))
+#+end_src
 
 ** Lines
 
@@ -251,15 +257,6 @@ Having [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]] in e
 (add-hook 'multiple-cursors-mode-hook
           (lambda ()
             (unbind-key "<return>" mc/keymap)))
-#+end_src
-
-** Searching
-
-Using the regexp isearch versions, backward on =M-s= since the original =C-r= is already used.
-
-#+begin_src emacs-lisp
-(bind-key "C-s" 'isearch-forward-regexp)
-(bind-key "M-s" 'isearch-backward-regexp)
 #+end_src
 
 ** Swapping
@@ -499,7 +496,7 @@ White text, slightly lighter background. Orange heading level 1, purple links an
   (set-face-foreground 'org-block "#ffffff")
   (set-face-background 'org-block "#2e303c")
   (set-face-foreground 'org-level-1 "#ffb86c")
-  (set-face-foreground 'org-link "bd93f9")
+  (set-face-foreground 'org-link "#bd93f9")
   (set-face-foreground 'org-verbatim "#6272a4"))
 #+end_src
 
