@@ -8,9 +8,7 @@ Personal GNU Emacs configuration!
 - [[#essentials][Essentials]]
   - [[#package-management][Package management]]
   - [[#no-littering][No-littering]]
-  - [[#indentation][Indentation]]
   - [[#advice][Advice]]
-  - [[#save-place-mode][Save-place-mode]]
   - [[#magit][Magit]]
   - [[#ansi-term][Ansi-term]]
 - [[#editing-text][Editing text]]
@@ -26,17 +24,16 @@ Personal GNU Emacs configuration!
   - [[#font][Font]]
   - [[#mode-line][Mode-line]]
   - [[#minibuffer][Minibuffer]]
-  - [[#delimiters][Delimiters]]
-  - [[#highlight-numbers][Highlight numbers]]
   - [[#modified-faces][Modified faces]]
 - [[#org-mode][Org mode]]
   - [[#markup][Markup]]
   - [[#links][Links]]
   - [[#task-management][Task management]]
-  - [[#indentation-1][Indentation]]
+  - [[#indentation][Indentation]]
   - [[#org-tempo][Org tempo]]
   - [[#table-of-contents][Table of contents]]
 - [[#programming-modes][Programming modes]]
+  - [[#general][General]]
   - [[#haskell][Haskell]]
   - [[#python][Python]]
 - [[#window-manager][Window manager]]
@@ -90,14 +87,6 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
 #+end_src
 
-** Indentation
-
-Tabs disabled globally.
-
-#+begin_src emacs-lisp
-(setq-default indent-tabs-mode nil)
-#+end_src
-
 ** Advice
 
 [[https://github.com/justbur/emacs-which-key][Which-key]] and [[https://github.com/Wilfred/helpful][helpful]] to seek wisdom.
@@ -112,14 +101,6 @@ Tabs disabled globally.
          ("C-h k"   . helpful-key)
          ("C-h v"   . helpful-variable)
          ("C-h C-h" . helpful-at-point)))
-#+end_src
-
-** Save-place-mode
-
-Saving the cursor position in file associated buffers.
-
-#+begin_src emacs-lisp
-(save-place-mode 1)
 #+end_src
 
 ** Magit
@@ -409,25 +390,6 @@ Completion by [[https://github.com/minad/vertico][vertico]], additional info fro
   :config (setq completion-styles '(orderless)))
 #+end_src
 
-** Delimiters
-
-[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes.
-
-#+begin_src emacs-lisp
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
-  :config (setq rainbow-delimiters-max-face-count 3))
-#+end_src
-
-** Highlight numbers
-
-Making numbers yellow.
-
-#+begin_src emacs-lisp
-(use-package highlight-numbers
-  :hook (prog-mode . highlight-numbers-mode))
-#+end_src
-
 ** Modified faces
 
 A low budget version of creating my own theme.
@@ -607,6 +569,61 @@ Automatic table of contents [[https://github.com/snosov1/toc-org][generator]]. =
 | clear REPL               | C-l     |
 | move to previous line    | M-^     |
 |--------------------------+---------|
+
+** General
+
+*** Indentation
+
+Not using tabs by default.
+
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
+
+*** Highlight numbers
+
+Making [[https://github.com/Fanael/highlight-numbers][numbers]] yellow.
+
+#+begin_src emacs-lisp
+(use-package highlight-numbers
+  :hook (prog-mode . highlight-numbers-mode))
+#+end_src
+
+*** Delimiters
+
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow delimiters]] for all programming modes.
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config (setq rainbow-delimiters-max-face-count 3))
+#+end_src
+
+*** Pair completion
+
+Inserting the closing delimiters automatically after typing the opening ones.
+
+#+begin_src emacs-lisp
+(electric-pair-mode)
+(electric-quote-mode)
+#+end_src
+
+*** Semicolons
+
+Add [[https://github.com/iquiw/smart-semicolon][semicolon]] to the end of a line. If it is already there, insert semicolon at point.
+
+#+begin_src emacs-lisp
+(use-package smart-semicolon
+  :hook (prog-mode . smart-semicolon-mode))
+#+end_src
+
+*** Save-place-mode
+
+Remember the cursor position in file associated buffers.
+
+#+begin_src emacs-lisp
+(save-place-mode 1)
+#+end_src
 
 ** Haskell
 
