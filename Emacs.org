@@ -729,7 +729,7 @@ Add typing imports automatically.
 
 * Window manager
 
-[[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its configuration file exists.
+[[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its [[file:X/EXWM.org][configuration file]] exists. Does [[file:X/EXWM.org::*Local keys][this]] work?
 
 #+begin_src emacs-lisp
 (when (file-exists-p (concat user-emacs-directory
