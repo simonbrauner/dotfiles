@@ -8,9 +8,6 @@ Personal GNU Emacs configuration!
 - [[#essentials][Essentials]]
   - [[#package-management][Package management]]
   - [[#no-littering][No-littering]]
-  - [[#advice][Advice]]
-  - [[#magit][Magit]]
-  - [[#ansi-term][Ansi-term]]
 - [[#editing-text][Editing text]]
   - [[#free-keys][Free keys]]
   - [[#movement][Movement]]
@@ -24,14 +21,12 @@ Personal GNU Emacs configuration!
   - [[#font][Font]]
   - [[#mode-line][Mode-line]]
   - [[#minibuffer][Minibuffer]]
+  - [[#advice][Advice]]
   - [[#modified-faces][Modified faces]]
-- [[#org-mode][Org mode]]
-  - [[#markup][Markup]]
-  - [[#links][Links]]
-  - [[#task-management][Task management]]
-  - [[#indentation][Indentation]]
-  - [[#org-tempo][Org tempo]]
-  - [[#table-of-contents][Table of contents]]
+- [[#big-packages][Big packages]]
+  - [[#org-mode][Org mode]]
+  - [[#magit][Magit]]
+  - [[#ansi-term][Ansi-term]]
 - [[#programming-modes][Programming modes]]
   - [[#general][General]]
   - [[#haskell][Haskell]]
@@ -40,7 +35,7 @@ Personal GNU Emacs configuration!
 
 * Essentials
 
-The most general and basic part of the configuration that either prepares background for the other pieces, or simply has no better place to be.
+Part of the configuration that prepares background for all the other pieces.
 
 ** Package management
 
@@ -85,47 +80,6 @@ Using [[https://github.com/emacscollective/no-littering][no-littering]] package 
   :config
   (setq auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
-#+end_src
-
-** Advice
-
-[[https://github.com/justbur/emacs-which-key][Which-key]] and [[https://github.com/Wilfred/helpful][helpful]] to seek wisdom.
-
-#+begin_src emacs-lisp
-(use-package which-key
-  :init (which-key-mode)
-  :config (setq which-key-idle-delay 1))
-
-(use-package helpful
-  :bind (("C-h f"   . helpful-callable)
-         ("C-h k"   . helpful-key)
-         ("C-h v"   . helpful-variable)
-         ("C-h C-h" . helpful-at-point)))
-#+end_src
-
-** Magit
-
-Git client [[https://github.com/magit/magit][Magit]].
-
-#+begin_src emacs-lisp
-(use-package magit
-  :config (setq magit-section-visibility-indicator nil))
-#+end_src
-
-** Ansi-term
-
-A terminal emulator. =C-c C-j= switches to =line sub-mode= in which it's possible to use common editing commands. =C-c C-k= to get back.
-
-#+begin_src emacs-lisp
-(defun sb/ansi-term-bash ()
-  (interactive)
-  (ansi-term "/bin/bash"))
-
-(bind-key "C-x x t" 'sb/ansi-term-bash)
-
-(define-advice term-handle-exit
-    (:after (process-name msg))
-  (kill-buffer (current-buffer)))
 #+end_src
 
 * Editing text
@@ -390,6 +344,22 @@ Completion by [[https://github.com/minad/vertico][vertico]], additional info fro
   :config (setq completion-styles '(orderless)))
 #+end_src
 
+** Advice
+
+Improving emacs’ self-documenting capabilities with [[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/Wilfred/helpful][helpful]].
+
+#+begin_src emacs-lisp
+(use-package which-key
+  :init (which-key-mode)
+  :config (setq which-key-idle-delay 1))
+
+(use-package helpful
+  :bind (("C-h f"   . helpful-callable)
+         ("C-h k"   . helpful-key)
+         ("C-h v"   . helpful-variable)
+         ("C-h C-h" . helpful-at-point)))
+#+end_src
+
 ** Modified faces
 
 A low budget version of creating my own theme.
@@ -462,11 +432,18 @@ White text, slightly lighter background. Orange heading level 1, purple links an
   (set-face-foreground 'org-verbatim "#6272a4"))
 #+end_src
 
-* Org mode
+* Big packages
 
-The [[https://orgmode.org/][mode to organize everything]].
+Packages that
+1. are crucial for a superb emacs using experience
+2. have their own major mode
+3. are not associated with a single programming language/file.
 
-** Markup
+** Org mode
+
+The [[https://orgmode.org/][best mode for writing config files]].
+
+*** Markup
 
 Structuring and highlighting text.
 
@@ -489,7 +466,7 @@ Show the hidden part of document when attempted to modify it.
 
 Showing and hiding with =TAB= and =S-TAB=.
 
-** Links
+*** Links
 
 Inserting links after setting the region.
 
@@ -497,32 +474,11 @@ Inserting links after setting the region.
 | Link          | Action                                  |
 |---------------+-----------------------------------------|
 | web page link | C-c C-l =url=                           |
-| file link     | in file =org-store-link= in org C-c C-l |
+| file link     | C-c C-l =file=, =file-path=             |
 | open link     | C-c C-o or mouse click                  |
 |---------------+-----------------------------------------|
 
-** Task management
-
-TODO cycle with =C-c C-t=, org agenda bound to =M-a=.
-
-*** Agenda
-
-Files and keybindings for the [[https://orgmode.org/manual/Agenda-Views.html#Agenda-Views][agenda]].
-
-#+begin_src emacs-lisp
-(bind-key* "M-a" 'org-agenda)
-(setq org-agenda-files '("~/muni/Tasks.org"))
-#+end_src
-
-*** Calendar
-
-Week begins on Monday.
-
-#+begin_src emacs-lisp
-(setq calendar-week-start-day 1)
-#+end_src
-
-** Indentation
+*** Indentation
 
 Automatically indented and with visual lines.
 
@@ -534,7 +490,7 @@ Automatically indented and with visual lines.
           'visual-line-mode)
 #+end_src
 
-** Org tempo
+*** Org tempo
 
 Shortcuts for code block languages.
 
@@ -550,13 +506,38 @@ Shortcuts for code block languages.
       (add-to-list 'org-structure-template-alist language))))
 #+end_src
 
-** Table of contents
+*** Table of contents
 
 Automatic table of contents [[https://github.com/snosov1/toc-org][generator]]. =TOC= attribute should be on heading.
 
 #+begin_src emacs-lisp
 (use-package toc-org
   :hook (org-mode . toc-org-mode))
+#+end_src
+
+** Magit
+
+Git client [[https://github.com/magit/magit][Magit]].
+
+#+begin_src emacs-lisp
+(use-package magit
+  :config (setq magit-section-visibility-indicator nil))
+#+end_src
+
+** Ansi-term
+
+A terminal emulator. =C-c C-j= switches to =line sub-mode= in which it's possible to use common editing commands. =C-c C-k= to get back.
+
+#+begin_src emacs-lisp
+(defun sb/ansi-term-bash ()
+  (interactive)
+  (ansi-term "/bin/bash"))
+
+(bind-key "C-x x t" 'sb/ansi-term-bash)
+
+(define-advice term-handle-exit
+    (:after (process-name msg))
+  (kill-buffer (current-buffer)))
 #+end_src
 
 * Programming modes
@@ -729,7 +710,7 @@ Add typing imports automatically.
 
 * Window manager
 
-[[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its [[file:X/EXWM.org][configuration file]] exists. Does [[file:X/EXWM.org::*Local keys][this]] work?
+[[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its [[file:X/EXWM.org][configuration file]] exists.
 
 #+begin_src emacs-lisp
 (when (file-exists-p (concat user-emacs-directory
