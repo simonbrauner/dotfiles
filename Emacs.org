@@ -582,11 +582,12 @@ Making [[https://github.com/Fanael/highlight-numbers][numbers]] yellow.
 
 *** Pair completion
 
-Inserting the closing delimiters automatically after typing the opening ones.
+Inserting the closing delimiters and quotation marks automatically after typing the opening ones. The latter is apparently meant to be used for [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html][something else]] (to type curved quotes), so the third line is there to avoid doing exactly that in org mode.
 
 #+begin_src emacs-lisp
 (electric-pair-mode)
 (electric-quote-mode)
+(setq electric-quote-chars nil)
 #+end_src
 
 *** Semicolons
