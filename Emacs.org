@@ -714,8 +714,9 @@ Add typing imports automatically.
 [[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its [[file:X/EXWM.org][configuration file]] exists.
 
 #+begin_src emacs-lisp
-(when (file-exists-p (concat user-emacs-directory
-                             "lisp/window-manager.el"))
-  (add-to-list 'load-path "~/.emacs.d/lisp/")
-  (require 'window-manager))
+(let* ((lisp-dir (concat user-emacs-directory "lisp/"))
+       (wm-file (concat lisp-dir "window-manager.el")))
+  (when (file-exists-p wm-file)
+    (add-to-list 'load-path lisp-dir)
+    (require 'window-manager)))
 #+end_src
