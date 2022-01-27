@@ -31,6 +31,9 @@ Personal GNU Emacs configuration!
   - [[#general][General]]
   - [[#haskell][Haskell]]
   - [[#python][Python]]
+- [[#snippets][Snippets]]
+  - [[#org-mode-1][Org mode]]
+  - [[#python-mode][Python mode]]
 - [[#window-manager][Window manager]]
 
 * Essentials
@@ -707,6 +710,60 @@ Add typing imports automatically.
 
 (with-eval-after-load 'python
   (bind-key "C-c i" 'sb/python-update-typing-imports 'python-mode-map))
+#+end_src
+
+* Snippets
+
+The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
+
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :config
+  (setq yas-indent-line 'fixed)
+  (setq yas-snippet-dirs `(,(concat user-emacs-directory "snippets/")))
+  (yas-global-mode 1))
+#+end_src
+
+** Org mode
+
+Determining the tangle path by reading major mode from level 2 org heading.
+
+#+begin_src emacs-lisp
+(defun sb/write-snippet-path ()
+  (concat (car yas-snippet-dirs)
+          (save-excursion
+            (let ((begin (+ 3 (re-search-backward "^\*\\{2\\} ")))
+                  (end (progn (end-of-line) (point))))
+              (replace-regexp-in-string " " "-"
+                                        (downcase (buffer-substring-no-properties begin end)))))))
+#+end_src
+
+The snippet for a new snippet.
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/org-mode/newsnippet
+# -*- mode: snippet -*-
+# name: newsnippet
+# key: ns
+# --
+`"#+begin_src snippet :tangle"` `(sb/write-snippet-path)`/$1
+# -*- mode: snippet -*-
+# name: ${1:name}
+# key: ${2:key}
+# --
+$0
+`"#+end_src"`
+#+end_src
+
+** Python mode
+
+A simple snippet to test if this works.
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/python-mode/print
+# -*- mode: snippet -*-
+# name: print
+# key: print
+# --
+print(${1:what})
 #+end_src
 
 * Window manager
