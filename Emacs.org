@@ -5,6 +5,7 @@
 Personal GNU Emacs configuration!
 
 * Contents                                                              :TOC:
+
 - [[#essentials][Essentials]]
   - [[#package-management][Package management]]
   - [[#no-littering][No-littering]]
@@ -533,6 +534,14 @@ Automatic table of contents [[https://github.com/snosov1/toc-org][generator]]. =
 #+begin_src emacs-lisp
 (use-package toc-org
   :hook (org-mode . toc-org-mode))
+
+(define-advice toc-org-insert-toc
+    (:after ())
+  (save-excursion
+    (goto-char (point-min))
+    (when (re-search-forward ":TOC:" nil t)
+      (end-of-line)
+      (org-return))))
 #+end_src
 
 ** Magit
