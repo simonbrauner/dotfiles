@@ -734,15 +734,22 @@ Add typing imports automatically.
 The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
 
 #+begin_src emacs-lisp
+(defvar snippet-directory "~/dotfiles/snippets/")
+
 (use-package yasnippet
   :config
   (setq yas-indent-line 'fixed)
-  (setq yas-snippet-dirs `(,(concat user-emacs-directory "snippets/")))
+  (setq yas-snippet-dirs `(,snippet-directory))
   (yas-global-mode 1))
 #+end_src
 
 ** Python mode
 
+|------+--------------------|
+| [[file:snippets/python-mode/for][for]]  | for cycle          |
+| [[file:snippets/python-mode/forc][forc]] | for in range cycle |
+| [[file:snippets/python-mode/whi][whi]]  | while cycle        |
+|------+--------------------|
 
 * Window manager
 
