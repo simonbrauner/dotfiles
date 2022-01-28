@@ -435,6 +435,25 @@ White text, slightly lighter background. Orange heading level 1, purple links an
   (set-face-foreground 'org-verbatim "#6272a4"))
 #+end_src
 
+*** Which key
+
+Purple links in which-key buffers.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'which-key
+  (set-face-foreground 'button "#bd93f9"))
+#+end_src
+
+*** Magit
+
+Purple links and branches.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'magit
+  (dolist (face '(link magit-branch-local))
+    (set-face-foreground face "#bd93f9")))
+#+end_src
+
 * Big packages
 
 Packages that
