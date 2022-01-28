@@ -536,12 +536,14 @@ Automatic table of contents [[https://github.com/snosov1/toc-org][generator]]. =
   :hook (org-mode . toc-org-mode))
 
 (define-advice toc-org-insert-toc
-    (:after ())
+    (:after (&optional dry-run))
   (save-excursion
     (goto-char (point-min))
     (when (re-search-forward ":TOC:" nil t)
-      (end-of-line)
-      (org-return))))
+      (next-line)
+      (beginning-of-line)
+      (unless (char-equal (char-after) ?\n)
+        (org-return)))))
 #+end_src
 
 ** Magit
