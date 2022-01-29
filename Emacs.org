@@ -2,7 +2,7 @@
 #+property: header-args :mkdirp yes
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/init.el
 
-Personal GNU Emacs configuration!
+Personal GNU Emacs configuration.
 
 * Contents                                                              :TOC:
 
@@ -34,6 +34,7 @@ Personal GNU Emacs configuration!
   - [[#python][Python]]
 - [[#snippets][Snippets]]
   - [[#tables][Tables]]
+  - [[#org-mode-1][Org mode]]
   - [[#python-mode][Python mode]]
 - [[#window-manager][Window manager]]
 
@@ -512,22 +513,6 @@ Automatically indented and with visual lines.
           'visual-line-mode)
 #+end_src
 
-*** Org tempo
-
-Shortcuts for code block languages.
-
-#+begin_src emacs-lisp
-(when (> emacs-major-version 26)
-  (with-eval-after-load 'org
-    (require 'org-tempo)
-    (dolist (language '(("co" . "src conf")
-                        ("el" . "src emacs-lisp")
-                        ("hs" . "src haskell")
-                        ("sh" . "src shell")
-                        ("tx" . "src text")))
-      (add-to-list 'org-structure-template-alist language))))
-#+end_src
-
 *** Table of contents
 
 Automatic table of contents [[https://github.com/snosov1/toc-org][generator]]. =TOC= attribute should be on heading.
@@ -614,7 +599,7 @@ Making [[https://github.com/Fanael/highlight-numbers][numbers]] yellow.
 
 *** Pair completion
 
-Inserting the closing delimiters and quotation marks automatically after typing the opening ones. The latter is apparently meant to be used for [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html][something else]] (to type curved quotes), so the third line is there to avoid doing exactly that in org mode.
+Inserting closing delimiters and quotation marks automatically after typing the opening ones. The latter is apparently meant to be used for [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html][something else]] (to type curved quotes), so the third line is there to avoid doing exactly that in org mode. Pair will surround region if mark is active.
 
 #+begin_src emacs-lisp
 (electric-pair-mode)
@@ -749,6 +734,7 @@ The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
 (defvar snippet-directory "~/dotfiles/snippets/")
 
 (use-package yasnippet
+  :bind* ("C-x n s" . yas-new-snippet)
   :config
   (setq yas-indent-line 'fixed)
   (setq yas-snippet-dirs `(,snippet-directory))
@@ -814,6 +800,18 @@ Creating tables of all snippets based on =snippets= directory contents. Separate
             (add-hook 'before-save-hook
                       'sb/insert-snippet-tables -100 t)))
 #+end_src
+
+** Org mode
+
+|-----+--------------------------|
+| Key | Name                     |
+|-----+--------------------------|
+| [[file:snippets/org-mode/co][co]]  | code block configuration |
+| [[file:snippets/org-mode/el][el]]  | code block emacs lisp    |
+| [[file:snippets/org-mode/hs][hs]]  | code block haskell       |
+| [[file:snippets/org-mode/sh][sh]]  | code block shell         |
+| [[file:snippets/org-mode/tx][tx]]  | code block text          |
+|-----+--------------------------|
 
 ** Python mode
 

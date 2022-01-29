@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: code block configuration
+# key: co
+# --
+#+begin_src conf
+$0
+#+end_src
