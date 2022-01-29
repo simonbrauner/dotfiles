@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: whi
+# name: while cycle
 # key: whi
 # --
 while ${1:condition}:

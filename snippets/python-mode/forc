@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: forc
+# name: for in range cycle
 # key: forc
 # --
 for ${1:i} in range(${2:10}):

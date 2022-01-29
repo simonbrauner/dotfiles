@@ -33,6 +33,7 @@ Personal GNU Emacs configuration!
   - [[#haskell][Haskell]]
   - [[#python][Python]]
 - [[#snippets][Snippets]]
+  - [[#tables][Tables]]
   - [[#python-mode][Python mode]]
 - [[#window-manager][Window manager]]
 
@@ -754,8 +755,70 @@ The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
   (yas-global-mode 1))
 #+end_src
 
+** Tables
+
+Creating tables of all snippets based on =snippets= directory contents. Separated by major modes.
+
+#+begin_src emacs-lisp
+(defun sb/delete-old-snippet-tables ()
+  (goto-char (point-min))
+  (re-search-forward "^\\*\\* Tables")
+  (re-search-forward "^#\\+end_src")
+  (set-mark-command nil)
+  (re-search-forward "^\\* Window manager")
+  (previous-line)
+  (delete-region (mark) (point)))
+
+(defun sb/get-snippet-property (file property)
+  (let* ((result (concat "grep \"# " property ":\" " file))
+         (result (shell-command-to-string result))
+         (result (substring result (+ (length property) 4)))
+         (result (substring result 0 (- (length result) 1))))
+    result))
+
+(defun sb/insert-snippet-table (dir)
+  (let ((snippets (cddr (directory-files (expand-file-name dir snippet-directory) t)))
+        (dir (replace-regexp-in-string "0" " " (capitalize (replace-regexp-in-string "-" "0" dir)))))
+    (org-insert-heading-respect-content)
+    (insert dir)
+    (dotimes (i 3) (newline))
+    (org-table-create "2x1")
+    (previous-line)
+    (insert "|-")
+    (org-table-next-field)
+    (insert "Key")
+    (org-table-next-field)
+    (insert "Name")
+    (org-table-insert-hline)
+    (next-line)
+    (dolist (snippet snippets)
+      (org-table-next-field)
+      (insert (concat "[[" (replace-regexp-in-string ".*dotfiles/" "file:" snippet)
+                      "][" (sb/get-snippet-property snippet "key") "]]"))
+      (org-table-next-field)
+      (insert (sb/get-snippet-property snippet "name")))
+    (org-table-insert-hline)
+    (org-table-align)))
+
+(defun sb/insert-snippet-tables ()
+  (let ((modes (cddr (directory-files snippet-directory))))
+    (save-excursion
+      (sb/delete-old-snippet-tables)
+      (mapc 'sb/insert-snippet-table modes)
+      (when (cdr modes)
+        (dotimes (i 2) (next-line))
+        (delete-char 1)))))
+
+(add-hook 'toc-org-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook
+                      'sb/insert-snippet-tables -100 t)))
+#+end_src
+
 ** Python mode
 
+|------+--------------------|
+| Key  | Name               |
 |------+--------------------|
 | [[file:snippets/python-mode/for][for]]  | for cycle          |
 | [[file:snippets/python-mode/forc][forc]] | for in range cycle |
