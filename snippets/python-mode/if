@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: while
-# key: whi
+# name: if
+# key: if
 # --
-while $1:
+if $1:
     $0

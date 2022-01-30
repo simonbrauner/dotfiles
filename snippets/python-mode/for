@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: for cycle
+# name: for
 # key: for
 # --
-for ${1:variable} in ${2:iterable}:
+for $1 in $2:
     $0

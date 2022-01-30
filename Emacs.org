@@ -813,13 +813,16 @@ Creating tables of all snippets based on =snippets= directory contents. Separate
 
 ** Python mode
 
-|------+--------------------|
-| Key  | Name               |
-|------+--------------------|
-| [[file:snippets/python-mode/for][for]]  | for cycle          |
-| [[file:snippets/python-mode/forc][forc]] | for in range cycle |
-| [[file:snippets/python-mode/whi][whi]]  | while cycle        |
-|------+--------------------|
+|------+--------------|
+| Key  | Name         |
+|------+--------------|
+| [[file:snippets/python-mode/for][for]]  | for          |
+| [[file:snippets/python-mode/forr][forr]] | for in range |
+| [[file:snippets/python-mode/if][if]]   | if           |
+| [[file:snippets/python-mode/ife][ife]]  | if else      |
+| [[file:snippets/python-mode/ifee][ifee]] | if elif else |
+| [[file:snippets/python-mode/whi][whi]]  | while        |
+|------+--------------|
 
 * Window manager
 

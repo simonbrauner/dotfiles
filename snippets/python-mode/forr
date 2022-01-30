@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: for in range
+# key: forr
+# --
+for $1 in range($2):
+    $0
