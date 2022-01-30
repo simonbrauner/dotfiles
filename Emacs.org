@@ -97,7 +97,7 @@ The keys that are by default globally bound to commands not used by me.
 
 *** Control
 
-=i=, =o=, =j=.
+=i=, =o=.
 
 *** Meta
 
@@ -145,15 +145,15 @@ Line-oriented functions.
 | kill-line              | C-k     |
 | fill-paragraph         | M-q     |
 | delete-backward-char   | DEL     |
-| delete-indentation     | C-DEL   |
+| delete-indentation     | C-j     |
 |------------------------+---------|
 
 *** Deleting indentation
 
-Moving to previous line with =C-backspace=.
+Remove indentation and move to the previous line with what's after the point.
 
 #+begin_src emacs-lisp
-(bind-key* "<C-backspace>" 'delete-indentation)
+(bind-key* "C-j" 'delete-indentation)
 #+end_src
 
 ** Region
@@ -457,10 +457,7 @@ Purple links in magit buffers.
 
 * Big packages
 
-Packages that
-1. are crucial for a superb emacs using experience
-2. have their own major mode
-3. are not associated with a single programming language/file.
+Those that have functionality way beyond text editing.
 
 ** Org mode
 
@@ -565,7 +562,6 @@ A terminal emulator. =C-c C-j= switches to =line sub-mode= in which it's possibl
 | launch REPL process      | C-c C-p |
 | current buffer into REPL | C-c C-c |
 | clear REPL               | C-l     |
-| move to previous line    | M-^     |
 |--------------------------+---------|
 
 ** General
@@ -612,8 +608,10 @@ Inserting closing delimiters and quotation marks automatically after typing the 
 Add [[https://github.com/iquiw/smart-semicolon][semicolon]] to the end of a line. If it is already there, insert semicolon at point.
 
 #+begin_src emacs-lisp
-(use-package smart-semicolon
-  :hook (prog-mode . smart-semicolon-mode))
+(use-package smart-semicolon)
+
+(dolist (hook '(c-mode-hook java-mode-hook))
+  (add-hook hook 'smart-semicolon-mode))
 #+end_src
 
 *** Save-place-mode
