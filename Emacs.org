@@ -35,7 +35,6 @@ Personal GNU Emacs configuration.
 - [[#snippets][Snippets]]
   - [[#tables][Tables]]
   - [[#org-mode-1][Org mode]]
-  - [[#python-mode][Python mode]]
 - [[#window-manager][Window manager]]
 
 * Essentials
@@ -301,7 +300,7 @@ Shows directories before file names in mode-line in case of multiple buffers wit
 
 ** Minibuffer
 
-Going one directory up by pressing backscape in minibuffer find file. Jumps directly to =/= from =~/=.
+Going one directory up by pressing backspace in minibuffer find file. Jumps directly to =/= from =~/=.
 
 #+begin_src emacs-lisp
 (defun sb/minibuffer-kill-directory-name (arg)
@@ -726,7 +725,7 @@ Add typing imports automatically.
 
 * Snippets
 
-The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
+The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs. Global mode doesn't seem to work correctly when in use-package block.
 
 #+begin_src emacs-lisp
 (defvar snippet-directory "~/dotfiles/snippets/")
@@ -735,8 +734,9 @@ The [[https://github.com/joaotavora/yasnippet][template system]] for Emacs.
   :bind* ("C-x n s" . yas-new-snippet)
   :config
   (setq yas-indent-line 'fixed)
-  (setq yas-snippet-dirs `(,snippet-directory))
-  (yas-global-mode 1))
+  (setq yas-snippet-dirs `(,snippet-directory)))
+
+(yas-global-mode 1)
 #+end_src
 
 ** Tables
@@ -810,19 +810,6 @@ Creating tables of all snippets based on =snippets= directory contents. Separate
 | [[file:snippets/org-mode/sh][sh]]  | code block shell         |
 | [[file:snippets/org-mode/tx][tx]]  | code block text          |
 |-----+--------------------------|
-
-** Python mode
-
-|------+--------------|
-| Key  | Name         |
-|------+--------------|
-| [[file:snippets/python-mode/for][for]]  | for          |
-| [[file:snippets/python-mode/forr][forr]] | for in range |
-| [[file:snippets/python-mode/if][if]]   | if           |
-| [[file:snippets/python-mode/ife][ife]]  | if else      |
-| [[file:snippets/python-mode/ifee][ifee]] | if elif else |
-| [[file:snippets/python-mode/whi][whi]]  | while        |
-|------+--------------|
 
 * Window manager
 
