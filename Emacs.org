@@ -30,6 +30,7 @@ Personal GNU Emacs configuration.
   - [[#ansi-term][Ansi-term]]
 - [[#programming-modes][Programming modes]]
   - [[#general][General]]
+  - [[#c][C]]
   - [[#haskell][Haskell]]
   - [[#python][Python]]
 - [[#snippets][Snippets]]
@@ -637,6 +638,35 @@ Remember the cursor position in file associated buffers.
   flycheck-command-map)
 #+end_src
 
+** C
+
+Mode for C files.
+
+*** Style
+
+K&R with 4 space indentation.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'cc-mode
+  (setq c-basic-offset 4)
+  (push '(other . "k&r") c-default-style))
+#+end_src
+
+*** Syntax
+
+Gcc before cppcheck. Not using =-Werror= because it would just repaint orange with red.
+
+#+begin_src emacs-lisp
+(add-hook 'c-mode-hook 'flycheck-mode)
+
+(setq-default flycheck-disabled-checkers '(c/c++-clang))
+
+(setq flycheck-gcc-language-standard "c99")
+(setq flycheck-gcc-args '("-pedantic"
+                          "-Wall"
+                          "-Wextra"))
+#+end_src
+
 ** Haskell
 
 The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
@@ -827,6 +857,6 @@ Creating tables of all snippets based on =snippets= directory contents. Separate
 (let* ((lisp-dir (concat user-emacs-directory "lisp/"))
        (wm-file (concat lisp-dir "window-manager.el")))
   (when (file-exists-p wm-file)
-    (add-to-list 'load-path lisp-dir)
+    (push lisp-dir load-path)
     (require 'window-manager)))
 #+end_src
