@@ -621,6 +621,22 @@ Remember the cursor position in file associated buffers.
 (save-place-mode 1)
 #+end_src
 
+*** Flycheck
+
+[[https://www.flycheck.org/en/latest/][Syntax checker]]. =C-c f= the prefix key, errors will not be shown while typing.
+
+#+begin_src emacs-lisp
+(use-package flycheck
+  :config
+  (setq flycheck-indication-mode nil)
+  (setq flycheck-check-syntax-automatically '(mode-enabled save)))
+
+(define-key flycheck-mode-map flycheck-keymap-prefix nil)
+(setq flycheck-keymap-prefix (kbd "C-c f"))
+(define-key flycheck-mode-map flycheck-keymap-prefix
+  flycheck-command-map)
+#+end_src
+
 ** Haskell
 
 The official [[https://github.com/haskell/haskell-mode][Haskell-mode]].
@@ -668,31 +684,23 @@ Clear the REPL buffer by =C-l=.
 (bind-key "C-l" 'comint-clear-buffer 'comint-mode-map)
 #+end_src
 
-*** Modules
+*** Syntax
 
-Flake8 and mypy.
+Flake8 before mypy.
 
 #+begin_src emacs-lisp
-(defun sb/python-execute-flake8 ()
-  (interactive)
-  (python-shell-send-string (concat
-                             "subprocess.run(["
-                             "\"flake8\", "
-                             "\"" buffer-file-name "\"])")))
+(add-hook 'python-mode-hook 'flycheck-mode)
 
-(defun sb/python-execute-mypy ()
-  (interactive)
-  (python-shell-send-string (concat "subprocess.run(["
-                                    "\"mypy\", "
-                                    "\"--strict\", "
-                                    "\"" buffer-file-name "\"])")))
+(flycheck-remove-next-checker 'python-flake8 'python-pylint)
 
-(with-eval-after-load 'python
-  (add-hook 'inferior-python-mode-hook
-            (lambda ()
-              (python-shell-send-string "import subprocess")))
-  (bind-key "C-c f" 'sb/python-execute-flake8 'python-mode-map)
-  (bind-key "C-c m" 'sb/python-execute-mypy 'python-mode-map))
+(setq flycheck-python-mypy-config "~/.config/mypy/config")
+#+end_src
+
+Mypy shall always be strict.
+
+#+begin_src conf :tangle ~/.config/mypy/config
+[mypy]
+strict = True
 #+end_src
 
 *** Typing
