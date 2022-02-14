@@ -124,8 +124,9 @@ The basic commands to move in buffers.
 Searching in current file with [[https://github.com/minad/consult][consult]].
 
 #+begin_src emacs-lisp
-(use-package consult
-  :bind (("C-s" . consult-line)))
+(when (> emacs-major-version 26)
+  (use-package consult
+    :bind (("C-s" . consult-line))))
 #+end_src
 
 ** Lines
