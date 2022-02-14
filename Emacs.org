@@ -655,14 +655,20 @@ K&R with 4 space indentation.
 
 *** Syntax
 
-Gcc before cppcheck. Not using =-Werror= because it would just repaint orange with red.
+Gcc, then clang, lastly cppcheck. Not using =-Werror= because it would just repaint orange with red.
 
 #+begin_src emacs-lisp
-(add-hook 'c-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook
+          (lambda ()
+            (flycheck-mode)
+            (setq flycheck-checker 'c/c++-gcc)
+            (setq flycheck-gcc-language-standard "c99")
+            (setq flycheck-clang-language-standard "c99")))
 
-(setq-default flycheck-disabled-checkers '(c/c++-clang))
+(flycheck-remove-next-checker 'c/c++-gcc 'c/c++-cppcheck)
+(flycheck-add-next-checker 'c/c++-gcc 'c/c++-clang)
+(flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)
 
-(setq flycheck-gcc-language-standard "c99")
 (setq flycheck-gcc-args '("-pedantic"
                           "-Wall"
                           "-Wextra"))
