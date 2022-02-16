@@ -666,8 +666,8 @@ Gcc, then clang, lastly cppcheck. Not using =-Werror= because it would just repa
             (setq flycheck-clang-language-standard "c99")))
 
 (flycheck-remove-next-checker 'c/c++-gcc 'c/c++-cppcheck)
-(flycheck-add-next-checker 'c/c++-gcc 'c/c++-clang)
-(flycheck-add-next-checker 'c/c++-clang 'c/c++-cppcheck)
+(flycheck-add-next-checker 'c/c++-gcc '(info . c/c++-clang))
+(flycheck-add-next-checker 'c/c++-clang '(info . c/c++-cppcheck))
 
 (setq flycheck-gcc-args '("-pedantic"
                           "-Wall"
@@ -729,6 +729,8 @@ Flake8 before mypy.
 (add-hook 'python-mode-hook 'flycheck-mode)
 
 (flycheck-remove-next-checker 'python-flake8 'python-pylint)
+(flycheck-remove-next-checker 'python-flake8 'python-mypy)
+(flycheck-add-next-checker 'python-flake8 '(info . python-mypy))
 
 (setq flycheck-python-mypy-config "~/.config/mypy/config")
 #+end_src
