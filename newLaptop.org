@@ -1,0 +1,33 @@
+#+title: Laptop.org
+#+property: header-args :mkdirp yes
+#+property: header-args:text :tangle ./laptop_pkglist.txt
+
+Laptop specific part of the configuration for Lenovo IdeaPad 5 14ALC05.
+
+* PC speaker
+
+Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_speaker#Globally][beep noises]].
+
+#+begin_src conf :tangle /sudo::/etc/modprobe.d/nobeep.conf
+blacklist pcspkr
+#+end_src
+
+* Touchpad
+
+Tapping the [[https://wiki.archlinux.org/title/Touchpad_Synaptics#Configuration][touchpad]] works as a left mouse click, right button is in the top right corner.
+
+#+begin_src conf :tangle /sudo::/etc/X11/xorg.conf.d/70-synaptics.conf
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "synaptics"
+    MatchIsTouchpad "on"
+        Option "TapButton1" "1"
+        Option "RTCornerButton" "3"
+EndSection
+#+end_src
+
+*** Package
+
+#+begin_src text
+xf86-input-synaptics
+#+end_src

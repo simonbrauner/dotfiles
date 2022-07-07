@@ -14,11 +14,3 @@ The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall
 | emacs    |
 | git      |
 |----------|
-
-* PC speaker
-
-Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_speaker#Globally][beep noises]].
-
-#+begin_src conf :tangle /sudo::/etc/modprobe.d/nobeep.conf
-blacklist pcspkr
-#+end_src
