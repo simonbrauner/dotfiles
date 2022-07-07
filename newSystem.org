@@ -14,3 +14,14 @@ The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall
 | emacs    |
 | git      |
 |----------|
+
+* Documentation
+
+The [[https://wiki.archlinux.org/title/man_page][manual pages]].
+
+*** Package
+
+#+begin_src text
+man-db
+man-pages
+#+end_src

@@ -68,16 +68,6 @@ editor = emacs
 graph = log --all --oneline --graph
 #+end_src
 
-** Man
-
-Arch Linux [[https://wiki.archlinux.org/title/man_page][manual pages]].
-
-*** Package
-
-#+begin_src text
-man-db
-#+end_src
-
 ** OpenSSH
 
 Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][SSH]].
