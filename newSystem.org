@@ -1,0 +1,24 @@
+#+title: System.org
+#+property: header-args :mkdirp yes
+#+property: header-args:text :tangle ./system_pkglist.txt
+
+Configuration of the Arch Linux operating system.
+
+* Installation
+
+The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall][archinstall]]. That suits me because I hardly need anything else than the defaults. Log is located in =/var/log/archinstall/install.log=.
+
+|----------|
+| packages |
+|----------|
+| emacs    |
+| git      |
+|----------|
+
+* PC speaker
+
+Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_speaker#Globally][beep noises]].
+
+#+begin_src conf :tangle /sudo::/etc/modprobe.d/nobeep.conf
+blacklist pcspkr
+#+end_src
