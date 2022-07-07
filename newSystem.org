@@ -19,9 +19,38 @@ The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall
 
 The [[https://wiki.archlinux.org/title/man_page][manual pages]].
 
-*** Package
+*** Packages
 
 #+begin_src text
 man-db
 man-pages
+#+end_src
+
+* SSH
+
+Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][OpenSSH]].
+
+*** TODO Keys
+
+[[https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent][New key]].
+
+#+begin_src shell
+ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
+#+end_src
+
+*** Package
+
+#+begin_src text
+openssh
+#+end_src
+
+
+* Polkit
+
+[[https://wiki.archlinux.org/title/allow_users_to_shutdown#Using_systemd-logind][Allow users]] to do power related tasks.
+
+*** Package
+
+#+begin_src text
+polkit
 #+end_src

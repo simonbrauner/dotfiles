@@ -68,24 +68,6 @@ editor = emacs
 graph = log --all --oneline --graph
 #+end_src
 
-** OpenSSH
-
-Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][SSH]].
-
-*** Key
-
-[[https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent][New key]].
-
-#+begin_src shell
-ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
-#+end_src
-
-*** Package
-
-#+begin_src text
-openssh
-#+end_src
-
 ** BlueZ
 
 [[https://wiki.archlinux.org/title/bluetooth][Bluetooth]] implementation. Connects automatically to bluetooth headphones.
