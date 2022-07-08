@@ -55,3 +55,14 @@ htop
 #+begin_src text
 ncdu
 #+end_src
+
+* Zip and unzip
+
+Programs to work with =.zip= archives.
+
+*** Packages
+
+#+begin_src text
+zip
+unzip
+#+end_src

@@ -118,13 +118,6 @@ neofetch --config /home/sb/.config/neofetch/config.conf > /etc/issue
 neofetch
 #+end_src
 
-** Zip and unzip
-
-#+begin_src text
-zip
-unzip
-#+end_src
-
 * Window management
 
 Xorg and Xmonad.
