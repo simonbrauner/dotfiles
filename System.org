@@ -58,26 +58,6 @@ Changing the [[https://wiki.archlinux.org/title/backlight#Backlight_utilities][s
 brightnessctl
 #+end_src
 
-** Htop
-
-Managing processes using [[https://github.com/htop-dev/htop][htop]].
-
-*** Package
-
-#+begin_src text
-htop
-#+end_src
-
-** Ncdu
-
-Analyzing disk usage with [[https://dev.yorhel.nl/ncdu][ncdu]].
-
-*** Package
-
-#+begin_src text
-ncdu
-#+end_src
-
 ** Neofetch
 
 System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]].

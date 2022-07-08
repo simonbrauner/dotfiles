@@ -35,3 +35,23 @@ man-pages
 #+begin_src text
 polkit
 #+end_src
+
+* Htop
+
+Keeping an eye on processes with [[https://github.com/htop-dev/htop][htop]].
+
+*** Package
+
+#+begin_src text
+htop
+#+end_src
+
+* Ncdu
+
+[[https://dev.yorhel.nl/ncdu][Ncdu]] to monitor disk usage.
+
+*** Package
+
+#+begin_src text
+ncdu
+#+end_src
