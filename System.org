@@ -7,67 +7,6 @@
 
 Used in terminal emulators.
 
-** Systemd
-
-A [[https://wiki.archlinux.org/title/Systemd][suite]] of basic building blocks for a Linux system.
-
-*** Power management
-
-[[https://wiki.archlinux.org/title/Systemd#Power_management][Commands]].
-
-#+begin_src shell
-systemctl reboot
-systemctl suspend
-systemctl poweroff
-#+end_src
-
-*** Time
-
-Synchronizing the system clock with [[https://wiki.archlinux.org/title/Systemd-timesyncd][systemd-timesyncd]] service.
-
-#+begin_src shell
-sudo systemctl enable systemd-timesyncd --now
-timedatectl set-ntp t
-#+end_src
-
-** Pacman
-
-The [[https://wiki.archlinux.org/title/pacman][package manager]] in Arch Linux.
-
-*** Basic commands
-
-Installing package, removing package with dependencies and full system upgrade respectively.
-
-#+begin_src shell
-pacman -S vim
-pacman -Rs vim
-pacman -Syu
-#+end_src
-
-*** Packages from a file
-
-Getting the packages [[https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Install_packages_from_a_list][from]] tangled file =pkglist.txt= ready.
-
-#+begin_src shell
-pacman -S --needed - < dotfiles/pkglist.txt
-#+end_src
-
-** Git
-
-Version control system [[https://wiki.archlinux.org/title/git][Git]]. Used mostly by the magit package in Emacs.
-
-#+begin_src conf :tangle ~/.gitconfig
-[user]
-name = Šimon Brauner
-email = simonbrauner@seznam.cz
-
-[core]
-editor = emacs
-
-[alias]
-graph = log --all --oneline --graph
-#+end_src
-
 ** BlueZ
 
 [[https://wiki.archlinux.org/title/bluetooth][Bluetooth]] implementation. Connects automatically to bluetooth headphones.

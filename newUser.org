@@ -1,0 +1,41 @@
+#+title: User.org
+#+property: header-args :mkdirp yes
+#+property: header-args:text :tangle ./user_pkglist.txt
+
+User applications and their configuration.
+
+* TODO Git
+
+Version control system [[https://wiki.archlinux.org/title/git][Git]].
+
+*** Config file
+
+#+begin_src conf :tangle ~/.gitconfig
+[user]
+name = Šimon Brauner
+email = simonbrauner@seznam.cz
+
+[core]
+editor = emacs
+
+[alias]
+graph = log --all --oneline --graph
+#+end_src
+
+* TODO SSH
+
+Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][OpenSSH]].
+
+*** Keys
+
+[[https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent][New key]].
+
+#+begin_src shell
+ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
+#+end_src
+
+*** Package
+
+#+begin_src text
+openssh
+#+end_src
