@@ -1,0 +1,35 @@
+#+title: GUI.org
+#+property: header-args :mkdirp yes
+
+Set up of the graphical user interface. Either window manager EXWM or desktop enviroment XFCE.
+
+* Xorg
+
+X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]].
+
+*** Display server
+
+[[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Starting X]] after logging in to bash.
+
+#+begin_src shell :tangle ~/.bash_profile
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
+#+end_src
+
+*** Keyboard layout
+
+US [[https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Using_setxkbmap][keyboard layout]], czech characters with =AltGr=.
+
+#+begin_src shell :tangle ~/.xinitrc
+setxkbmap -layout cz -variant coder
+#+end_src
+
+*** TODO Package
+
+Fira Code font. Everything else managed by [[file:newSystem.org::*Installation][archinstall]].
+(link shall be manually moved to new file name before merging)
+
+#+begin_src text
+ttf-fira-code
+#+end_src
