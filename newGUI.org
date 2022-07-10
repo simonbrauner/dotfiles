@@ -25,10 +25,9 @@ US [[https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Using_setxkbma
 setxkbmap -layout cz -variant coder
 #+end_src
 
-*** TODO Package
+*** Package
 
-Fira Code font. Everything else managed by [[file:newSystem.org::*Installation][archinstall]].
-(link shall be manually moved to new file name before merging)
+Fira Code font. Everything else managed by archinstall.
 
 #+begin_src text
 ttf-fira-code
