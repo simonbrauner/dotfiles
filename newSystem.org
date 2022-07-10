@@ -66,3 +66,46 @@ Programs to work with =.zip= archives.
 zip
 unzip
 #+end_src
+
+* Sound
+
+Using [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture][ALSA utilities]] and [[https://wiki.archlinux.org/title/PulseAudio][PulseAudio]] to manage sound.
+
+*** Packages
+
+#+begin_src text
+alsa-utils
+pulseaudio
+pulseaudio-alsa
+pulseaudio-bluetooth
+#+end_src
+
+* Bluetooth
+
+[[https://wiki.archlinux.org/title/bluetooth][BlueZ]] implementation.
+
+*** Autostart
+
+Auto power-on [[https://wiki.archlinux.org/title/bluetooth#Auto_power-on_after_boot/resume][after boot]].
+
+#+begin_src conf :tangle /sudo::/etc/bluetooth/main.conf
+[Policy]
+AutoEnable=true
+#+end_src
+
+*** Packages
+
+#+begin_src text
+bluez
+bluez-utils
+#+end_src
+
+* Backlight
+
+Changing the screen brightness.
+
+*** Package
+
+#+begin_src text
+brightnessctl
+#+end_src
