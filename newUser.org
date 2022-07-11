@@ -1,10 +1,10 @@
 #+title: User.org
 #+property: header-args :mkdirp yes
-#+property: header-args:text :tangle ./user_pkglist.txt
+#+property: header-args:text :tangle ./packages/user_pkglist.txt
 
 User applications and their configuration.
 
-* TODO Git
+* Git
 
 Version control system [[https://wiki.archlinux.org/title/git][Git]].
 
@@ -22,7 +22,7 @@ editor = emacs
 graph = log --all --oneline --graph
 #+end_src
 
-* TODO SSH
+* SSH
 
 Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][OpenSSH]].
 
@@ -38,4 +38,34 @@ ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
 
 #+begin_src text
 openssh
+#+end_src
+
+* Chromium
+
+A web browser.
+
+*** Package
+
+#+begin_src text
+chromium
+#+end_src
+
+* Feh
+
+A light-weight, configurable and versatile image viewer - [[https://wiki.archlinux.org/title/feh][Feh]].
+
+*** Package
+
+#+begin_src text
+feh
+#+end_src
+
+* VLC
+
+Video player [[https://wiki.archlinux.org/title/VLC_media_player][VLC]].
+
+*** Package
+
+#+begin_src text
+vlc
 #+end_src

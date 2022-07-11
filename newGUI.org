@@ -1,9 +1,9 @@
 #+title: GUI.org
 #+property: header-args :mkdirp yes
-#+property: header-args:text :tangle ./gui_pkglist.txt
+#+property: header-args:text :tangle ./packages/gui_pkglist.txt
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/lisp/window-manager.el
 
-Set up of the graphical user interface. Either window manager EXWM or desktop environment Xfce.
+Set up of the graphical user interface.
 
 * Xorg
 
@@ -14,6 +14,8 @@ X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]].
 [[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Starting X]] after logging in to bash.
 
 #+begin_src shell :tangle ~/.bash_profile
+[ -f .bashrc ] && . ~/.bashrc
+
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -le 2 ]; then
   exec startx
 fi
@@ -35,7 +37,7 @@ Fira Code font. Everything else managed by archinstall.
 ttf-fira-code
 #+end_src
 
-*** TODO Exec
+*** Exec
 
 |-----+-------|
 | tty | wm/de |
@@ -63,7 +65,9 @@ A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for 
 
 #+begin_src emacs-lisp
 (use-package exwm
-  :config (exwm-enable))
+  :config
+  (setq exwm-replace nil)
+  (exwm-enable))
 #+end_src
 
 *** Global keys
@@ -245,4 +249,15 @@ adapter = ACAD
 
 #+begin_src text
 polybar
+#+end_src
+
+* Xfce
+
+A lightweight and modular desktop environment, [[https://wiki.archlinux.org/title/xfce][Xfce]].
+
+*** Packages
+
+#+begin_src text
+xfce4
+xfce4-goodies
 #+end_src

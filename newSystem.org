@@ -1,6 +1,6 @@
 #+title: System.org
 #+property: header-args :mkdirp yes
-#+property: header-args:text :tangle ./system_pkglist.txt
+#+property: header-args:text :tangle ./packages/system_pkglist.txt
 
 Configuration of the Arch Linux operating system.
 

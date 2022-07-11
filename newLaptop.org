@@ -1,6 +1,6 @@
 #+title: Laptop.org
 #+property: header-args :mkdirp yes
-#+property: header-args:text :tangle ./laptop_pkglist.txt
+#+property: header-args:text :tangle ./packages/laptop_pkglist.txt
 
 Laptop specific part of the configuration for Lenovo IdeaPad 5 14ALC05.
 
