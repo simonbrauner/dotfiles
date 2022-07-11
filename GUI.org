@@ -1,9 +1,63 @@
-#+title: EXWM.org
+#+title: GUI.org
 #+property: header-args :mkdirp yes
+#+property: header-args:text :tangle ./packages/gui_pkglist.txt
 #+property: header-args:emacs-lisp :tangle ~/.emacs.d/lisp/window-manager.el
-#+property: header-args:conf :tangle ~/.config/polybar/config
 
-EXWM and polybar.
+Set up of the graphical user interface.
+
+* Xorg
+
+X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]].
+
+*** Display server
+
+[[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Starting X]] after logging in to bash.
+
+#+begin_src shell :tangle ~/.bash_profile
+[ -f .bashrc ] && . ~/.bashrc
+
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -le 2 ]; then
+  exec startx
+fi
+#+end_src
+
+*** Keyboard layout
+
+US [[https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Using_setxkbmap][keyboard layout]], czech characters with =AltGr=.
+
+#+begin_src shell :tangle ~/.xinitrc
+setxkbmap -layout cz -variant coder
+#+end_src
+
+*** Package
+
+Fira Code font. Everything else managed by archinstall.
+
+#+begin_src text
+ttf-fira-code
+#+end_src
+
+*** Exec
+
+|-----+-------|
+| tty | wm/de |
+|-----+-------|
+|   1 | EXWM  |
+|   2 | Xfce  |
+| 3-6 | bash  |
+|-----+-------|
+
+#+begin_src shell :tangle ~/.xinitrc
+if [ "${XDG_VTNR}" -eq 1 ]; then
+    xhost +SI:localuser:$USER
+    export _JAVA_AWT_WM_NONREPARENTING=1
+    xsetroot -cursor_name left_ptr
+    xset r rate 200 50
+    exec emacs
+else
+    exec startxfce4
+fi
+#+end_src
 
 * EXWM
 
@@ -11,10 +65,12 @@ A full-featured [[https://github.com/ch11ng/exwm][tiling X window manager]] for 
 
 #+begin_src emacs-lisp
 (use-package exwm
-  :config (exwm-enable))
+  :config
+  (setq exwm-replace nil)
+  (exwm-enable))
 #+end_src
 
-** Global keys
+*** Global keys
 
 Executing programs.
 
@@ -42,7 +98,7 @@ Executing programs.
 
 (sb/exwm-add-global-keys '(("s-r" . exwm-reset)
                            ("C-x x p" . sb/execute-application)
-                           ("C-x x w" . "firefox")
+                           ("C-x x w" . "chromium")
                            ("C-x x v" . "vlc")
                            ;; laptop keys
                            ("<XF86AudioMute>" . "amixer set Master toggle")
@@ -53,7 +109,7 @@ Executing programs.
                            ("<XF86MonBrightnessUp>" . "brightnessctl --min-value=10 s 15%+")))
 #+end_src
 
-** Local keys
+*** Local keys
 
 =C-q= to send raw key to the application.
 
@@ -61,7 +117,7 @@ Executing programs.
 (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
 #+end_src
 
-** Simulation keys
+*** Simulation keys
 
 Mimicking Emacs's behavior.
 
@@ -90,7 +146,7 @@ Mimicking Emacs's behavior.
         ([?\C-g] . [])))
 #+end_src
 
-** Hooks
+*** Hooks
 
 Naming buffers reasonably.
 
@@ -108,7 +164,7 @@ Naming buffers reasonably.
             (sb/start-process "polybar poly")))
 #+end_src
 
-** Providing
+*** Providing
 
 End of =window-manager.el=.
 
@@ -120,11 +176,11 @@ End of =window-manager.el=.
 
 A fast and easy-to-use [[https://github.com/polybar/polybar][tool for creating status bars]].
 
-** Face
+*** Face
 
-Designed to fit in the right part of Emacs' echo area.
+Designed to fit in the right part of Emacs' echo area. Color acquired by [[https://aur.archlinux.org/packages/grabc][grabc]].
 
-#+begin_src conf
+#+begin_src conf :tangle ~/.config/polybar/config
 [bar/poly]
 override-redirect = true
 bottom = true
@@ -144,11 +200,11 @@ module-margin = 2
 modules-right = pulseaudio bluetooth battery date
 #+end_src
 
-** Modules
+*** Modules
 
 Volume and bluetooth.
 
-#+begin_src conf
+#+begin_src conf :tangle ~/.config/polybar/config
 [module/pulseaudio]
 type = internal/pulseaudio
 
@@ -173,7 +229,7 @@ fi
 
 Time, date and battery.
 
-#+begin_src conf
+#+begin_src conf :tangle ~/.config/polybar/config
 [module/date]
 type = internal/date
 
@@ -189,9 +245,19 @@ battery = BAT1
 adapter = ACAD
 #+end_src
 
-** AUR
+*** Package
 
 #+begin_src text
 polybar
-grabc
+#+end_src
+
+* Xfce
+
+A lightweight and modular desktop environment, [[https://wiki.archlinux.org/title/xfce][Xfce]].
+
+*** Packages
+
+#+begin_src text
+xfce4
+xfce4-goodies
 #+end_src

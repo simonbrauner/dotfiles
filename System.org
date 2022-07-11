@@ -1,204 +1,75 @@
 #+title: System.org
 #+property: header-args :mkdirp yes
-#+property: header-args:text :tangle ./pkglist.txt
-#+property: header-args:haskell :tangle ~/.xmonad/xmonad.hs
+#+property: header-args:text :tangle ./packages/system_pkglist.txt
 
-Configuration and also a bit of documentation for Arch Linux and the applications that run on it.
+Configuration of the Arch Linux operating system.
 
-* Installation notes
+* Installation
 
-The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall][archinstall]]. That suits me because I hardly need anything else than the defaults.
+The installation is simplified by [[https://wiki.archlinux.org/title/Archinstall][archinstall]]. That suits me because I hardly need anything else than the defaults. Log is located in =/var/log/archinstall/install.log=.
 
-|------------------------+----------------|
-| Question               | Answer         |
-|------------------------+----------------|
-| bootloader             | systemd-boot   |
-| pre-programmed-profile | xorg           |
-| additional packages    | git emacs      |
-| timezone               | Europe/Prague  |
-| network                | NetworkManager |
-|------------------------+----------------|
+|----------|
+| packages |
+|----------|
+| emacs    |
+| git      |
+|----------|
 
-* Bash
+* Documentation
 
-[[https://wiki.archlinux.org/title/bash][Bourne-again Shell]].
-
-** Face
-
-Making console colorful.
-
-*** Prompts
-
-Arch linux default (no colors, folder only, in =[]=).
-
-#+begin_src shell
-PS1='[\u@\h \W]\$ '
-#+end_src
-
-Gentoo root (red, blue, full path).
-
-#+begin_src shell
-PS1='\[\033[01;31m\]\h\[\033[01;34m\] \w \$\[\033[00m\] '
-#+end_src
-
-Gentoo other user (green, user name).
-
-#+begin_src shell
-PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
-#+end_src
-
-* Command-line tools
-
-Used in terminal emulators.
-
-** Systemd
-
-A [[https://wiki.archlinux.org/title/Systemd][suite]] of basic building blocks for a Linux system.
-
-*** Power management
-
-[[https://wiki.archlinux.org/title/Systemd#Power_management][Commands]].
-
-#+begin_src shell
-systemctl reboot
-systemctl suspend
-systemctl poweroff
-#+end_src
-
-*** Time
-
-Synchronizing the system clock with [[https://wiki.archlinux.org/title/Systemd-timesyncd][systemd-timesyncd]] service.
-
-#+begin_src shell
-sudo systemctl enable systemd-timesyncd --now
-timedatectl set-ntp t
-#+end_src
-
-** Pacman
-
-The [[https://wiki.archlinux.org/title/pacman][package manager]] in Arch Linux.
-
-*** Basic commands
-
-Installing package, removing package with dependencies and full system upgrade respectively.
-
-#+begin_src shell
-pacman -S vim
-pacman -Rs vim
-pacman -Syu
-#+end_src
-
-*** Packages from a file
-
-Getting the packages [[https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Install_packages_from_a_list][from]] tangled file =pkglist.txt= ready.
-
-#+begin_src shell
-pacman -S --needed - < dotfiles/pkglist.txt
-#+end_src
-
-** Git
-
-Version control system [[https://wiki.archlinux.org/title/git][Git]]. Used mostly by the magit package in Emacs.
-
-#+begin_src conf :tangle ~/.gitconfig
-[user]
-name = Šimon Brauner
-email = simonbrauner@seznam.cz
-
-[core]
-editor = emacs
-
-[alias]
-graph = log --all --oneline --graph
-#+end_src
-
-** Man
-
-Arch Linux [[https://wiki.archlinux.org/title/man_page][manual pages]].
-
-*** Package
-
-#+begin_src text
-man-db
-#+end_src
-
-** OpenSSH
-
-Connecting to other devices with [[https://wiki.archlinux.org/title/OpenSSH][SSH]].
-
-*** Key
-
-[[https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent][New key]].
-
-#+begin_src shell
-ssh-keygen -t ed25519 -C "simonbrauner@seznam.cz"
-#+end_src
-
-*** Package
-
-#+begin_src text
-openssh
-#+end_src
-
-** BlueZ
-
-[[https://wiki.archlinux.org/title/bluetooth][Bluetooth]] implementation. Connects automatically to bluetooth headphones.
-
-*** Autostart
-
-Auto power-on [[https://wiki.archlinux.org/title/bluetooth#Auto_power-on_after_boot][after boot]].
-
-#+begin_src conf :tangle /sudo::/etc/bluetooth/main.conf
-[Policy]
-AutoEnable=true
-#+end_src
+The [[https://wiki.archlinux.org/title/man_page][manual pages]].
 
 *** Packages
 
 #+begin_src text
-bluez
-bluez-utils
+man-db
+man-pages
 #+end_src
 
-** Touchpad
+* Polkit
 
-Tapping the [[https://wiki.archlinux.org/title/Touchpad_Synaptics#Configuration][touchpad]] works as a mouse click, right button in the right top corner.
-
-#+begin_src conf :tangle /sudo::/etc/X11/xorg.conf.d/70-synaptics.conf
-Section "InputClass"
-    Identifier "touchpad"
-    Driver "synaptics"
-    MatchIsTouchpad "on"
-        Option "TapButton1" "1"
-        Option "RTCornerButton" "3"
-EndSection
-#+end_src
+[[https://wiki.archlinux.org/title/allow_users_to_shutdown#Using_systemd-logind][Allow users]] to do power related tasks.
 
 *** Package
 
 #+begin_src text
-xf86-input-synaptics
+polkit
 #+end_src
 
-** Sound
+* Htop
+
+Keeping an eye on processes with [[https://github.com/htop-dev/htop][htop]].
+
+*** Package
+
+#+begin_src text
+htop
+#+end_src
+
+* Ncdu
+
+[[https://dev.yorhel.nl/ncdu][Ncdu]] to monitor disk usage.
+
+*** Package
+
+#+begin_src text
+ncdu
+#+end_src
+
+* Zip and unzip
+
+Programs to work with =.zip= archives.
+
+*** Packages
+
+#+begin_src text
+zip
+unzip
+#+end_src
+
+* Sound
 
 Using [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture][ALSA utilities]] and [[https://wiki.archlinux.org/title/PulseAudio][PulseAudio]] to manage sound.
-
-*** PC speaker
-
-Disabling the annoying and extremely loud [[https://wiki.archlinux.org/title/PC_speaker#Globally][beep noises]].
-
-#+begin_src conf :tangle /sudo::/etc/modprobe.d/nobeep.conf
-blacklist pcspkr
-#+end_src
-
-*** Stop error message
-
-Avoiding [[https://forums.lenovo.com/t5/Other-Linux-Discussions/AMD-T14-kernel-error-about-acp-pdm-mach/m-p/5066593?page=1#5339535][this]] message shown at the login screen by adding the [[https://wiki.archlinux.org/title/kernel_parameters#systemd-boot][kernel parameter]]. Not tangled because tramp finds it difficult.
-
-#+begin_src conf
-snd_rn_pci_acp3x.dmic_acpi_check=0
-#+end_src
 
 *** Packages
 
@@ -209,439 +80,37 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 #+end_src
 
-** Backlight
+* Bluetooth
 
-Changing the [[https://wiki.archlinux.org/title/backlight#Backlight_utilities][screen brightness]] with =brightnessctl=.
+[[https://wiki.archlinux.org/title/bluetooth][BlueZ]] implementation. Systemd service =bluetooth= must be enabled. Pairing described [[https://wiki.archlinux.org/title/bluetooth#Pairing][there]].
+
+*** Autostart
+
+Auto power-on [[https://wiki.archlinux.org/title/bluetooth#Auto_power-on_after_boot/resume][after boot]].
+
+#+begin_src conf :tangle /sudo::/etc/bluetooth/main.conf
+[Policy]
+AutoEnable=true
+#+end_src
+
+*** Pavucontrol
+
+Headphones need need to be [[https://bbs.archlinux.org/viewtopic.php?id=215268][selected]] as default.
+
+*** Packages
+
+#+begin_src text
+bluez
+bluez-utils
+pavucontrol
+#+end_src
+
+* Backlight
+
+Changing the screen brightness.
 
 *** Package
 
 #+begin_src text
 brightnessctl
-#+end_src
-
-** Htop
-
-Managing processes using [[https://github.com/htop-dev/htop][htop]].
-
-*** Package
-
-#+begin_src text
-htop
-#+end_src
-
-** Ncdu
-
-Analyzing disk usage with [[https://dev.yorhel.nl/ncdu][ncdu]].
-
-*** Package
-
-#+begin_src text
-ncdu
-#+end_src
-
-** Neofetch
-
-System information and logo by [[https://github.com/dylanaraps/neofetch][neofetch]].
-
-*** Before login
-
-Configured to show constant info only. =Memory= and =Disk= hardcoded to avoid irrelevant ratios. =Terminal= is the only dynamic part - it shows the tty number.
-
-#+begin_src conf :tangle ~/.config/neofetch/config.conf
-print_info() {
-    info model
-    info underline
-    info "CPU" cpu
-    info "GPU" gpu
-    info "Resolution" resolution
-    info "Memory" memory
-    info "Disk" disk
-
-    prin
-    prin
-    prin
-    info distro
-    info underline
-    info "Shell" shell
-    info "GPU Driver" gpu_driver
-    info "WM" wm
-    info "Terminal" term
-}
-
-get_memory() {
-    memory="7295MiB"
-}
-
-get_disk() {
-    disk="234G"
-}
-
-get_term() {
-    term="\l"
-}
-
-shell_version="off"
-speed_shorthand="on"
-disk_subtitle="none"
-#+end_src
-
-*** Issue file
-
-Showing neofetch at the bash login screen by saving the output into =/etc/issue= file.
-
-#+begin_src shell
-neofetch --config /home/sb/.config/neofetch/config.conf > /etc/issue
-#+end_src
-
-*** Package
-
-#+begin_src text
-neofetch
-#+end_src
-
-** Zip and unzip
-
-#+begin_src text
-zip
-unzip
-#+end_src
-
-* Window management
-
-Xorg and Xmonad.
-
-** Xorg
-
-X Window System implemetation [[https://wiki.archlinux.org/title/xorg][Xorg]].
-
-*** Display server
-
-[[https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login][Starting X]] after logging in to bash.
-
-#+begin_src shell :tangle ~/.bash_profile
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
-fi
-#+end_src
-
-*** Keyboard layout
-
-US [[https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Using_setxkbmap][keyboard layout]], czech characters with =AltGr=.
-
-#+begin_src shell :tangle ~/.xinitrc
-setxkbmap -layout cz -variant coder
-#+end_src
-
-*** Executing Xmonad
-
-Running xmonad with [[https://wiki.archlinux.org/title/xmonad#Starting][xinit]].
-
-#+begin_src shell :tangle ~/.xinitrc
-exec xmonad
-#+end_src
-
-*** Package
-
-Fira Code font.
-
-#+begin_src text
-ttf-fira-code
-#+end_src
-
-** Xmonad
-
-A tiling window manager [[https://wiki.archlinux.org/title/xmonad][xmonad]].
-
-*** Imports
-
-#+begin_src haskell
-import XMonad
-import XMonad.Util.EZConfig
-import XMonad.Actions.SpawnOn
-import XMonad.Layout.NoBorders
-import XMonad.Hooks.DynamicLog
-#+end_src
-
-*** Basics
-
-Default programs, super key as leader key.
-
-#+begin_src haskell
-myEditor   = "emacs"
-myBrowser  = "firefox"
-myTerminal = "kitty"
-
-myModMask = mod4Mask
-#+end_src
-
-*** Key bindings
-
-The basic default keybindings.
-
-|----------------------------+------------|
-| Action                     | Binding    |
-|----------------------------+------------|
-| select workspace 1         | s-1        |
-| next window                | s-tab      |
-| select window as main      | s-return   |
-| move window to workspace 2 | S-s-2      |
-| open terminal              | S-s-return |
-| close window               | S-s-c      |
-| toggle xmobar              | s-b        |
-|----------------------------+------------|
-
-And some additional self-explanatory laptop-specific ones.
-
-#+begin_src haskell
-myKeys =
-  [ ("<XF86AudioMute>",         spawn "amixer set Master toggle")
-  , ("<XF86AudioLowerVolume>",  spawn "amixer set Master 5%-")
-  , ("<XF86AudioRaiseVolume>",  spawn "amixer set Master 5%+")
-  , ("<XF86AudioMicMute>",      spawn "amixer set Capture toggle")
-  , ("<XF86MonBrightnessDown>", spawn "brightnessctl s 20%-")
-  , ("<XF86MonBrightnessUp>",   spawn "brightnessctl s 20%+")
-  ]
-#+end_src
-
-*** Layout
-
-Borders - colors, size, visible only with multiple windows. =Tall= layout.
-
-#+begin_src haskell
-myNormalBorderColor  = "#19194d"
-myFocusedBorderColor = "#0033cc"
-
-myBorderWidth = 3
-
-myLayoutHook = smartBorders $ Tall 1 (3/100) (1/2)
-#+end_src
-
-*** Workspaces
-
-Nine workspaces, first three of them have applications on startup.
-
-#+begin_src haskell
-myWorkspaces = map show [1..9]
-
-myManageHook = manageSpawn <+> manageHook def
-
-myStartupHook = do
-  spawnOn "1" myEditor
-  spawnOn "2" myBrowser
-  spawnOn "3" myTerminal
-#+end_src
-
-*** Main
-
-#+begin_src haskell
-main = xmonad =<< xmobar defaults
-
-defaults = def
-  { terminal           = myTerminal
-  , modMask            = myModMask
-  , normalBorderColor  = myNormalBorderColor
-  , focusedBorderColor = myFocusedBorderColor
-  , borderWidth        = myBorderWidth
-  , layoutHook         = myLayoutHook
-  , workspaces         = myWorkspaces
-  , manageHook         = myManageHook
-  , startupHook        = myStartupHook
-  } `additionalKeysP` myKeys
-#+end_src
-
-*** Pacman hook
-
-Recompiling xmonad [[https://wiki.archlinux.org/title/Xmonad#Problems_with_finding_shared_libraries_after_update][after update]].
-
-#+begin_src conf :tangle /sudo::/etc/pacman.d/hooks/xmonad.hook
-[Trigger]
-Operation = Upgrade
-Type = Package
-Target = xmonad
-
-[Action]
-Description = Recompiling xmonad...
-When = PostTransaction
-Exec = /usr/bin/sudo -u sb /usr/bin/xmonad --recompile
-#+end_src
-
-*** Packages
-
-#+begin_src text
-xmonad
-xmonad-contrib
-#+end_src
-
-** Xmobar
-
-Status bar called [[https://wiki.archlinux.org/title/Xmobar][xmobar]].
-
-*** Main
-
-Border color designed to match emacs' screen separator. Special signs: =%%= for plugins, =}{= to separate left and right sides.
-
-#+begin_src haskell :tangle ~/.xmobarrc
-Config
-    { font        = "xft:Fira Code:size=8"
-    , additionalFonts = [ "xft:Fira Code:size=8:bold" ]
-    , bgColor     = "black"
-    , fgColor     = "white"
-    , position    = Top
-    , border      = BottomB
-    , borderColor = "#373844"
-
-    , template = "  %battery%  |  %multicpu%  |  %memory%}{\
-                 \%default:Master%  |  %default:Capture%  |  %bright%  |  %date%  "
-    , commands =
-#+end_src
-
-*** Plugins
-
-Documentation [[https://github.com/jaor/xmobar/blob/master/doc/plugins.org][there]]. Refresh rate in =seconds/10=. =Volume= instead of =Alsa= to be able to see volume of bluetooth device.
-
-#+begin_src haskell :tangle ~/.xmobarrc
-[ Run Battery    [ "-t" , "Battery: <fn=1><left>%</fn>"
-                 , "-L" , "20"
-                 , "-H" , "60"
-                 , "-l" , "red"
-                 , "-n" , "orange"
-                 , "-h" , "green"
-                 ] 50
-, Run MultiCpu   [ "-t" , "Cpu: <fn=1><total>%</fn>"
-                 , "-L" , "10"
-                 , "-H" , "50"
-                 , "-l" , "green"
-                 , "-n" , "orange"
-                 , "-h" , "red"
-                 ] 20
-, Run Memory     [ "-t" , "Memory: <fn=1><usedratio>%</fn>"
-                 , "-L" , "20"
-                 , "-H" , "40"
-                 , "-l" , "green"
-                 , "-n" , "orange"
-                 , "-h" , "red"
-                 ] 20
-, Run Volume     "default" "Master"
-                 [ "-t" , "Volume: <fn=1><volume>% <status></fn>"] 10
-, Run Volume     "default" "Capture"
-                 [ "-t" , "Microphone: <fn=1><volume>% <status></fn>"] 10
-, Run Brightness [ "-t" , "Brightness: <fn=1><percent>%</fn>"
-                 , "--"
-                 , "-D" , "/sys/class/backlight/amdgpu_bl0"
-                 ] 10
-, Run Date       "<fn=1>%a %d.%m.%Y %R</fn>" "date" 10
-]}
-#+end_src
-
-*** Package
-
-#+begin_src text
-xmobar
-#+end_src
-
-** Dmenu
-
-[[https://wiki.archlinux.org/title/dmenu][Dynamic menu]]. Used to open programs. Bound to =s-p=.
-
-*** Package
-
-#+begin_src text
-dmenu
-#+end_src
-
-* GUI programs
-
-Displayed by the X Window System.
-
-** Emacs
-
-The extensible, customizable, self-documenting, real-time display editor. Configured in its own file.
-
-** Firefox
-
-A web browser.
-
-*** Package
-
-#+begin_src text
-firefox
-#+end_src
-
-** Kitty
-
-Terminal emulator [[https://github.com/kovidgoyal/kitty][Kitty]], setting the font size.
-
-#+begin_src conf :tangle ~/.config/kitty/kitty.conf
-font_family Fira Code
-font_size 14.0
-#+end_src
-
-*** Package
-
-#+begin_src text
-kitty
-#+end_src
-
-** Feh
-
-A light-weight, configurable and versatile image viewer - [[https://github.com/derf/feh][Feh]].
-
-*** Package
-
-#+begin_src text
-feh
-#+end_src
-
-** VLC
-
-Video player [[https://wiki.archlinux.org/title/VLC_media_player][VLC]].
-
-*** Package
-
-#+begin_src text
-vlc
-#+end_src
-
-** NM-applet
-
-NetworkManager [[https://wiki.archlinux.org/title/NetworkManager#nm-applet][front-end]] to connect to [[https://it.muni.cz/sluzby/wifi/navody/desktopove-operacni-systemy/eduroam-na-linux-ubuntu][eduroam]].
-
-#+begin_src shell
-#!/bin/sh
-nm-applet    2>&1 > /dev/null &
-stalonetray  2>&1 > /dev/null
-killall nm-applet
-#+end_src
-
-*** Packages
-
-#+begin_src text
-network-manager-applet
-stalonetray
-#+end_src
-
-* Programming languages
-
-Compilers, interpreters,...
-
-** Haskell
-
-[[https://wiki.archlinux.org/title/haskell#Installation][Glasgow Haskell Compiler]].
-
-*** Package
-
-#+begin_src text
-ghc
-#+end_src
-
-** Python
-
-[[https://github.com/python/cpython][CPython]] with pip and tk.
-
-*** Packages
-
-#+begin_src text
-python
-python-pip
-tk
 #+end_src
