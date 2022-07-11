@@ -262,7 +262,7 @@ Omitting the welcome page, disabling mouse related parts of UI and setting the d
 Setting [[https://github.com/tonsky/FiraCode][Fira Code]] (without ligatures) font with a proper size.
 
 #+begin_src emacs-lisp
-(when (x-list-fonts "Fira Code")
+(when (and (display-graphic-p) (x-list-fonts "Fira Code"))
   (set-face-attribute 'default nil
                       :font "Fira Code"
                       :height 115))
@@ -863,9 +863,8 @@ Creating tables of all snippets based on =snippets= directory contents. Separate
 [[https://github.com/ch11ng/exwm][Emacs X Window Manager]]. Gets executed if its [[file:X/EXWM.org][configuration file]] exists.
 
 #+begin_src emacs-lisp
-(let* ((lisp-dir (concat user-emacs-directory "lisp/"))
-       (wm-file (concat lisp-dir "window-manager.el")))
-  (when (file-exists-p wm-file)
+(let ((lisp-dir (concat user-emacs-directory "lisp/")))
+  (when (display-graphic-p)
     (push lisp-dir load-path)
     (require 'window-manager)))
 #+end_src

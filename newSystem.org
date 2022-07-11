@@ -82,7 +82,7 @@ pulseaudio-bluetooth
 
 * Bluetooth
 
-[[https://wiki.archlinux.org/title/bluetooth][BlueZ]] implementation.
+[[https://wiki.archlinux.org/title/bluetooth][BlueZ]] implementation. Systemd service =bluetooth= must be enabled. Pairing described [[https://wiki.archlinux.org/title/bluetooth#Pairing][there]].
 
 *** Autostart
 
@@ -93,11 +93,16 @@ Auto power-on [[https://wiki.archlinux.org/title/bluetooth#Auto_power-on_after_b
 AutoEnable=true
 #+end_src
 
+*** Pavucontrol
+
+Headphones need need to be [[https://bbs.archlinux.org/viewtopic.php?id=215268][selected]] as default.
+
 *** Packages
 
 #+begin_src text
 bluez
 bluez-utils
+pavucontrol
 #+end_src
 
 * Backlight
