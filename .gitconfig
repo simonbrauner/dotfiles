@@ -1,0 +1,9 @@
+[user]
+	name = Šimon Brauner
+	email = simonbrauner@seznam.cz
+
+[includeIf "gitdir:~/muni/"]
+	path = .gitconfig-muni
+
+[alias]
+	graph = log --oneline --decorate --graph --all
