@@ -76,6 +76,13 @@
 ;; they are implemented.
 
 
+;; Ensure that icons are installed
+(let ((icons-installed-file (concat user-emacs-directory "icons-installed-file")))
+  (unless (file-exists-p icons-installed-file)
+    (nerd-icons-install-fonts t)
+    (with-temp-buffer (write-file icons-installed-file))))
+
+
 ;; Ignore super key when pressed together with certain keys
 (global-set-key (kbd "s-'") (kbd "'"))
 (global-set-key (kbd "s-\"") (kbd "\""))
