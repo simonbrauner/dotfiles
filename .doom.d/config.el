@@ -74,3 +74,12 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+
+;; Ignore super key when pressed together with certain keys
+(global-set-key (kbd "s-'") (kbd "'"))
+(global-set-key (kbd "s-\"") (kbd "\""))
+(global-set-key (kbd "s-g") (kbd "g"))
+(global-set-key (kbd "s-G") (kbd "G"))
+(global-set-key (kbd "s-h") (kbd "h"))
+(global-set-key (kbd "s-H") (kbd "H"))
