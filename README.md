@@ -1,3 +1,3 @@
 ``` sh
-stow .
+~/dotfiles/scripts/stow.sh
 ```
