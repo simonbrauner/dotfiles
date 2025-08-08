@@ -1,0 +1,13 @@
+[user]
+	name = Šimon Brauner
+	email = simonbrauner@seznam.cz
+
+[includeIf "gitdir:~/muni/"]
+	path = .gitconfig-muni
+
+[alias]
+	graph = log --oneline --decorate --graph --all
+	cdiff = diff --cached
+	# https://gitlab.fi.muni.cz/help/user/project/merge_requests/merge_request_troubleshooting.md#check-out-locally-by-adding-a-git-alias
+	mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+	fixup-into = "!f() { git commit --fixup=$1 && git rebase -i --autosquash $1^; }; f"
