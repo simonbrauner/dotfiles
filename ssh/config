@@ -1,0 +1,12 @@
+Host aisa
+     HostName aisa.fi.muni.cz
+     User xbrauner
+     IdentityFile ~/.ssh/aisa
+
+Host github.com
+     User git
+     IdentityFile ~/.ssh/github
+
+Host gitlab.fi.muni.cz
+     User git
+     IdentityFile ~/.ssh/gitlab
