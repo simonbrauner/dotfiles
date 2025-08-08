@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Burp Suite (Kali)
+Comment=Launch Burp Suite inside Kali distrobox container
+Exec=distrobox enter Kali -- burpsuite
+Icon=/home/sb/.local/share/icons/burpsuite.png
+Terminal=false
+Type=Application
+Categories=Development;Security;Network;
+StartupNotify=true
+Keywords=burp;security;proxy;testing;
