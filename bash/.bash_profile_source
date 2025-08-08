@@ -1,0 +1,6 @@
+# Append to ~/.bash_profile
+#if [ -f ~/.bash_profile_source ]; then
+#    . ~/.bash_profile_source
+#fi
+
+export EDITOR=vim
