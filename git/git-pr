@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo 'Usage: git pr <remote> <pr-number>'
+    exit 1
+fi
+
+REMOTE="$1"
+PR_NUMBER="$2"
+
+BRANCH_PREFIX="pr-$REMOTE-$PR_NUMBER"
+
+BRANCHES=$(git branch --list "$BRANCH_PREFIX-*" --format='%(refname:short)' | sort -V)
+
+if [ -z "$BRANCHES" ]; then
+    RUN_COUNT=0
+else
+    RUN_COUNT=$(echo "$BRANCHES" | wc -l | tr -d ' ')
+fi
+RUN_NUMBER=$(($RUN_COUNT + 1))
+
+TIMESTAMP=$(date +'%Y-%m-%d-%H-%M')
+
+NEW_BRANCH_NAME="$BRANCH_PREFIX-$RUN_NUMBER-$TIMESTAMP"
+
+git fetch "$REMOTE" "pull/$PR_NUMBER/head:$NEW_BRANCH_NAME"
+
+if [ $? -eq 0 ]; then
+    if [ $RUN_COUNT -gt 0 ]; then
+        PREVIOUS_BRANCH_NAME=$(echo "$BRANCHES" | tail -n 1)
+
+        PREVIOUS_HASH=$(git rev-parse "$PREVIOUS_BRANCH_NAME")
+        NEW_HASH=$(git rev-parse "$NEW_BRANCH_NAME")
+
+        if [ "$PREVIOUS_HASH" = "$NEW_HASH" ]; then
+            echo 'Nothing new, dropping duplicate, moving to the most recent original.'
+            git branch -D "$NEW_BRANCH_NAME"
+            NEW_BRANCH_NAME="$PREVIOUS_BRANCH_NAME"
+        fi
+    fi
+
+    git checkout "$NEW_BRANCH_NAME"
+else
+    exit 1
+fi

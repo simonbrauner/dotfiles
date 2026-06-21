@@ -11,3 +11,7 @@
 ## Directory-specific configuration
 
 `~/.gitconfig-muni`
+
+## Custom command
+
+`~/.local/bin/git-commandName`
